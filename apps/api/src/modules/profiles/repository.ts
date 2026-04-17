@@ -8,9 +8,7 @@ type ListPublicProfilesOptions = {
   limit: number;
 };
 
-export async function listPublicProfilesFromDatabase({
-  limit,
-}: ListPublicProfilesOptions): Promise<PublicProfile[]> {
+export async function listPublicProfilesFromDatabase({ limit }: ListPublicProfilesOptions): Promise<PublicProfile[]> {
   const rows = await db
     .select({
       bio: profiles.bio,

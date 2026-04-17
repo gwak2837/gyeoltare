@@ -1,4 +1,4 @@
-# 1. 의존성 설치
+# 1. 설치
 FROM node:24-bookworm-slim AS deps
 
 RUN corepack enable

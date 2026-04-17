@@ -1,8 +1,12 @@
 import type { Serve } from "bun";
 
 import { app } from "./app";
+import { env } from "./env";
 
-export default {
+const honoApp: Serve.Options<undefined> = {
   fetch: app.fetch,
-  port: Number(process.env.PORT ?? 3001),
-} satisfies Serve.Options<undefined>;
+  hostname: process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",
+  port: env.API_PORT,
+};
+
+export default honoApp;
