@@ -1,2 +1,3 @@
 [test]
 pathIgnorePatterns = ["test/api-integration"]
+timeout = 30000

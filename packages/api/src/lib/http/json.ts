@@ -10,6 +10,6 @@ export function jsonOk<T>(c: Context, data: T) {
   return c.json(data, 200);
 }
 
-export function jsonValidationError(c: Context, details: unknown) {
+export function jsonValidationError(_c: Context, details: unknown) {
   throw new HttpError(422, "validation_error", "Request validation failed.", details);
 }

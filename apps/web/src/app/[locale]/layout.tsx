@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
 import type { ReactNode } from "react";
-
-import { env } from "@/lib/env";
-import { getMessages } from "@/i18n/messages";
 import { isLocale, locales } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { env } from "@/lib/env";
 
 import "../globals.css";
 

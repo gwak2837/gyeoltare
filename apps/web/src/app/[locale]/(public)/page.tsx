@@ -54,27 +54,35 @@ export default async function MarketingPage({ params }: MarketingPageProps) {
       <section className="mx-auto max-w-6xl overflow-hidden rounded-[2.75rem] border border-page-border bg-page-surface shadow-[0_30px_90px_rgba(21,33,29,0.08)] backdrop-blur">
         <div className="grid gap-10 p-8 md:p-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-page-accent">{t("eyebrow")}</p>
-            <h1 className="mt-5 max-w-3xl text-5xl leading-[1.05] font-semibold md:text-7xl">
+            <p className="text-page-accent text-xs uppercase tracking-[0.35em]">{t("eyebrow")}</p>
+            <h1 className="mt-5 max-w-3xl font-semibold text-5xl leading-[1.05] md:text-7xl">
               {t("title")}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-page-ink/78">{t("description")}</p>
+            <p className="mt-6 max-w-2xl text-lg text-page-ink/78 leading-8">{t("description")}</p>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">{t("stack.next")}</span>
-              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">{t("stack.tailwind")}</span>
-              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">{t("stack.rpc")}</span>
-              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">{t("stack.db")}</span>
+              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">
+                {t("stack.next")}
+              </span>
+              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">
+                {t("stack.tailwind")}
+              </span>
+              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">
+                {t("stack.rpc")}
+              </span>
+              <span className="rounded-full border border-page-border bg-white/70 px-4 py-2">
+                {t("stack.db")}
+              </span>
             </div>
           </div>
 
           <div className="rounded-[2rem] bg-page-ink px-6 py-8 text-white">
             <div className="flex items-start justify-between gap-4">
-              <p className="text-xs uppercase tracking-[0.3em] text-page-accent-soft">
+              <p className="text-page-accent-soft text-xs uppercase tracking-[0.3em]">
                 {t("boundary.eyebrow")}
               </p>
               <LocaleSwitcher />
             </div>
-            <dl className="mt-6 space-y-6 text-sm leading-7 text-white/78">
+            <dl className="mt-6 space-y-6 text-sm text-white/78 leading-7">
               <div>
                 <dt className="font-semibold text-white">{t("boundary.reads.title")}</dt>
                 <dd>{t("boundary.reads.description")}</dd>
@@ -95,8 +103,10 @@ export default async function MarketingPage({ params }: MarketingPageProps) {
       <section className="mx-auto mt-10 max-w-6xl">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-page-accent">{t("featured.eyebrow")}</p>
-            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">{t("featured.title")}</h2>
+            <p className="text-page-accent text-xs uppercase tracking-[0.35em]">
+              {t("featured.eyebrow")}
+            </p>
+            <h2 className="mt-3 font-semibold text-3xl md:text-4xl">{t("featured.title")}</h2>
           </div>
           <a
             className="rounded-full border border-page-border bg-white/70 px-4 py-2 text-sm transition hover:bg-white"

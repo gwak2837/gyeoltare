@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-
-import { defaultLocale, locales, type Locale } from "./config";
-import { getLocalizedPath } from "./pathnames";
 import { env } from "@/lib/env";
+import { defaultLocale, type Locale, locales } from "./config";
+import { getLocalizedPath } from "./pathnames";
 
 function toAbsoluteUrl(pathname: string) {
   return new URL(pathname, env.NEXT_PUBLIC_SITE_URL).toString();
@@ -24,7 +23,10 @@ export function buildLocalizedMetadata({
       canonical: toAbsoluteUrl(getLocalizedPath(locale, pathname)),
       languages: {
         ...Object.fromEntries(
-          locales.map((candidate) => [candidate, toAbsoluteUrl(getLocalizedPath(candidate, pathname))]),
+          locales.map((candidate) => [
+            candidate,
+            toAbsoluteUrl(getLocalizedPath(candidate, pathname)),
+          ]),
         ),
         "x-default": toAbsoluteUrl(getLocalizedPath(defaultLocale, pathname)),
       },

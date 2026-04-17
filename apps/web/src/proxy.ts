@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { localeCookieName } from "@/i18n/config";
 import { getLocalizedPath, hasLocalePrefix } from "@/i18n/pathnames";

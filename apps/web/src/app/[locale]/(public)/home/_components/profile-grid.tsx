@@ -22,15 +22,15 @@ export async function ProfileGrid({ locale, profiles }: ProfileGridProps) {
           key={profile.id}
         >
           <div className="flex items-center justify-between gap-4">
-            <p className="text-lg font-semibold">{profile.displayName}</p>
-            <span className="rounded-full bg-page-accent/10 px-3 py-1 text-xs font-medium text-page-accent">
+            <p className="font-semibold text-lg">{profile.displayName}</p>
+            <span className="rounded-full bg-page-accent/10 px-3 py-1 font-medium text-page-accent text-xs">
               /{profile.slug}
             </span>
           </div>
-          <p className="mt-4 text-sm leading-7 text-page-ink/75">
+          <p className="mt-4 text-page-ink/75 text-sm leading-7">
             {profile.bio ?? t("profile.emptyBio")}
           </p>
-          <p className="mt-6 text-xs uppercase tracking-[0.28em] text-page-ink/45">
+          <p className="mt-6 text-page-ink/45 text-xs uppercase tracking-[0.28em]">
             {t("profile.created", {
               date: formatter.format(new Date(profile.createdAt)),
             })}
