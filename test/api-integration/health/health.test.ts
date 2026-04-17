@@ -1,10 +1,9 @@
 import { describe, expect, test } from "bun:test";
 
-import { createApp } from "../../../packages/api/src";
+import { app } from "../../../apps/api/src/app";
 
 describe("GET /api/health", () => {
   test(" ", async () => {
-    const app = createApp();
     const response = await app.request("/api/health");
     const body = await response.json();
 

@@ -1,17 +1,28 @@
 {
-  "name": "@gyeoltare/api-runtime",
+  "name": "@gyeoltare/api",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": "./dist/main.js",
+    "./types": "./src/types.ts"
+  },
   "scripts": {
-    "build": "bun build ./src/main.ts --target bun --outfile ./dist/main.js",
+    "build": "pnpm run build:runtime && pnpm run build:types",
+    "build:runtime": "bun build ./src/main.ts --target bun --outfile ./dist/main.js",
+    "build:types": "tsc --project tsconfig.types.json",
+    "compile": "pnpm run build && bun build --compile --minify --sourcemap ./dist/main.js --outfile ./dist/gyeoltare-api",
     "dev": "bun --watch ./src/main.ts",
     "start": "bun ./dist/main.js",
-    "test": "bun test --pass-with-no-tests",
+    "test": "bun test",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@gyeoltare/api": "workspace:*"
+    "@gyeoltare/contracts": "workspace:*",
+    "@gyeoltare/db": "workspace:*",
+    "drizzle-orm": "^0.44.5",
+    "hono": "^4.10.4",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@gyeoltare/typescript-config": "workspace:*",

@@ -1,0 +1,11 @@
+node_modules
+.git
+.turbo
+.vscode
+.env*
+coverage
+dist
+apps/web
+packages/api
+packages/ui
+test

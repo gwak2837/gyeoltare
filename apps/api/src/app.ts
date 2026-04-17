@@ -10,7 +10,7 @@ import { createContactMessagesRoutes } from "./modules/contact-messages/routes";
 import { createHealthRoutes } from "./modules/health/routes";
 import { createProfilesRoutes } from "./modules/profiles/routes";
 
-export function createApp() {
+function createApp() {
   const app = new Hono<AppBindings>();
   const apiV1 = new Hono<AppBindings>();
 
@@ -71,4 +71,6 @@ export function createApp() {
   return app;
 }
 
-export type AppType = ReturnType<typeof createApp>;
+export const app = createApp();
+
+export type AppType = typeof app;

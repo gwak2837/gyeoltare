@@ -5,8 +5,7 @@ Production-oriented monorepo for a Next.js web server, a Hono API, shared contra
 ## Workspace layout
 
 - `apps/web`: Next.js App Router web server with Tailwind CSS
-- `apps/api`: Bun runtime entrypoint for the Hono API
-- `packages/api`: Hono application assembly and domain modules
+- `apps/api`: Hono application assembly and Bun runtime entrypoint
 - `packages/contracts`: shared Zod wire contracts and OpenAPI document
 - `packages/api-client`: type-safe Hono RPC clients for browser and server callers
 - `packages/db`: Drizzle schema, policies, and read models

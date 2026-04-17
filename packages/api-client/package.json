@@ -14,10 +14,10 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@gyeoltare/api": "workspace:*",
     "hono": "^4.10.4"
   },
   "devDependencies": {
+    "@gyeoltare/api": "workspace:*",
     "@gyeoltare/typescript-config": "workspace:*"
   }
 }

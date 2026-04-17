@@ -9,7 +9,7 @@
     "db:push:prod": "pnpm exec drizzle-kit push --config packages/db/drizzle.prod.config.ts --force",
     "db:push:stg": "pnpm exec drizzle-kit push --config packages/db/drizzle.stg.config.ts --force",
     "dev": "turbo dev --parallel",
-    "dev:api": "pnpm --filter @gyeoltare/api-runtime dev",
+    "dev:api": "pnpm --filter @gyeoltare/api dev",
     "dev:web": "pnpm --filter @gyeoltare/web dev",
     "format": "pnpm exec biome format --write .",
     "lint": "pnpm exec biome check .",

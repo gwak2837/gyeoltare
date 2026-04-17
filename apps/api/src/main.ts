@@ -1,14 +1,11 @@
-import { createApp } from "@gyeoltare/api";
+import type { Serve } from "bun";
+
+import { app } from "./app";
 
 const port = Number(process.env.PORT ?? 3001);
-const app = createApp();
 
-if (import.meta.main) {
-  Bun.serve({
-    fetch: app.fetch,
-    idleTimeout: 30,
-    port,
-  });
-
-  console.log(`[api] hono runtime listening on :${port}`);
-}
+export default {
+  fetch: app.fetch,
+  idleTimeout: 30,
+  port,
+} satisfies Serve.Options<undefined>;
