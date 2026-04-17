@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./dist/main.js",
-    "./types": "./src/types.ts"
+    "./types": "./src/app.ts"
   },
   "scripts": {
     "build": "pnpm run build:runtime && pnpm run build:types",

@@ -1,7 +1,13 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import * as schema from "./schema";
+import * as contactMessagesSchema from "./schema/contact-messages";
+import * as profilesSchema from "./schema/profiles";
+
+const schema = {
+  ...contactMessagesSchema,
+  ...profilesSchema,
+};
 
 const globalForDb = globalThis as {
   __gyeoltareDb?: ReturnType<typeof createDatabase>;

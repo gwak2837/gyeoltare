@@ -40,6 +40,9 @@
     },
     "rules": {
       "recommended": true,
+      "performance": {
+        "noBarrelFile": "error"
+      },
       "nursery": {
         "useSortedClasses": {
           "level": "warn",

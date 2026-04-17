@@ -4,12 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
     "./client": "./src/client.ts",
     "./policies/*": "./src/policies/*.ts",
-    "./read-models/dashboard": "./src/read-models/dashboard.ts",
-    "./read-models/home": "./src/read-models/home.ts",
-    "./schema": "./src/schema/index.ts"
+    "./read-models/*": "./src/read-models/*.ts",
+    "./schema/*": "./src/schema/*.ts"
   },
   "scripts": {
     "build": "tsc --project tsconfig.json --noEmit",

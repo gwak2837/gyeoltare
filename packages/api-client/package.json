@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
     "./browser": "./src/browser.ts",
     "./server": "./src/server.ts"
   },

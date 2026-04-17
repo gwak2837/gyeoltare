@@ -1,7 +1,8 @@
 import { count, eq } from "drizzle-orm";
 
 import { getDb, hasDatabaseUrl } from "../client";
-import { contactMessages, profiles } from "../schema";
+import { contactMessages } from "../schema/contact-messages";
+import { profiles } from "../schema/profiles";
 
 export type DashboardSnapshot = {
   generatedAt: string;

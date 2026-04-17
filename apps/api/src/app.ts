@@ -1,4 +1,5 @@
-import { apiErrorSchema, openApiDocument } from "@gyeoltare/contracts";
+import { apiErrorSchema } from "@gyeoltare/contracts/common";
+import { openApiDocument } from "@gyeoltare/contracts/openapi";
 import { Hono } from "hono";
 
 import type { AppBindings } from "./context";

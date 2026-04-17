@@ -1,9 +1,9 @@
-import type { PublicProfile } from "@gyeoltare/contracts";
+import type { PublicProfile } from "@gyeoltare/contracts/profiles";
 import { desc } from "drizzle-orm";
 
 import { getDb, hasDatabaseUrl } from "../client";
 import { publicProfileFilter } from "../policies/profile-visibility";
-import { profiles } from "../schema";
+import { profiles } from "../schema/profiles";
 
 const fallbackProfiles: PublicProfile[] = [
   {

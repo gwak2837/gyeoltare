@@ -1,4 +1,4 @@
-import { listProfilesQuerySchema } from "@gyeoltare/contracts";
+import { listProfilesQuerySchema } from "@gyeoltare/contracts/profiles";
 import { Hono } from "hono";
 
 import type { AppBindings } from "../../context";

@@ -1,5 +1,7 @@
-import type { CreateContactMessageInput } from "@gyeoltare/contracts";
-import { contactMessageSchema } from "@gyeoltare/contracts";
+import {
+  type CreateContactMessageInput,
+  contactMessageSchema,
+} from "@gyeoltare/contracts/contact-messages";
 import { insertContactMessage } from "./repository";
 
 export async function createContactMessage(input: CreateContactMessageInput) {

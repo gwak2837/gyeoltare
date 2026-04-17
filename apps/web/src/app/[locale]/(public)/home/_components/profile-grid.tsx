@@ -1,4 +1,4 @@
-import type { PublicProfile } from "@gyeoltare/contracts";
+import type { PublicProfile } from "@gyeoltare/contracts/profiles";
 import { getTranslations } from "next-intl/server";
 
 import { type Locale, toIntlLocale } from "@/i18n/config";
