@@ -1,0 +1,10 @@
+pre-commit:
+  jobs:
+    - name: biome-staged
+      run: pnpm exec biome check --write --staged --no-errors-on-unmatched
+      stage_fixed: true
+
+pre-push:
+  jobs:
+    - name: quality-gate
+      run: pnpm exec biome ci . && pnpm run typecheck && pnpm run test

@@ -5,6 +5,9 @@
   "packageManager": "pnpm@10.8.1",
   "scripts": {
     "build": "turbo build",
+    "check:ci": "pnpm run lint && pnpm run typecheck && pnpm run test:all && pnpm run build",
+    "check:pre-commit": "pnpm exec biome check --write --staged --no-errors-on-unmatched",
+    "check:pre-push": "pnpm run lint && pnpm run typecheck && pnpm run test",
     "db:push:dev": "pnpm --dir packages/db exec drizzle-kit push --config drizzle.dev.config.ts --force",
     "db:push:prod": "pnpm --dir packages/db exec drizzle-kit push --config drizzle.prod.config.ts --force",
     "db:push:stg": "pnpm --dir packages/db exec drizzle-kit push --config drizzle.stg.config.ts --force",
@@ -12,7 +15,9 @@
     "dev:api": "pnpm --filter @gyeoltare/api dev",
     "dev:web": "pnpm --filter @gyeoltare/web dev",
     "format": "pnpm exec biome format --write .",
-    "lint": "pnpm exec biome check --write .",
+    "lint": "pnpm exec biome ci .",
+    "lint:fix": "pnpm exec biome check --write .",
+    "prepare": "lefthook install",
     "test": "bun test",
     "test:all": "bun test && bun test ./test/api-integration",
     "test:api:integration": "bun test ./test/api-integration",
@@ -22,6 +27,7 @@
     "@biomejs/biome": "^2.2.6",
     "@types/bun": "^1.3.1",
     "@types/node": "^24.6.2",
+    "lefthook": "^2.1.6",
     "testcontainers": "^11.7.2",
     "turbo": "^2.6.1",
     "typescript": "^5.9.3"

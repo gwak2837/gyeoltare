@@ -5,7 +5,9 @@ node_modules
 .env*
 coverage
 dist
-apps/web
+apps/web/.next
+apps/web/node_modules
+apps/web/.turbo
 packages/api
 packages/ui
 test
