@@ -5,8 +5,8 @@ Production-oriented monorepo for a Next.js web server, a Hono API, shared contra
 ## Requires
 
 - Node.js 24
+  - Corepack enabled
 - Bun 1
-- pnpm 10
 - PostgreSQL 18
 - Docker
 

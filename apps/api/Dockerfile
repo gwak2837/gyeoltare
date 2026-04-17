@@ -1,7 +1,11 @@
+# 1. 의존성 설치
 FROM node:24-bookworm-slim AS deps
 
 RUN corepack enable
-WORKDIR /app
+
+ENV NODE_ENV=production
+
+WORKDIR /workspace
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json biome.jsonc ./
 COPY apps/api/package.json apps/api/package.json
@@ -13,26 +17,33 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+# 2. 빌드
 FROM oven/bun:1.3-slim AS build
 
-WORKDIR /app
+WORKDIR /workspace
+
 ENV NODE_ENV=production
-ENV PORT=3001
 
-COPY --from=deps /app ./
+COPY --from=deps /workspace ./
 
-RUN bun build ./apps/api/src/main.ts --target bun --outfile ./apps/api/dist/main.js
-RUN bun x tsc --project ./apps/api/tsconfig.types.json
-RUN bun build --compile --minify --sourcemap ./apps/api/dist/main.js --outfile ./apps/api/dist/gyeoltare-api
+RUN mkdir -p /out
 
+RUN bun build --compile \
+  --minify \
+  --sourcemap \
+  ./apps/api/src/main.ts \
+  --outfile /out/gyeoltare-api
+
+# 3. 실행
 FROM gcr.io/distroless/base-debian12:nonroot
 
 WORKDIR /app
+
 ENV NODE_ENV=production
 ENV PORT=3001
 
-COPY --from=build /app/apps/api/dist/gyeoltare-api ./gyeoltare-api
+COPY --from=build /out/gyeoltare-api /app/gyeoltare-api
 
 EXPOSE 3001
 
-ENTRYPOINT ["./gyeoltare-api"]
+ENTRYPOINT ["/app/gyeoltare-api"]
