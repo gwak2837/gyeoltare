@@ -1,5 +1,5 @@
 {
-  "name": "@repo/api-client",
+  "name": "@gyeoltare/api-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,14 +10,14 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json --noEmit",
-    "test": "vitest run --passWithNoTests",
+    "test": "bun test --pass-with-no-tests",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@repo/api": "workspace:*",
+    "@gyeoltare/api": "workspace:*",
     "hono": "^4.10.4"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@gyeoltare/typescript-config": "workspace:*"
   }
 }

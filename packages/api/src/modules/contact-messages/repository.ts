@@ -1,7 +1,7 @@
-import type { CreateContactMessageInput } from "@repo/contracts";
+import type { CreateContactMessageInput } from "@gyeoltare/contracts";
 
-import { getDb } from "@repo/db/client";
-import { contactMessages } from "@repo/db/schema";
+import { getDb } from "@gyeoltare/db/client";
+import { contactMessages } from "@gyeoltare/db/schema";
 
 export async function insertContactMessage(input: CreateContactMessageInput) {
   const db = getDb();

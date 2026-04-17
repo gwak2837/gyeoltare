@@ -1,6 +1,6 @@
 import "server-only";
 
-import { createServerApiClient } from "@repo/api-client/server";
+import { createServerApiClient } from "@gyeoltare/api-client/server";
 import { cookies, headers } from "next/headers";
 
 import { env } from "@/lib/env";

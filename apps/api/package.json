@@ -7,14 +7,14 @@
     "build": "bun build ./src/main.ts --target bun --outfile ./dist/main.js",
     "dev": "bun --watch ./src/main.ts",
     "start": "bun ./dist/main.js",
-    "test": "vitest run --passWithNoTests",
+    "test": "bun test --pass-with-no-tests",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@repo/api": "workspace:*"
+    "@gyeoltare/api": "workspace:*"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gyeoltare/typescript-config": "workspace:*",
     "@types/bun": "^1.2.15"
   }
 }

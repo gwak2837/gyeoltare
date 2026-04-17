@@ -1,4 +1,4 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@gyeoltare/typescript-config/base.json",
   "include": ["src/**/*.ts"]
 }

@@ -1,4 +1,4 @@
-import { createContactMessageInputSchema } from "@repo/contracts";
+import { createContactMessageInputSchema } from "@gyeoltare/contracts";
 import { Hono } from "hono";
 
 import type { AppBindings } from "../../context";

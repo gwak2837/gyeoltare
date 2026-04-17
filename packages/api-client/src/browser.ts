@@ -1,4 +1,4 @@
-import type { AppType } from "@repo/api";
+import type { AppType } from "@gyeoltare/api";
 import { hc } from "hono/client";
 
 export function createBrowserApiClient(baseUrl = "") {

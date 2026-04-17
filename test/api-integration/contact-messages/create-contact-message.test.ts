@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 
 import { createApp } from "../../../packages/api/src";
 import { getDb } from "../../../packages/db/src/client";

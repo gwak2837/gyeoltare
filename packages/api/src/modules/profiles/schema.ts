@@ -2,4 +2,4 @@ export {
   listProfilesQuerySchema,
   listProfilesResponseSchema,
   publicProfileSchema,
-} from "@repo/contracts";
+} from "@gyeoltare/contracts";

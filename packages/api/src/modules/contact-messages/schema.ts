@@ -1,1 +1,1 @@
-export { contactMessageSchema, createContactMessageInputSchema } from "@repo/contracts";
+export { contactMessageSchema, createContactMessageInputSchema } from "@gyeoltare/contracts";

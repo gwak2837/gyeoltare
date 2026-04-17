@@ -1,4 +1,4 @@
-import type { PublicProfile } from "@repo/contracts";
+import type { PublicProfile } from "@gyeoltare/contracts";
 import { desc } from "drizzle-orm";
 
 import { getDb, hasDatabaseUrl } from "../client";

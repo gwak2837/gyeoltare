@@ -1,7 +1,7 @@
-import type { PublicProfile } from "@repo/contracts";
-import { getDb } from "@repo/db/client";
-import { publicProfileFilter } from "@repo/db/policies/profile-visibility";
-import { profiles } from "@repo/db/schema";
+import type { PublicProfile } from "@gyeoltare/contracts";
+import { getDb } from "@gyeoltare/db/client";
+import { publicProfileFilter } from "@gyeoltare/db/policies/profile-visibility";
+import { profiles } from "@gyeoltare/db/schema";
 import { asc } from "drizzle-orm";
 
 type ListPublicProfilesOptions = {

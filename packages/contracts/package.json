@@ -1,5 +1,5 @@
 {
-  "name": "@repo/contracts",
+  "name": "@gyeoltare/contracts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,13 +8,13 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json --noEmit",
-    "test": "vitest run --passWithNoTests",
+    "test": "bun test --pass-with-no-tests",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@gyeoltare/typescript-config": "workspace:*"
   }
 }

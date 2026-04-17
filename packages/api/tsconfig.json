@@ -1,4 +1,7 @@
 {
-  "extends": "@repo/typescript-config/server.json",
+  "extends": "@gyeoltare/typescript-config/server.json",
+  "compilerOptions": {
+    "types": ["node", "bun"]
+  },
   "include": ["src/**/*.ts"]
 }

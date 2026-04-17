@@ -1,1 +1,1 @@
-export { healthStatusSchema } from "@repo/contracts";
+export { healthStatusSchema } from "@gyeoltare/contracts";

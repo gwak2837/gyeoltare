@@ -1,4 +1,4 @@
-import { listProfilesResponseSchema } from "@repo/contracts";
+import { listProfilesResponseSchema } from "@gyeoltare/contracts";
 
 import { listPublicProfilesFromDatabase } from "./repository";
 

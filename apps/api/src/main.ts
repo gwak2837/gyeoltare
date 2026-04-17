@@ -1,4 +1,4 @@
-import { createApp } from "@repo/api";
+import { createApp } from "@gyeoltare/api";
 
 const port = Number(process.env.PORT ?? 3001);
 const app = createApp();

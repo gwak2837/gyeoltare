@@ -1,5 +1,5 @@
 {
-  "name": "@repo/db",
+  "name": "@gyeoltare/db",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,16 +13,16 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json --noEmit",
-    "test": "vitest run --passWithNoTests",
+    "test": "bun test --pass-with-no-tests",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@repo/contracts": "workspace:*",
+    "@gyeoltare/contracts": "workspace:*",
     "drizzle-orm": "^0.44.5",
     "postgres": "^3.4.7"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gyeoltare/typescript-config": "workspace:*",
     "drizzle-kit": "^0.31.4"
   }
 }
