@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "title": "결타래 | 운영 대시보드",
+    "description": "읽기 전용 Drizzle read model과 Hono mutation 경계를 유지하는 운영 대시보드 예시입니다."
+  },
+  "eyebrow": "Route-local dashboard",
+  "title": "운영 대시보드 초안",
+  "description": "이 화면은 read model만 직접 조회합니다. 실제 승인, triage, 외부 통신은 Hono mutation endpoint를 통해서만 실행되도록 경계를 유지합니다.",
+  "backHome": "홈으로",
+  "cards": {
+    "publicProfiles": "Public profiles",
+    "inboxBacklog": "Inbox backlog",
+    "lastSynced": "Last synced"
+  }
+}

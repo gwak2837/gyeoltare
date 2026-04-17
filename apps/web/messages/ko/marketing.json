@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "title": "결타래 | Hono 경계와 Next 웹 쉘",
+    "description": "Next.js는 HTML 전달에 집중하고, Hono는 쓰기 경계와 공용 비즈니스 로직을 담당하는 production-ready 구조입니다."
+  },
+  "eyebrow": "Production-ready web shell",
+  "title": "Hono를 도메인 경계로 두고, Next는 HTML에 집중하는 구조.",
+  "description": "이 스캐폴드는 App Router와 Server Components를 사용하면서도 쓰기 경로와 공용 백엔드 로직은 Hono에 고정합니다. 읽기 전용 뷰 모델은 Drizzle read-model 계층에서 바로 가져오고, 재사용이 필요한 시점에는 Hono endpoint로 승격할 수 있게 설계되어 있습니다.",
+  "stack": {
+    "next": "Next.js App Router",
+    "tailwind": "Tailwind CSS",
+    "rpc": "Hono RPC + Zod",
+    "db": "PostgreSQL + Drizzle"
+  },
+  "boundary": {
+    "eyebrow": "Boundary rules",
+    "reads": {
+      "title": "Reads in Server Components",
+      "description": "오직 `packages/db/src/read-models/*` 경로를 통해 직접 조회합니다."
+    },
+    "writes": {
+      "title": "Writes and side effects",
+      "description": "모든 mutation, transaction, 외부 부작용은 Hono 서비스 계층만 사용합니다."
+    },
+    "contract": {
+      "title": "Shared contract",
+      "description": "브라우저와 서버 클라이언트 모두 `@gyeoltare/contracts`와 `@gyeoltare/api-client`를 통해 묶습니다."
+    }
+  },
+  "featured": {
+    "eyebrow": "Featured read model",
+    "title": "홈 화면은 DB read model에서 바로 조립합니다.",
+    "cta": "Dashboard 보기"
+  }
+}

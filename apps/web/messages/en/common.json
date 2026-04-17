@@ -1,0 +1,18 @@
+{
+  "localeSwitcher": {
+    "label": "Language",
+    "locales": {
+      "ko": "Korean",
+      "en": "English"
+    }
+  },
+  "notFound": {
+    "eyebrow": "Not Found",
+    "title": "We are finding the route again.",
+    "description": "The page you requested is missing or has moved. The information architecture starts route-local first and only graduates shared UI when reuse is proven."
+  },
+  "profile": {
+    "emptyBio": "No profile summary has been published yet.",
+    "created": "Created {date}"
+  }
+}

@@ -1,10 +1,19 @@
-import type { PublicProfile } from "@repo/contracts";
+import type { PublicProfile } from "@gyeoltare/contracts";
+import { getTranslations } from "next-intl/server";
+
+import { type Locale, toIntlLocale } from "@/i18n/config";
 
 type ProfileGridProps = {
+  locale: Locale;
   profiles: PublicProfile[];
 };
 
-export function ProfileGrid({ profiles }: ProfileGridProps) {
+export async function ProfileGrid({ locale, profiles }: ProfileGridProps) {
+  const t = await getTranslations("common");
+  const formatter = new Intl.DateTimeFormat(toIntlLocale(locale), {
+    dateStyle: "medium",
+  });
+
   return (
     <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
       {profiles.map((profile) => (
@@ -19,10 +28,12 @@ export function ProfileGrid({ profiles }: ProfileGridProps) {
             </span>
           </div>
           <p className="mt-4 text-sm leading-7 text-page-ink/75">
-            {profile.bio ?? "아직 소개 문구가 등록되지 않았습니다."}
+            {profile.bio ?? t("profile.emptyBio")}
           </p>
           <p className="mt-6 text-xs uppercase tracking-[0.28em] text-page-ink/45">
-            Created {new Date(profile.createdAt).toLocaleDateString("ko-KR")}
+            {t("profile.created", {
+              date: formatter.format(new Date(profile.createdAt)),
+            })}
           </p>
         </article>
       ))}

@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "title": "gyeoltare | Operations dashboard",
+    "description": "An operations dashboard example that keeps Drizzle read models separate from Hono mutation paths."
+  },
+  "eyebrow": "Route-local dashboard",
+  "title": "Operations dashboard draft",
+  "description": "This screen reads only from the read model layer. Real approvals, triage and external communication still run exclusively through Hono mutation endpoints.",
+  "backHome": "Back home",
+  "cards": {
+    "publicProfiles": "Public profiles",
+    "inboxBacklog": "Inbox backlog",
+    "lastSynced": "Last synced"
+  }
+}
