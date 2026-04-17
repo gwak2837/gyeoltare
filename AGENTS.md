@@ -1,0 +1,75 @@
+# AGENTS.md
+
+## Scope
+
+- 이 파일은 `gyeoltare/gyeoltare`와 그 하위 디렉터리에 적용된다.
+
+## Collaboration
+
+- 도중에 결정이 필요하거나 애매한 부분이나 맥락을 모르거나 궁금한 점이 있으면 먼저 질문한다.
+- 이 repo의 아키텍처 기본값을 바꾸는 변경은 사용자 확인 없이 진행하지 않는다.
+
+## Reference Docs
+
+- 상세 아키텍처 기준: `docs/architecture/production-architecture.md`
+- package scope, 테스트, i18n 기준: `docs/architecture/revision-plan.md`
+- 구조 변경 전에는 관련 문서를 먼저 읽고, 문서와 충돌하면 먼저 질문한다.
+
+## Architecture Defaults
+
+- workspace package scope는 전부 `@gyeoltare/*`를 사용한다.
+- runtime은 `web=Node.js`, `api=Bun`이다.
+- 배포는 same-domain reverse proxy를 전제로 한다.
+- `/* -> Next`, `/api/* -> Hono`
+- `GET /health -> Next`, `GET /api/health -> Hono`
+
+## Web Rules
+
+- `apps/web`는 App Router + Server Components + Tailwind를 사용한다.
+- Next.js는 HTML 서버로만 사용한다.
+- Next API route는 `health` 정도만 허용한다.
+- Server Action은 사용하지 않는다.
+- 프론트 구조는 route-local first를 기본으로 한다.
+- 먼저 `app/.../_components`, `app/.../_lib`, `app/.../_queries`에 둔다.
+- 두 군데 이상에서 재사용될 때만 `src/features/*` 또는 `src/components/*`로 승격한다.
+
+## API Rules
+
+- Hono public interface는 `/api/health`, `/openapi.json`, `/api/v1/*`를 유지한다.
+- 백엔드는 도메인별 colocation을 기본으로 한다.
+- `modules/<domain>/routes.ts`
+- `modules/<domain>/service.ts`
+- `modules/<domain>/repository.ts`
+- `modules/<domain>/schema.ts`
+- `controller.ts`는 기본적으로 만들지 않는다.
+
+## DB Boundary
+
+- PostgreSQL + Drizzle를 사용한다.
+- Drizzle migration 파일은 사용하지 않고 `drizzle-kit push`만 사용한다.
+- DB 정책은 `read-direct + write-via-Hono`다.
+- Next Server Components의 직접 조회는 `packages/db/src/read-models/*` 또는 동등한 read-only helper로만 제한한다.
+- 모든 write, transaction, 외부 API 호출, 감사로그, 이벤트 발행은 Hono 서비스 계층으로 보낸다.
+
+## Contracts And i18n
+
+- 내부 TypeScript 소비자는 `Hono RPC + Zod`를 사용한다.
+- 비-TS 소비자와 모바일 확장을 위해 OpenAPI도 함께 유지한다.
+- i18n은 `next-intl + locale prefix`를 사용한다.
+- locale은 `ko` default + `en`이다.
+- URL은 `/ko/...`, `/en/...` 형식이다.
+- Hono API는 locale에 종속되지 않게 유지한다.
+- API는 stable error code를 반환하고, 웹이 locale message로 매핑한다.
+
+## Testing And Lint
+
+- 테스트 러너는 `bun test`를 사용한다.
+- API integration test는 `test/api-integration`에 둔다.
+- Testcontainers + PostgreSQL + `drizzle-kit push`로 검증한다.
+- 브라우저 테스트가 필요해지면 Playwright를 사용한다.
+- lint/format은 Biome only다.
+- `tsc --noEmit`는 별도 유지한다.
+
+## Escalation
+
+- 위 기본값을 바꾸는 작업은 먼저 질문한다.

@@ -12,22 +12,9 @@ Production-oriented monorepo for a Next.js web server, a Hono API, shared contra
 - `packages/db`: Drizzle schema, policies, and read models
 - `test/api-integration`: HTTP-level integration tests backed by Testcontainers
 
-## Commands
-
-- `pnpm install`
-- `pnpm dev`
-- `pnpm build`
-- `pnpm typecheck`
-- `pnpm lint`
-- `pnpm lint:fix`
-- `pnpm test`
-- `pnpm test:api:integration`
-- `pnpm db:push:dev`
-
 ## Runtime model
 
 - `apps/web` runs on Node.js and serves HTML/UI only.
 - `apps/api` runs on Bun and owns all mutations and reusable backend workflows.
 - Next Server Components may read PostgreSQL through read-model helpers only.
 - All writes, transactions, and side effects flow through Hono routes and services.
-

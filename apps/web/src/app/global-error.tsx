@@ -10,7 +10,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
     <html lang="en">
       <body>
         <main className="flex min-h-screen items-center justify-center px-6 py-16">
-          <div className="max-w-xl rounded-[2rem] border border-page-border bg-page-surface px-8 py-10 shadow-[0_24px_80px_rgba(21,33,29,0.08)] backdrop-blur">
+          <div className="max-w-xl rounded-4xl border border-page-border bg-page-surface px-8 py-10 shadow-[0_24px_80px_rgba(21,33,29,0.08)] backdrop-blur">
             <p className="text-page-accent text-xs uppercase tracking-[0.35em]">Global Error</p>
             <h1 className="mt-4 font-semibold text-4xl">
               화면을 다시 준비하지 못했습니다. We couldn't prepare the page.

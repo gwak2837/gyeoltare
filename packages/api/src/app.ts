@@ -18,7 +18,7 @@ export function createApp() {
   app.use("*", sessionMiddleware);
 
   app.get("/openapi.json", (c) => c.json(openApiDocument));
-  app.route("/api/healthz", createHealthRoutes());
+  app.route("/api/health", createHealthRoutes());
 
   apiV1.route("/contact-messages", createContactMessagesRoutes());
   apiV1.route("/profiles", createProfilesRoutes());

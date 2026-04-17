@@ -6,7 +6,7 @@ export const openApiDocument = {
   },
   openapi: "3.1.0",
   paths: {
-    "/api/healthz": {
+    "/api/health": {
       get: {
         responses: {
           "200": {
