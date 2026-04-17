@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: pathname === "/" ? "weekly" : "daily",
       lastModified: new Date(),
       priority: pathname === "/" ? 1 : 0.7,
-      url: new URL(getLocalizedPath(locale, pathname), env.NEXT_PUBLIC_SITE_URL).toString(),
+      url: new URL(getLocalizedPath(locale, pathname), env.NEXT_PUBLIC_WEB_ORIGIN).toString(),
     })),
   );
 }

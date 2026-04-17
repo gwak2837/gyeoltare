@@ -2,6 +2,14 @@
 
 Production-oriented monorepo for a Next.js web server, a Hono API, shared contracts, and Drizzle-backed PostgreSQL access.
 
+## Requires
+
+- Node.js 24
+- Bun 1
+- pnpm 10
+- PostgreSQL 18
+- Docker
+
 ## Workspace layout
 
 - `apps/web`: Next.js App Router web server with Tailwind CSS

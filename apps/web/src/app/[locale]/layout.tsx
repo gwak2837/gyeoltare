@@ -9,7 +9,7 @@ import { env } from "@/lib/env";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  metadataBase: new URL(env.NEXT_PUBLIC_WEB_ORIGIN),
 };
 
 export const dynamicParams = false;

@@ -4,7 +4,7 @@ import { defaultLocale, type Locale, locales } from "./config";
 import { getLocalizedPath } from "./pathnames";
 
 function toAbsoluteUrl(pathname: string) {
-  return new URL(pathname, env.NEXT_PUBLIC_SITE_URL).toString();
+  return new URL(pathname, env.NEXT_PUBLIC_WEB_ORIGIN).toString();
 }
 
 export function buildLocalizedMetadata({
@@ -32,7 +32,7 @@ export function buildLocalizedMetadata({
       },
     },
     description,
-    metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+    metadataBase: new URL(env.NEXT_PUBLIC_WEB_ORIGIN),
     title,
   };
 }

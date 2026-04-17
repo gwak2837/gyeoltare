@@ -6,7 +6,7 @@ export const publicProfileSchema = z.object({
   bio: z.string().nullable(),
   createdAt: isoDateTimeSchema,
   displayName: z.string(),
-  id: z.string().uuid(),
+  id: z.uuid(),
   slug: z.string(),
 });
 
