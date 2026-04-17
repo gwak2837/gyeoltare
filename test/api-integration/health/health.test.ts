@@ -1,9 +1,9 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, test } from "bun:test";
 
 import { createApp } from "../../../packages/api/src";
 
 describe("GET /api/health", () => {
-  it("returns the API health payload", async () => {
+  test(" ", async () => {
     const app = createApp();
     const response = await app.request("/api/health");
     const body = await response.json();

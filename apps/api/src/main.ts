@@ -12,5 +12,3 @@ if (import.meta.main) {
 
   console.log(`[api] hono runtime listening on :${port}`);
 }
-
-export default app;
