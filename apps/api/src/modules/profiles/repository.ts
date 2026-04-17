@@ -1,5 +1,5 @@
 import type { PublicProfile } from "@gyeoltare/contracts/profiles";
-import { getDb } from "@gyeoltare/db/client";
+import { db } from "@gyeoltare/db/client";
 import { publicProfileFilter } from "@gyeoltare/db/policies/profile-visibility";
 import { profiles } from "@gyeoltare/db/schema/profiles";
 import { asc } from "drizzle-orm";
@@ -11,7 +11,6 @@ type ListPublicProfilesOptions = {
 export async function listPublicProfilesFromDatabase({
   limit,
 }: ListPublicProfilesOptions): Promise<PublicProfile[]> {
-  const db = getDb();
   const rows = await db
     .select({
       bio: profiles.bio,

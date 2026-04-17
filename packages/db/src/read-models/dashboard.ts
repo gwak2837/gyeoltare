@@ -1,6 +1,6 @@
 import { count, eq } from "drizzle-orm";
 
-import { getDb, hasDatabaseUrl } from "../client";
+import { db } from "../client";
 import { contactMessages } from "../schema/contact-messages";
 import { profiles } from "../schema/profiles";
 
@@ -11,15 +11,6 @@ export type DashboardSnapshot = {
 };
 
 export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
-  if (!hasDatabaseUrl()) {
-    return {
-      generatedAt: new Date().toISOString(),
-      pendingContactMessages: 0,
-      totalProfiles: 3,
-    };
-  }
-
-  const db = getDb();
   const [profileCount] = await db.select({ value: count(profiles.id) }).from(profiles);
   const [contactCount] = await db
     .select({ value: count(contactMessages.id) })
