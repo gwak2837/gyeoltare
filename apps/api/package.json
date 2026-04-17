@@ -20,7 +20,7 @@
   "dependencies": {
     "@gyeoltare/contracts": "workspace:*",
     "@gyeoltare/db": "workspace:*",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.10.4",
     "zod": "^4.1.12"
   },
