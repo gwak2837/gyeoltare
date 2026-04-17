@@ -1,0 +1,31 @@
+{
+  "name": "gyeoltare",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.8.1",
+  "scripts": {
+    "build": "turbo build",
+    "db:push:dev": "pnpm exec drizzle-kit push --config packages/db/drizzle.dev.config.ts --force",
+    "db:push:prod": "pnpm exec drizzle-kit push --config packages/db/drizzle.prod.config.ts --force",
+    "db:push:stg": "pnpm exec drizzle-kit push --config packages/db/drizzle.stg.config.ts --force",
+    "dev": "turbo dev --parallel",
+    "dev:api": "pnpm --filter @gyeoltare/api-runtime dev",
+    "dev:web": "pnpm --filter @gyeoltare/web dev",
+    "format": "pnpm exec biome format --write .",
+    "lint": "pnpm exec biome check .",
+    "lint:fix": "pnpm exec biome check --write .",
+    "test": "turbo test",
+    "test:all": "pnpm test && pnpm test:api:integration",
+    "test:api:integration": "pnpm exec vitest run test/api-integration",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "@types/node": "^24.6.2",
+    "testcontainers": "^11.7.2",
+    "tsx": "^4.20.6",
+    "turbo": "^2.6.1",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

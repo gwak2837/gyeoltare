@@ -1,0 +1,20 @@
+{
+  "name": "@gyeoltare/api-runtime",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/main.ts --target bun --outfile ./dist/main.js",
+    "dev": "bun --watch ./src/main.ts",
+    "start": "bun ./dist/main.js",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@repo/api": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/bun": "^1.2.15"
+  }
+}
