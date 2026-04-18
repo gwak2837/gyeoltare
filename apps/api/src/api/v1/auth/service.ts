@@ -1,13 +1,7 @@
 import { createMiddleware } from "hono/factory";
 
 import type { AppBindings } from "../../../context";
-import { auth } from "./auth";
-
-export async function getAuthSession(headers: Headers) {
-  return auth.api.getSession({
-    headers,
-  });
-}
+import { getAuthSession } from "./auth";
 
 export const authSessionMiddleware = createMiddleware<AppBindings>(async (c, next) => {
   const authSession = await getAuthSession(c.req.raw.headers);

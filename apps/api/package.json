@@ -5,7 +5,10 @@
   "type": "module",
   "exports": {
     ".": "./dist/main.js",
-    "./types": "./src/app.ts"
+    "./types": {
+      "types": "./dist/types/public-types.d.ts",
+      "default": "./src/public-types.ts"
+    }
   },
   "scripts": {
     "build": "pnpm run build:runtime && pnpm run build:types",
@@ -19,6 +22,7 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.5",
+    "@better-auth/passkey": "1.6.5",
     "@gyeoltare/db": "workspace:*",
     "@gyeoltare/util": "workspace:*",
     "@hono/otel": "^1.1.1",

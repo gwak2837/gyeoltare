@@ -8,9 +8,9 @@
     "./server": "./src/server.ts"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json --noEmit",
+    "build": "pnpm --filter @gyeoltare/api build:types && tsc --project tsconfig.json --noEmit",
     "test": "bun test --pass-with-no-tests",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "pnpm --filter @gyeoltare/api build:types && tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "hono": "^4.10.4"

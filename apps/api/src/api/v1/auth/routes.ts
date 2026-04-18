@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 
-import { auth } from "./auth";
+import { handleAuthRequest } from "./auth";
 
 const app = new Hono();
 
 app.on(["GET", "POST"], "/*", (c) => {
-  return auth.handler(c.req.raw);
+  return handleAuthRequest(c.req.raw);
 });
 
 export default app;

@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import * as betterAuthSchema from "./schema/better-auth";
+import * as betterAuthSchema from "./schema/better-auth.generated";
 import * as contactMessagesSchema from "./schema/contact-messages";
 import * as profilesSchema from "./schema/profiles";
 

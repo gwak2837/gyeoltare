@@ -8,7 +8,16 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/.git", "!**/.next", "!**/.turbo", "!**/coverage", "!**/dist", "!**/node_modules"]
+    "includes": [
+      "**",
+      "!**/.git",
+      "!**/.next",
+      "!**/.turbo",
+      "!**/coverage",
+      "!**/dist",
+      "!**/node_modules",
+      "!packages/db/src/schema/better-auth.generated.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
