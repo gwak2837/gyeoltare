@@ -32,10 +32,10 @@
 
 - Hono public interface는 `/api/health`, `/openapi.json`, `/api/v1/*`를 유지한다.
 - 백엔드는 도메인별 colocation을 기본으로 한다.
-- `modules/<domain>/routes.ts`
-- `modules/<domain>/service.ts`
-- `modules/<domain>/repository.ts`
-- `modules/<domain>/schema.ts`는 모듈이 자체 schema를 소유할 때만 둔다.
+- `<domain>/routes.ts`
+- `<domain>/service.ts`
+- `<domain>/repository.ts`
+- `<domain>/schema.ts`는 모듈이 자체 schema를 소유할 때만 둔다.
   - 다른 패키지 schema를 그대로 다시 내보내는 pass-through `schema.ts`는 만들지 않는다.
 - `controller.ts`는 기본적으로 만들지 않는다.
 

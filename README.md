@@ -1,6 +1,6 @@
 # gyeoltare
 
-Production-oriented monorepo for a Next.js web server, a Hono API, shared contracts, and Drizzle-backed PostgreSQL access.
+Production-oriented monorepo for a Next.js web server, a Hono API, type-safe RPC clients, and Drizzle-backed PostgreSQL access.
 
 ## Requires
 
@@ -14,7 +14,6 @@ Production-oriented monorepo for a Next.js web server, a Hono API, shared contra
 
 - `apps/web`: Next.js App Router web server with Tailwind CSS
 - `apps/api`: Hono application assembly and Bun runtime entrypoint
-- `packages/contracts`: shared Zod wire contracts and OpenAPI document
 - `packages/api-client`: type-safe Hono RPC clients for browser and server callers
 - `packages/db`: Drizzle schema, policies, and read models
 - `test/api-integration`: HTTP-level integration tests backed by Testcontainers

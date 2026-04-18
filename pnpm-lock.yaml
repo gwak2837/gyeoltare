@@ -128,9 +128,6 @@ importers:
 
   packages/db:
     dependencies:
-      '@opentelemetry/api':
-        specifier: ^1.9.1
-        version: 1.9.1
       drizzle-orm:
         specifier: ^0.44.5
         version: 0.44.7(@opentelemetry/api@1.9.1)(bun-types@1.3.12)(postgres@3.4.9)

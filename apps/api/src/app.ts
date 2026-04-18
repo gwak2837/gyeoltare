@@ -16,6 +16,8 @@ import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
 import { timeout } from "hono/timeout";
 import { timing } from "hono/timing";
+import { registerProbeRoutes } from "./api/probe/routes";
+import { markStartupComplete } from "./api/probe/service";
 import apiV1 from "./api/v1";
 import { env } from "./env";
 import { initializeOpenTelemetry, OTEL_SERVICE_NAME } from "./lib/observability/otel";
@@ -38,7 +40,8 @@ function createRootApp() {
 
   const app = new OpenAPIHono();
 
-  // NOTE: 공통 미들웨어
+  registerProbeRoutes(app);
+
   app.use(httpInstrumentationMiddleware({ serviceName: OTEL_SERVICE_NAME }));
   app.use("*", ipRestriction(getConnInfo, { denyList: [] }));
   app.use("*", requestId());
@@ -76,6 +79,8 @@ function createRootApp() {
   });
 
   app.route("/api/v1", apiV1);
+
+  markStartupComplete();
 
   return app;
 }

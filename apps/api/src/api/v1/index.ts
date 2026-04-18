@@ -2,7 +2,7 @@ import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 
 const route = createRoute({
   method: "get",
-  path: "/users/{id}",
+  path: "/",
   responses: {
     200: {
       content: {
