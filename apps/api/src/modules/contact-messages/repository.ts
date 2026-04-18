@@ -1,7 +1,6 @@
-import type { CreateContactMessageInput } from "@gyeoltare/contracts/contact-messages";
-
 import { db } from "@gyeoltare/db/client";
 import { contactMessages } from "@gyeoltare/db/schema/contact-messages";
+import type { CreateContactMessageInput } from "./schema";
 
 export async function insertContactMessage(input: CreateContactMessageInput) {
   const [row] = await db

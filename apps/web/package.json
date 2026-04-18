@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@gyeoltare/api-client": "workspace:*",
-    "@gyeoltare/contracts": "workspace:*",
     "@gyeoltare/db": "workspace:*",
     "next": "^16.0.0",
     "next-intl": "^4.0.0",

@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  transpilePackages: ["@gyeoltare/api-client", "@gyeoltare/contracts", "@gyeoltare/db"],
+  transpilePackages: ["@gyeoltare/api-client", "@gyeoltare/db"],
   typedRoutes: true,
 };
 

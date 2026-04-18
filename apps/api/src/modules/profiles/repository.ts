@@ -1,8 +1,8 @@
-import type { PublicProfile } from "@gyeoltare/contracts/profiles";
 import { db } from "@gyeoltare/db/client";
 import { publicProfileFilter } from "@gyeoltare/db/policies/profile-visibility";
 import { profiles } from "@gyeoltare/db/schema/profiles";
 import { asc } from "drizzle-orm";
+import type { PublicProfile } from "./schema";
 
 type ListPublicProfilesOptions = {
   limit: number;

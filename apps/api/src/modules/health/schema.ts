@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { isoDateTimeSchema } from "./common";
+import { isoDateTimeSchema } from "../../lib/http/schema";
 
 export const healthStatusSchema = z.object({
   checkedAt: isoDateTimeSchema,

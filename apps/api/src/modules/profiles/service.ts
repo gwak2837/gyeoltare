@@ -1,6 +1,5 @@
-import { listProfilesResponseSchema } from "@gyeoltare/contracts/profiles";
-
 import { listPublicProfilesFromDatabase } from "./repository";
+import { listProfilesResponseSchema } from "./schema";
 
 type ListPublicProfilesOptions = {
   limit: number;

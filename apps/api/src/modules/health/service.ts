@@ -1,4 +1,4 @@
-import { healthStatusSchema } from "@gyeoltare/contracts/health";
+import { healthStatusSchema } from "./schema";
 
 export function buildHealthStatus() {
   return healthStatusSchema.parse({

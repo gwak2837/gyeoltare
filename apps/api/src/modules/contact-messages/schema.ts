@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { isoDateTimeSchema } from "./common";
+import { isoDateTimeSchema } from "../../lib/http/schema";
 
 export const createContactMessageInputSchema = z.object({
   company: z.string().max(120).optional(),

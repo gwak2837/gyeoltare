@@ -1,31 +1,56 @@
-import { createContactMessageInputSchema } from "@gyeoltare/contracts/contact-messages";
-import { Hono } from "hono";
-
-import type { AppBindings } from "../../context";
-import { jsonCreated, jsonValidationError } from "../../lib/http/json";
-import { logInfo } from "../../lib/observability/logger";
+import { createRoute } from "@hono/zod-openapi";
+import { createOpenAPIApp, openApiErrorSchema } from "../../lib/openapi";
+import { contactMessageSchema, createContactMessageInputSchema } from "./schema";
 import { createContactMessage } from "./service";
 
+const createContactMessageRoute = createRoute({
+  method: "post",
+  path: "/",
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: createContactMessageInputSchema,
+        },
+      },
+      required: true,
+    },
+  },
+  responses: {
+    201: {
+      content: {
+        "application/json": {
+          schema: contactMessageSchema,
+        },
+      },
+      description: "Contact message created",
+    },
+    422: {
+      content: {
+        "application/json": {
+          schema: openApiErrorSchema,
+        },
+      },
+      description: "Validation error",
+    },
+  },
+  summary: "Create a contact message",
+  tags: ["Contact Messages"],
+});
+
 export function createContactMessagesRoutes() {
-  const app = new Hono<AppBindings>();
+  const app = createOpenAPIApp();
 
-  app.post("/", async (c) => {
-    const input = await c.req.json().catch(() => null);
-    const result = createContactMessageInputSchema.safeParse(input);
+  app.openapi(createContactMessageRoute, async (c) => {
+    const input = c.req.valid("json");
+    const message = await createContactMessage(input);
 
-    if (!result.success) {
-      return jsonValidationError(c, result.error.flatten());
-    }
-
-    const message = await createContactMessage(result.data);
-
-    logInfo("contact_message.created", {
+    console.info("contact_message.created", {
       id: message.id,
       requestId: c.get("requestId"),
-      sessionRole: c.get("session").role,
     });
 
-    return jsonCreated(c, message);
+    return c.json(message, 201);
   });
 
   return app;

@@ -32,9 +32,6 @@ importers:
 
   apps/api:
     dependencies:
-      '@gyeoltare/contracts':
-        specifier: workspace:*
-        version: link:../../packages/contracts
       '@gyeoltare/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -75,9 +72,6 @@ importers:
       '@gyeoltare/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@gyeoltare/contracts':
-        specifier: workspace:*
-        version: link:../../packages/contracts
       '@gyeoltare/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -129,21 +123,8 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
 
-  packages/contracts:
-    dependencies:
-      zod:
-        specifier: ^4.1.12
-        version: 4.3.6
-    devDependencies:
-      '@gyeoltare/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-
   packages/db:
     dependencies:
-      '@gyeoltare/contracts':
-        specifier: workspace:*
-        version: link:../contracts
       '@opentelemetry/api':
         specifier: ^1.9.1
         version: 1.9.1

@@ -24,7 +24,7 @@
     },
     "contract": {
       "title": "Shared contract",
-      "description": "브라우저와 서버 클라이언트 모두 `@gyeoltare/contracts`와 `@gyeoltare/api-client`를 통해 묶습니다."
+      "description": "브라우저와 서버 클라이언트는 `@gyeoltare/api-client` 기반 Hono RPC로 타입을 공유하고, 직접 조회는 read-model 타입을 그대로 사용합니다."
     }
   },
   "featured": {

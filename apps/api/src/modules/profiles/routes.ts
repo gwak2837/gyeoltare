@@ -1,24 +1,44 @@
-import { listProfilesQuerySchema } from "@gyeoltare/contracts/profiles";
-import { Hono } from "hono";
+import { createRoute } from "@hono/zod-openapi";
 
-import type { AppBindings } from "../../context";
-import { jsonOk, jsonValidationError } from "../../lib/http/json";
+import { createOpenAPIApp, openApiErrorSchema } from "../../lib/openapi";
+import { listProfilesQuerySchema, listProfilesResponseSchema } from "./schema";
 import { listPublicProfiles } from "./service";
 
+const listProfilesRoute = createRoute({
+  method: "get",
+  path: "/",
+  request: {
+    query: listProfilesQuerySchema,
+  },
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: listProfilesResponseSchema,
+        },
+      },
+      description: "List of public profiles",
+    },
+    422: {
+      content: {
+        "application/json": {
+          schema: openApiErrorSchema,
+        },
+      },
+      description: "Validation error",
+    },
+  },
+  summary: "List public profiles",
+  tags: ["Profiles"],
+});
+
 export function createProfilesRoutes() {
-  const app = new Hono<AppBindings>();
+  const app = createOpenAPIApp();
 
-  app.get("/", async (c) => {
-    const result = listProfilesQuerySchema.safeParse({
-      limit: c.req.query("limit"),
-    });
-
-    if (!result.success) {
-      return jsonValidationError(c, result.error.flatten());
-    }
-
-    const payload = await listPublicProfiles(result.data);
-    return jsonOk(c, payload);
+  app.openapi(listProfilesRoute, async (c) => {
+    const query = c.req.valid("query");
+    const payload = await listPublicProfiles(query);
+    return c.json(payload, 200);
   });
 
   return app;

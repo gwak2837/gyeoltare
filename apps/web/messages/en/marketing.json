@@ -24,7 +24,7 @@
     },
     "contract": {
       "title": "Shared contract",
-      "description": "Browser and server clients stay aligned through `@gyeoltare/contracts` and `@gyeoltare/api-client`."
+      "description": "Browser and server clients stay aligned through Hono RPC via `@gyeoltare/api-client`, while direct reads reuse read-model return types."
     }
   },
   "featured": {
