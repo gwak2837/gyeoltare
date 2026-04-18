@@ -1,12 +1,15 @@
 import { NodeSDK } from "@opentelemetry/sdk-node";
+import { env } from "@/env";
 
 export const OTEL_SERVICE_NAME = "gyeoltare-api";
 
+const { OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_TRACES_EXPORTER, OTEL_METRICS_EXPORTER, OTEL_LOGS_EXPORTER } = env;
+
 export function initializeOpenTelemetry() {
-  process.env.OTEL_SERVICE_NAME ??= OTEL_SERVICE_NAME;
-  process.env.OTEL_TRACES_EXPORTER ??= "otlp";
-  process.env.OTEL_METRICS_EXPORTER ??= "none";
-  process.env.OTEL_LOGS_EXPORTER ??= "none";
+  process.env.OTEL_EXPORTER_OTLP_ENDPOINT ??= OTEL_EXPORTER_OTLP_ENDPOINT;
+  process.env.OTEL_TRACES_EXPORTER ??= OTEL_TRACES_EXPORTER;
+  process.env.OTEL_METRICS_EXPORTER ??= OTEL_METRICS_EXPORTER;
+  process.env.OTEL_LOGS_EXPORTER ??= OTEL_LOGS_EXPORTER;
 
   try {
     const sdk = new NodeSDK({ serviceName: OTEL_SERVICE_NAME });

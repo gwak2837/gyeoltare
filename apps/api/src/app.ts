@@ -1,6 +1,8 @@
 import { ms } from "@gyeoltare/util";
 import { httpInstrumentationMiddleware } from "@hono/otel";
+import { OpenAPIHono } from "@hono/zod-openapi";
 import { Scalar } from "@scalar/hono-api-reference";
+import { createMarkdownFromOpenApi } from "@scalar/openapi-to-markdown";
 import { getConnInfo } from "hono/bun";
 import { compress } from "hono/compress";
 import { contextStorage } from "hono/context-storage";
@@ -14,20 +16,27 @@ import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
 import { timeout } from "hono/timeout";
 import { timing } from "hono/timing";
+import apiV1 from "./api/v1";
 import { env } from "./env";
 import { initializeOpenTelemetry, OTEL_SERVICE_NAME } from "./lib/observability/otel";
-import { createOpenAPIApp, openApiDocumentConfig } from "./lib/openapi";
 import { getDefaultSecureHeadersOptions, getDocsSecureHeadersOptions } from "./middlewares/secure-headers";
-import { createContactMessagesRoutes } from "./modules/contact-messages/routes";
-import { createHealthRoutes } from "./modules/health/routes";
-import { createProfilesRoutes } from "./modules/profiles/routes";
 
 const { WEB_ORIGIN } = env;
 
-function createApp() {
+const openAPIConfigure = {
+  openapi: "3.1.0",
+  info: {
+    title: "결타래 API",
+    version: "0.1.0",
+  },
+};
+
+const openAPIPath = "/openapi.json";
+
+function createRootApp() {
   initializeOpenTelemetry();
 
-  const app = createOpenAPIApp();
+  const app = new OpenAPIHono();
 
   // NOTE: 공통 미들웨어
   app.use(httpInstrumentationMiddleware({ serviceName: OTEL_SERVICE_NAME }));
@@ -41,8 +50,8 @@ function createApp() {
   app.use(compress());
   app.use(contextStorage());
   app.use(csrf({ origin: WEB_ORIGIN, secFetchSite: "same-site" }));
-  app.doc31("/openapi.json", openApiDocumentConfig);
-  app.get("/docs", Scalar({ pageTitle: "결타래 API", url: "/openapi.json" }));
+  app.get("/scalar", Scalar({ url: openAPIPath }));
+  app.doc31(openAPIPath, openAPIConfigure);
 
   app.use(
     languageDetector({
@@ -59,26 +68,18 @@ function createApp() {
     return secureHeaders(getDefaultSecureHeadersOptions())(c, next);
   });
 
-  app.route("/api/health", createHealthRoutes());
+  app.get("/llms.txt", async (c) => {
+    const content = app.getOpenAPI31Document(openAPIConfigure);
+    const markdown = await createMarkdownFromOpenApi(JSON.stringify(content));
 
-  app.notFound((c) => {
-    return c.json({}, 404);
+    return c.text(markdown);
   });
-
-  app.onError((_error, c) => {
-    return c.json({}, 500);
-  });
-
-  const apiV1 = createOpenAPIApp();
-
-  apiV1.route("/contact-messages", createContactMessagesRoutes());
-  apiV1.route("/profiles", createProfilesRoutes());
 
   app.route("/api/v1", apiV1);
 
   return app;
 }
 
-export const app = createApp();
+export const app = createRootApp();
 
 export type AppType = typeof app;

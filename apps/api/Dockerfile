@@ -1,5 +1,5 @@
 # 1. 설치
-FROM node:24-bookworm-slim AS deps
+FROM node:24-slim AS deps
 
 RUN corepack enable
 
