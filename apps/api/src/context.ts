@@ -1,6 +1,9 @@
+import type { AuthSessionData, AuthUser } from "./api/v1/auth/auth";
+
 export type AppBindings = {
   Variables: {
     requestId: string;
-    userId: number;
+    session: AuthSessionData | null;
+    user: AuthUser | null;
   };
 };

@@ -1,4 +1,3 @@
-import type { PublicProfile } from "@gyeoltare/contracts/profiles";
 import { desc } from "drizzle-orm";
 
 import { db } from "../client";
@@ -9,9 +8,15 @@ type GetFeaturedProfilesOptions = {
   limit: number;
 };
 
-export async function getFeaturedProfiles({
-  limit,
-}: GetFeaturedProfilesOptions): Promise<PublicProfile[]> {
+export type FeaturedProfile = {
+  bio: string | null;
+  createdAt: string;
+  displayName: string;
+  id: string;
+  slug: string;
+};
+
+export async function getFeaturedProfiles({ limit }: GetFeaturedProfilesOptions): Promise<FeaturedProfile[]> {
   const rows = await db
     .select({
       bio: profiles.bio,

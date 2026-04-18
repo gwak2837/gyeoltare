@@ -1,10 +1,6 @@
 import { pgEnum, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
-export const contactMessageStatus = pgEnum("contact_message_status", [
-  "received",
-  "triaged",
-  "resolved",
-]);
+export const contactMessageStatus = pgEnum("contact_message_status", ["received", "triaged", "resolved"]);
 
 export const contactMessages = pgTable("contact_messages", {
   company: varchar("company", { length: 120 }),

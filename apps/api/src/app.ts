@@ -19,11 +19,10 @@ import { timing } from "hono/timing";
 import { registerProbeRoutes } from "./api/probe/routes";
 import { markStartupComplete } from "./api/probe/service";
 import apiV1 from "./api/v1";
+import { authSessionMiddleware } from "./api/v1/auth/service";
 import { env } from "./env";
 import { initializeOpenTelemetry, OTEL_SERVICE_NAME } from "./lib/observability/otel";
 import { getDefaultSecureHeadersOptions, getDocsSecureHeadersOptions } from "./middlewares/secure-headers";
-
-const { WEB_ORIGIN } = env;
 
 const openAPIConfigure = {
   openapi: "3.1.0",
@@ -46,13 +45,13 @@ function createRootApp() {
   app.use("*", ipRestriction(getConnInfo, { denyList: [] }));
   app.use("*", requestId());
   app.use("*", etag());
-  app.use("*", cors({ origin: WEB_ORIGIN, exposeHeaders: ["Retry-After"] }));
+  app.use("*", cors({ origin: env.WEB_ORIGIN, exposeHeaders: ["Retry-After"] }));
   app.use("*", timeout(ms("30 seconds")));
   app.use(logger());
   app.use(timing());
   app.use(compress());
   app.use(contextStorage());
-  app.use(csrf({ origin: WEB_ORIGIN, secFetchSite: "same-site" }));
+  app.use(csrf({ origin: env.WEB_ORIGIN, secFetchSite: "same-site" }));
   app.get("/scalar", Scalar({ url: openAPIPath }));
   app.doc31(openAPIPath, openAPIConfigure);
 
@@ -64,7 +63,7 @@ function createRootApp() {
   );
 
   app.use("*", async (c, next) => {
-    if (c.req.path === "/docs") {
+    if (c.req.path === "/scalar" || c.req.path === "/api/v1/auth/reference") {
       return secureHeaders(getDocsSecureHeadersOptions())(c, next);
     }
 
@@ -78,6 +77,7 @@ function createRootApp() {
     return c.text(markdown);
   });
 
+  app.use("/api/v1/*", authSessionMiddleware);
   app.route("/api/v1", apiV1);
 
   markStartupComplete();

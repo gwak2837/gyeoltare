@@ -1,5 +1,7 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 
+import authRoutes from "./auth/routes";
+
 const route = createRoute({
   method: "get",
   path: "/",
@@ -28,5 +30,7 @@ app.openapi(route, (c) => {
     name: "Ultra-man",
   });
 });
+
+app.route("/auth", authRoutes);
 
 export default app;

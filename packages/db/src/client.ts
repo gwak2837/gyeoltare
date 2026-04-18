@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
+import * as betterAuthSchema from "./schema/better-auth";
 import * as contactMessagesSchema from "./schema/contact-messages";
 import * as profilesSchema from "./schema/profiles";
 
@@ -11,9 +12,12 @@ const client = postgres(databaseUrl, {
   prepare: false,
 });
 
+export const schema = {
+  ...contactMessagesSchema,
+  ...profilesSchema,
+  ...betterAuthSchema,
+};
+
 export const db = drizzle(client, {
-  schema: {
-    ...contactMessagesSchema,
-    ...profilesSchema,
-  },
+  schema,
 });

@@ -18,6 +18,7 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.5",
     "@gyeoltare/db": "workspace:*",
     "@gyeoltare/util": "workspace:*",
     "@hono/otel": "^1.1.1",
@@ -25,7 +26,8 @@
     "@opentelemetry/sdk-node": "^0.215.0",
     "@scalar/hono-api-reference": "^0.10.8",
     "@scalar/openapi-to-markdown": "^0.5.5",
-    "drizzle-orm": "^0.44.5",
+    "better-auth": "^1.6.5",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.10.4",
     "zod": "^4.1.12"
   },
