@@ -1,0 +1,21 @@
+{
+  "name": "@gyeoltare/util",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/ms.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json --noEmit",
+    "test": "bun test --pass-with-no-tests",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ms": "^2.1.3"
+  },
+  "devDependencies": {
+    "@gyeoltare/typescript-config": "workspace:*",
+    "@types/ms": "^2.1.0"
+  }
+}

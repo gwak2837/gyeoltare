@@ -1,6 +1,8 @@
 {
   "extends": "@gyeoltare/typescript-config/server.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"] },
     "types": ["bun"]
   },
   "include": ["src/**/*.ts"]
