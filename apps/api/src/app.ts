@@ -45,7 +45,6 @@ function createRootApp() {
   app.use("*", ipRestriction(getConnInfo, { denyList: [] }));
   app.use("*", requestId());
   app.use("*", etag());
-  app.use("*", cors({ origin: env.WEB_ORIGIN, exposeHeaders: ["Retry-After"] }));
   app.use("*", timeout(ms("30 seconds")));
   app.use(logger());
   app.use(timing());
@@ -54,6 +53,16 @@ function createRootApp() {
   app.use(csrf({ origin: env.WEB_ORIGIN, secFetchSite: "same-site" }));
   app.get("/scalar", Scalar({ url: openAPIPath }));
   app.doc31(openAPIPath, openAPIConfigure);
+
+  // NOTE: 로컬 개발 환경에선 서로 포트가 달라서 credentials: true 여야 쿠키가 전송돼요
+  app.use(
+    "*",
+    cors({
+      origin: env.WEB_ORIGIN,
+      credentials: process.env.NODE_ENV !== "production",
+      exposeHeaders: ["Retry-After"],
+    }),
+  );
 
   app.use(
     languageDetector({

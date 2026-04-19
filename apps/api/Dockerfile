@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.10
+
 # 1. 설치
 FROM node:24-slim AS deps
 
@@ -11,8 +13,11 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json bi
 COPY apps/api/package.json apps/api/package.json
 COPY packages/db/package.json packages/db/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
+COPY packages/util/package.json packages/util/package.json
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm config set store-dir /pnpm/store
+
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 

@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.10
+
 # 1. 설치/빌드
 FROM node:24-slim AS build
 
@@ -16,8 +18,11 @@ COPY apps/web/package.json apps/web/package.json
 COPY packages/api-client/package.json packages/api-client/package.json
 COPY packages/db/package.json packages/db/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
+COPY packages/util/package.json packages/util/package.json
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm config set store-dir /pnpm/store
+
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
