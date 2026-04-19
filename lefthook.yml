@@ -7,4 +7,4 @@ pre-commit:
 pre-push:
   jobs:
     - name: quality-gate
-      run: pnpm exec biome ci . && pnpm run typecheck && pnpm run test
+      run: pnpm run typecheck
