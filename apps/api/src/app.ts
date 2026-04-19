@@ -57,6 +57,8 @@ function createRootApp() {
 
   app.use(
     languageDetector({
+      // NOTE: better-auth 세션 쿠키랑 충돌하기에 캐싱하지 않아요
+      caches: [],
       supportedLanguages: ["ko", "zh", "ja", "en"],
       fallbackLanguage: "ko",
     }),

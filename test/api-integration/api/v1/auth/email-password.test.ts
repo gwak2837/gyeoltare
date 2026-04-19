@@ -48,6 +48,34 @@ describe("이메일/비밀번호 인증 통합 테스트", () => {
     expect(sessionResponse.json?.session.userId).toBeTruthy();
   });
 
+  test("브라우저의 Accept-Language 헤더가 있어도 세션 쿠키가 발급된다", async () => {
+    const signUpClient = environment.createClient();
+    const signInClient = environment.createClient();
+    const user = createEmailPasswordUser();
+
+    const signUp = await signUpClient.post("/api/v1/auth/sign-up/email", { body: user });
+
+    const signIn = await signInClient.post("/api/v1/auth/sign-in/email", {
+      body: {
+        email: user.email,
+        password: user.password,
+      },
+      headers: {
+        "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+      },
+    });
+
+    expect(signUp.status).toBe(200);
+    expect(signIn.status).toBe(200);
+    expect(signIn.headers.getSetCookie().some((cookie) => cookie.startsWith("better-auth.session_token="))).toBe(true);
+
+    const sessionResponse = await signInClient.getJson<SessionResponse>("/api/v1/auth/get-session");
+
+    expect(sessionResponse.response.status).toBe(200);
+    expect(sessionResponse.json?.user.email).toBe(user.email);
+    expect(sessionResponse.json?.session.userId).toBeTruthy();
+  });
+
   test("잘못된 비밀번호로 로그인하면 실패하고 세션이 생성되지 않는다", async () => {
     const signUpClient = environment.createClient();
     const signInClient = environment.createClient();
