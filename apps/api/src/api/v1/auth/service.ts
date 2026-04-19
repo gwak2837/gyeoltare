@@ -1,10 +1,10 @@
 import { createMiddleware } from "hono/factory";
 
-import type { AppBindings } from "../../../context";
-import { getAuthSession } from "./auth";
+import type { AppBindings } from "@/context";
+import { authInstance } from "./auth";
 
 export const authSessionMiddleware = createMiddleware<AppBindings>(async (c, next) => {
-  const authSession = await getAuthSession(c.req.raw.headers);
+  const authSession = await authInstance.api.getSession({ headers: c.req.raw.headers });
 
   if (!authSession) {
     c.set("session", null);

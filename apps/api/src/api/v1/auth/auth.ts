@@ -1,29 +1,13 @@
 import { passkey } from "@better-auth/passkey";
 import { db, schema } from "@gyeoltare/db/client";
-import {
-  type BetterAuthOptions,
-  type Session as BetterAuthSessionDataModel,
-  type User as BetterAuthUserModel,
-  betterAuth,
-} from "better-auth";
+import { type BetterAuthOptions, betterAuth, type Session, type User } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI, twoFactor } from "better-auth/plugins";
 import { env } from "@/env";
 
-export type AuthUser = RawAuthSession["user"] & { twoFactorEnabled: boolean };
-
-export type AuthSessionData = RawAuthSession["session"];
-
-type RawAuthSession = {
-  session: BetterAuthSessionDataModel<Record<string, never>, []>;
-  user: BetterAuthUserModel<Record<string, never>, []>;
-};
-
-type AuthRuntime = {
-  api: {
-    getSession(input: { headers: Headers }): Promise<RawAuthSession | null>;
-  };
-  handler(request: Request): Promise<Response>;
+export type AuthData = {
+  session: Session<Record<string, never>, []>;
+  user: User<Record<string, never>, []> & { twoFactorEnabled?: boolean | null };
 };
 
 const authOptions: BetterAuthOptions = {
@@ -50,36 +34,10 @@ const authOptions: BetterAuthOptions = {
   trustedOrigins: [env.WEB_ORIGIN],
 };
 
-const authInstance: AuthRuntime = betterAuth(authOptions);
+export const authInstance = betterAuth(authOptions);
 
-export const auth: { options: BetterAuthOptions } = {
-  options: authOptions,
-};
-
-export function handleAuthRequest(request: Request) {
-  return authInstance.handler(request);
-}
-
-export async function getAuthSession(headers: Headers): Promise<{
-  session: AuthSessionData;
-  user: AuthUser;
-} | null> {
-  const session = await authInstance.api.getSession({ headers });
-
-  if (!session) {
-    return null;
-  }
-
-  const twoFactorEnabled = "twoFactorEnabled" in session.user ? Boolean(session.user.twoFactorEnabled) : false;
-
-  return {
-    session: session.session,
-    user: {
-      ...session.user,
-      twoFactorEnabled,
-    },
-  };
-}
+// NOTE: Better Auth CLI가 스키마를 생성할 때 `auth.options` 를 읽어요
+export const auth = { options: authOptions };
 
 function parseBetterAuthSecrets(secretList: string) {
   return secretList.split(",").map((entry) => {
