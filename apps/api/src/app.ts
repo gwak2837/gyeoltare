@@ -19,9 +19,9 @@ import { timing } from "hono/timing";
 import { registerProbeRoutes } from "./api/probe/routes";
 import { markStartupComplete } from "./api/probe/service";
 import apiV1 from "./api/v1";
-import { authSessionMiddleware } from "./api/v1/auth/service";
 import { env } from "./env";
 import { initializeOpenTelemetry, OTEL_SERVICE_NAME } from "./lib/observability/otel";
+import { authSessionMiddleware } from "./middlewares/auth";
 import { getDefaultSecureHeadersOptions, getDocsSecureHeadersOptions } from "./middlewares/secure-headers";
 
 const openAPIConfigure = {

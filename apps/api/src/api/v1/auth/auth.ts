@@ -2,12 +2,16 @@ import { passkey } from "@better-auth/passkey";
 import { db, schema } from "@gyeoltare/db/client";
 import { type BetterAuthOptions, betterAuth, type Session, type User } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { openAPI, twoFactor } from "better-auth/plugins";
+import { openAPI, twoFactor, username } from "better-auth/plugins";
 import { env } from "@/env";
 
 export type AuthData = {
   session: Session<Record<string, never>, []>;
-  user: User<Record<string, never>, []> & { twoFactorEnabled?: boolean | null };
+  user: User<Record<string, never>, []> & {
+    displayUsername?: string | null;
+    twoFactorEnabled?: boolean | null;
+    username?: string | null;
+  };
 };
 
 const authOptions: BetterAuthOptions = {
@@ -24,6 +28,7 @@ const authOptions: BetterAuthOptions = {
   plugins: [
     openAPI(),
     twoFactor(),
+    username(),
     passkey({
       origin: env.BETTER_AUTH_PASSKEY_ORIGIN,
       rpID: env.BETTER_AUTH_PASSKEY_RP_ID,
