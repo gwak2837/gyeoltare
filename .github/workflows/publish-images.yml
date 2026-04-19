@@ -1,4 +1,4 @@
-name: publish-images
+name: Publish Images
 
 on:
   workflow_dispatch:
