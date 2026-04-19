@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.5",
-    "@better-auth/passkey": "1.6.5",
+    "@better-auth/passkey": "^1.6.5",
     "@gyeoltare/db": "workspace:*",
     "@gyeoltare/util": "workspace:*",
     "@hono/otel": "^1.1.1",

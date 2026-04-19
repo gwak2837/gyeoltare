@@ -1,9 +1,9 @@
-import type { AuthData } from "./api/v1/auth/auth";
+import type { AuthSessionData } from "./api/v1/auth/auth";
 
-export type AppBindings = {
+export type AppEnv = {
   Variables: {
     requestId: string;
-    session: AuthData["session"] | null;
-    user: AuthData["user"] | null;
+    session: AuthSessionData["session"] | null;
+    user: AuthSessionData["user"] | null;
   };
 };

@@ -1,10 +1,10 @@
 import { createMiddleware } from "hono/factory";
 
-import type { AppBindings } from "@/context";
-import { authInstance } from "../api/v1/auth/auth";
+import type { AppEnv } from "@/context";
+import { auth } from "../api/v1/auth/auth";
 
-export const authSessionMiddleware = createMiddleware<AppBindings>(async (c, next) => {
-  const authSession = await authInstance.api.getSession({ headers: c.req.raw.headers });
+export const authSessionMiddleware = createMiddleware<AppEnv>(async (c, next) => {
+  const authSession = await auth.api.getSession({ headers: c.req.raw.headers });
 
   if (!authSession) {
     c.set("session", null);
