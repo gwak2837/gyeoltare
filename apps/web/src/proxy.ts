@@ -23,5 +23,22 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|health|.*\\..*).*)"],
+  matcher: [
+    {
+      source: "/((?!.*\\.|_next/static|_next/image).*)",
+      has: [{ type: "cookie", key: "rt" }],
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+    {
+      source: "/((?!.*\\.|_next/static|_next/image).*)",
+      has: [{ type: "cookie", key: "at" }],
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+  ],
 };
