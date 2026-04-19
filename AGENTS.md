@@ -28,14 +28,14 @@
 - Next API route는 probe 정도만 허용한다.
 - Server Action은 사용하지 않는다.
 - 프론트 구조는 route-local first를 기본으로 한다.
-- 먼저 `app/.../_components`, `app/.../_lib`, `app/.../_queries`에 둔다.
-- 두 군데 이상에서 재사용될 때만 `src/features/*` 또는 `src/components/*`로 승격한다.
+- 먼저 `app/.../_component`, `app/.../_lib`, `app/.../_query`에 둔다.
+- 두 군데 이상에서 재사용될 때만 `src/feature/*` 또는 `src/component/*`로 승격한다.
 
 ## API Rules
 
 - Hono public interface는 `/openapi.json`, `/api/v1/*`를 유지한다.
 - 백엔드는 도메인별 colocation을 기본으로 한다.
-- `<domain>/routes.ts`
+- `<domain>/route.ts`
 - `<domain>/service.ts`
 - `<domain>/repository.ts`
 - `<domain>/schema.ts`는 모듈이 자체 schema를 소유할 때만 둔다.
@@ -47,7 +47,6 @@
 - PostgreSQL + Drizzle를 사용한다.
 - Drizzle migration 파일은 사용하지 않고 `drizzle-kit push`만 사용한다.
 - DB 정책은 `read-direct + write-via-Hono`다.
-- Next Server Components의 직접 조회는 `packages/db/src/read-models/*` 또는 동등한 read-only helper로만 제한한다.
 - 모든 write, transaction, 외부 API 호출, 감사로그, 이벤트 발행은 Hono 서비스 계층으로 보낸다.
 
 ## Contracts And i18n
@@ -55,8 +54,8 @@
 - 내부 TypeScript 소비자는 `Hono RPC + Zod`를 사용한다.
 - 비-TS 소비자와 모바일 확장을 위해 OpenAPI도 함께 유지한다.
 - i18n은 `next-intl + locale prefix`를 사용한다.
-- locale은 `ko` default + `en`이다.
-- URL은 `/ko/...`, `/en/...` 형식이다.
+- locale은 `ko` default 이다.
+- URL은 `/ko/...`, `/en/...`, ... 형식이다.
 - Hono API는 locale에 종속되지 않게 유지한다.
 - API는 stable error code를 반환하고, 웹이 locale message로 매핑한다.
 

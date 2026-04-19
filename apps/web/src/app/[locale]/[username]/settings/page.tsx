@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { SettingsScreen } from "@/features/auth/screens/settings-screen";
-import { getCurrentSession } from "@/features/auth/server/get-current-session";
 import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/settings">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/[username]/settings">): Promise<Metadata> {
   const { locale } = await params;
 
   if (!isLocale(locale)) {
@@ -27,7 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/settings
   });
 }
 
-export default async function SettingsPage({ params }: PageProps<"/[locale]/settings">) {
+export default async function SettingsPage({ params }: PageProps<"/[locale]/[username]/settings">) {
   const { locale } = await params;
 
   if (!isLocale(locale)) {

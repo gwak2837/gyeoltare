@@ -7,7 +7,5 @@ type ServerApiClientOptions = {
 };
 
 export function createServerApiClient({ baseUrl, headers }: ServerApiClientOptions) {
-  return hc<AppType>(baseUrl, {
-    headers,
-  });
+  return hc<AppType>(baseUrl, { headers });
 }

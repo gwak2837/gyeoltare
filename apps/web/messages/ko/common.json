@@ -1,18 +1,7 @@
 {
-  "localeSwitcher": {
-    "label": "언어",
-    "locales": {
-      "ko": "한국어",
-      "en": "English"
-    }
-  },
   "notFound": {
     "eyebrow": "Not Found",
     "title": "길을 다시 찾는 중입니다.",
-    "description": "요청하신 페이지가 없거나 이동되었습니다. 정보 구조는 route-local first 원칙을 따르되, 재사용이 확인되면 상위 feature 계층으로 승격됩니다."
-  },
-  "profile": {
-    "emptyBio": "아직 소개 문구가 등록되지 않았습니다.",
-    "created": "Created {date}"
+    "description": "요청하신 페이지가 없거나 이동되었습니다."
   }
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { LoginScreen } from "@/features/auth/screens/login-screen";
 import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
 

@@ -1,6 +1,6 @@
 export type Locale = (typeof locales)[number];
 
-export const locales = ["ko", "en"] as const;
+export const locales = ["ko", "en", "ja", "zh"] as const;
 export const defaultLocale: Locale = "ko";
 export const localeCookieName = "NEXT_LOCALE";
 
@@ -9,5 +9,16 @@ export function isLocale(value: string | null | undefined): value is Locale {
 }
 
 export function toIntlLocale(locale: Locale) {
-  return locale === "ko" ? "ko-KR" : "en-US";
+  switch (locale) {
+    case "ko":
+      return "ko-KR";
+    case "en":
+      return "en-US";
+    case "ja":
+      return "ja-JP";
+    case "zh":
+      return "zh-CN";
+    default:
+      return "ko-KR";
+  }
 }

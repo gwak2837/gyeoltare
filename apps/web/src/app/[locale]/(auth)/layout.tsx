@@ -1,6 +1,5 @@
 import { notFound, redirect } from "next/navigation";
 
-import { getCurrentSession } from "@/features/auth/server/get-current-session";
 import { isLocale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
@@ -14,7 +13,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
   const session = await getCurrentSession();
 
   if (session) {
-    redirect(getLocalizedPath(locale, "/dashboard"));
+    redirect(getLocalizedPath(locale, "/"));
   }
 
   return children;
