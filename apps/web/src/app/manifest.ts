@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { APPLICATION_NAME, DESCRIPTION, SHORT_NAME, THEME_COLOR } from "@/constant";
 import { env } from "@/env";
 
 const { WEB_ORIGIN } = env;
