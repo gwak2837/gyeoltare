@@ -16,13 +16,13 @@
 - runtime은 `web=Node.js`, `api=Bun`이다.
 - 배포는 same-domain reverse proxy를 전제로 한다.
 - `/* -> Next`, `/api/* -> Hono`
-- `GET /health -> Next`, `GET /api/health -> Hono`
+- `GET /live -> Next`, `GET /api/live -> Hono`
 
 ## Web Rules
 
 - `apps/web`는 App Router + Server Components + Tailwind를 사용한다.
 - Next.js는 HTML 서버로만 사용한다.
-- Next API route는 `health` 정도만 허용한다.
+- Next API route는 probe 정도만 허용한다.
 - Server Action은 사용하지 않는다.
 - 프론트 구조는 route-local first를 기본으로 한다.
 - 먼저 `app/.../_components`, `app/.../_lib`, `app/.../_queries`에 둔다.
@@ -30,7 +30,7 @@
 
 ## API Rules
 
-- Hono public interface는 `/api/health`, `/openapi.json`, `/api/v1/*`를 유지한다.
+- Hono public interface는 `/openapi.json`, `/api/v1/*`를 유지한다.
 - 백엔드는 도메인별 colocation을 기본으로 한다.
 - `<domain>/routes.ts`
 - `<domain>/service.ts`
