@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: gyeoltare-postgres
+    environment:
+      POSTGRES_DB: gyeoltare
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gyeoltare"]
+      interval: 3s
+      retries: 20
+      timeout: 3s
+    ports:
+      - "55432:5432"
+    restart: unless-stopped
+    volumes:
+      - gyeoltare-postgres18-data:/var/lib/postgresql
+
+volumes:
+  gyeoltare-postgres18-data:

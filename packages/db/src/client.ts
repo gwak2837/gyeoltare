@@ -5,7 +5,7 @@ import * as betterAuthSchema from "./schema/better-auth.generated";
 import * as contactMessagesSchema from "./schema/contact-messages";
 import * as profilesSchema from "./schema/profiles";
 
-const databaseUrl = process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/gyeoltare";
+const databaseUrl = process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:55432/gyeoltare";
 
 const client = postgres(databaseUrl, {
   max: 10,

@@ -7,7 +7,7 @@ const schema = z.object({
   BETTER_AUTH_PASSKEY_RP_NAME: z.string().min(1).default("gyeoltare"),
   BETTER_AUTH_SECRETS: z.string().min(1).default("1:123456789012345678901234567890ab"),
   BETTER_AUTH_URL: z.url().default("http://localhost:3001"),
-  DATABASE_URL: z.url().default("postgresql://postgres:postgres@localhost:5432/gyeoltare"),
+  DATABASE_URL: z.url().default("postgresql://postgres:postgres@localhost:55432/gyeoltare"),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
   OTEL_LOGS_EXPORTER: z.string().default("none"),
   OTEL_METRICS_EXPORTER: z.string().default("none"),
