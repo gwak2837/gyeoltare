@@ -1,36 +1,42 @@
-import type { AbstractIntlMessages } from "next-intl";
-
 import type { Locale } from "./config";
 
-async function loadNamespace(locale: Locale, namespace: "common" | "dashboard" | "marketing") {
-  const messages = (
-    await {
-      en: {
-        common: () => import("../../messages/en/common.json"),
-        dashboard: () => import("../../messages/en/dashboard.json"),
-        marketing: () => import("../../messages/en/marketing.json"),
-      },
-      ko: {
-        common: () => import("../../messages/ko/common.json"),
-        dashboard: () => import("../../messages/ko/dashboard.json"),
-        marketing: () => import("../../messages/ko/marketing.json"),
-      },
-    }[locale][namespace]()
-  ).default;
+type MessageNamespace = "auth" | "common" | "dashboard" | "marketing" | "settings";
 
-  return messages as AbstractIntlMessages;
+const dynamic = {
+  en: {
+    auth: () => import("../../messages/en/auth.json"),
+    common: () => import("../../messages/en/common.json"),
+    dashboard: () => import("../../messages/en/dashboard.json"),
+    marketing: () => import("../../messages/en/marketing.json"),
+    settings: () => import("../../messages/en/settings.json"),
+  },
+  ko: {
+    auth: () => import("../../messages/ko/auth.json"),
+    common: () => import("../../messages/ko/common.json"),
+    dashboard: () => import("../../messages/ko/dashboard.json"),
+    marketing: () => import("../../messages/ko/marketing.json"),
+    settings: () => import("../../messages/ko/settings.json"),
+  },
+};
+
+async function loadNamespace(locale: Locale, namespace: MessageNamespace) {
+  return (await dynamic[locale][namespace]()).default;
 }
 
-export async function getMessages(locale: Locale): Promise<AbstractIntlMessages> {
-  const [common, dashboard, marketing] = await Promise.all([
+export async function getMessages(locale: Locale) {
+  const [auth, common, dashboard, marketing, settings] = await Promise.all([
+    loadNamespace(locale, "auth"),
     loadNamespace(locale, "common"),
     loadNamespace(locale, "dashboard"),
     loadNamespace(locale, "marketing"),
+    loadNamespace(locale, "settings"),
   ]);
 
   return {
+    auth,
     common,
     dashboard,
     marketing,
-  } as AbstractIntlMessages;
+    settings,
+  };
 }
