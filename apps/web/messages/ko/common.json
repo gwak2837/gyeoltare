@@ -3,5 +3,31 @@
     "eyebrow": "Not Found",
     "title": "길을 다시 찾는 중입니다.",
     "description": "요청하신 페이지가 없거나 이동되었습니다."
+  },
+  "home": {
+    "metadataTitle": "결타래",
+    "metadataDescription": "Better Auth 기반의 가볍고 단단한 인증 경험으로 결타래를 시작하세요.",
+    "eyebrow": "PUBLIC HOME",
+    "title": "인증은 가볍게, 보안은 빈틈없이.",
+    "description": "결타래 웹은 Better Auth 기반으로 이메일/아이디 로그인, 패스키, TOTP, 복구코드까지 한 흐름으로 이어지는 인증 UX를 제공합니다.",
+    "primaryCta": "로그인",
+    "secondaryCta": "회원가입",
+    "loggedInTitle": "{name}님, 지금은 이 보안 구성이 연결되어 있어요.",
+    "loggedInDescription": "공개 홈은 그대로 열어 두고, 설정 화면에서 username, 패스키, TOTP와 복구코드를 정리할 수 있습니다.",
+    "settingsLink": "내 설정 열기",
+    "securityEnabled": "TOTP 활성화",
+    "securityDisabled": "TOTP 미설정",
+    "featureIdentityTitle": "한 칸 로그인",
+    "featureIdentityBody": "이메일과 아이디를 같은 입력창에서 처리하고, 패스키 버튼도 같은 흐름 안에 둡니다.",
+    "featureSecurityTitle": "보안 설정 허브",
+    "featureSecurityBody": "마이페이지 한 곳에서 TOTP, 복구코드, 패스키, 비밀번호 변경을 끝냅니다.",
+    "featureOperationsTitle": "프로덕션 감각",
+    "featureOperationsBody": "same-origin `/api` 라우팅과 locale 유지 전략 위에서 실서비스에 가까운 UX를 맞췄습니다.",
+    "previewTitle": "설정 화면에서 바로 가능한 일",
+    "previewItemAccount": "username과 canonical 설정 URL 정리",
+    "previewItemPasskey": "패스키 등록, 이름 변경, 삭제",
+    "previewItemTwoFactor": "TOTP QR 설정, 복구코드 조회/재생성",
+    "previewItemPassword": "비밀번호 변경과 다른 세션 정리",
+    "signOut": "로그아웃"
   }
 }

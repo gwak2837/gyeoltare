@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 
@@ -12,14 +12,15 @@ export const dynamicParams = false;
 
 const { WEB_ORIGIN } = env;
 
-const geistSans = Geist({
+const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const plexMono = IBM_Plex_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export function generateMetadata(): Metadata {
@@ -42,8 +43,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
   const messages = await getMessages(locale);
 
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+    <html lang={locale} className={`${jakartaSans.variable} ${plexMono.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-page-bg text-page-ink">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

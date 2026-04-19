@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "title": "보안 설정",
+    "description": "계정, TOTP, 패스키, 복구코드, 비밀번호를 한 곳에서 관리하세요."
+  },
+  "backupCodesPage": {
+    "metadataTitle": "복구코드 보기",
+    "metadataDescription": "최근 로그인한 세션에서만 복구코드를 확인하고 안전하게 보관하세요.",
+    "eyebrow": "복구코드",
+    "title": "백업 코드를 안전하게 다시 확인하세요.",
+    "description": "이 화면은 서버에서만 복구코드를 조회하고, 브라우저에는 확인된 결과만 보여줍니다.",
+    "backToSettings": "설정으로 돌아가기",
+    "freshSessionHint": "복구코드 확인은 최근에 다시 로그인한 fresh session 에서만 허용됩니다. 로그아웃 후 다시 로그인해서 시도해 주세요.",
+    "genericHint": "복구코드를 가져오지 못했습니다. 잠시 후 다시 시도해 주세요."
+  },
+  "header": {
+    "eyebrow": "설정",
+    "title": "{username}의 계정 보안",
+    "description": "프로필 식별자와 로그인 수단을 지금 이 화면에서 바로 정리할 수 있어요."
+  },
+  "status": {
+    "enabled": "활성화됨",
+    "disabled": "비활성화됨"
+  },
+  "account": {
+    "title": "계정",
+    "description": "이름과 username을 업데이트하고 canonical 설정 URL을 유지하세요.",
+    "nameLabel": "이름",
+    "usernameLabel": "아이디",
+    "displayUsernameLabel": "표시 아이디",
+    "displayUsernameHint": "비워두면 기본 아이디를 그대로 사용합니다.",
+    "submit": "계정 정보 저장",
+    "submitting": "저장 중..."
+  },
+  "totp": {
+    "title": "TOTP 2단계 인증",
+    "description": "인증 앱을 연결하고 복구코드까지 함께 보관하면 운영 환경 수준의 로그인 흐름을 만들 수 있어요.",
+    "passwordLabel": "현재 비밀번호",
+    "passwordPlaceholder": "현재 비밀번호를 입력하세요",
+    "enable": "TOTP 활성화 시작",
+    "enabling": "보안 키를 준비하고 있어요...",
+    "verifyLabel": "인증 앱 코드",
+    "verifyPlaceholder": "123456",
+    "verify": "TOTP 활성화 완료",
+    "verifying": "코드를 확인하고 있어요...",
+    "disable": "TOTP 비활성화",
+    "disabling": "TOTP를 비활성화하고 있어요...",
+    "qrTitle": "인증 앱에 QR 코드를 스캔하세요",
+    "qrDescription": "QR 코드가 보이지 않으면 아래 URI를 직접 등록할 수 있어요.",
+    "backupTitle": "복구코드",
+    "backupDescription": "복구코드는 안전한 비밀번호 관리자나 오프라인 공간에 저장해 두세요.",
+    "view": "복구코드 보기",
+    "viewing": "복구코드를 불러오고 있어요...",
+    "regenerate": "복구코드 재생성",
+    "regenerating": "복구코드를 다시 만들고 있어요...",
+    "copy": "코드 복사",
+    "download": "텍스트로 다운로드",
+    "emptyState": "아직 표시할 복구코드가 없습니다."
+  },
+  "passkeys": {
+    "title": "패스키",
+    "description": "현재 기기 혹은 보안 키를 패스키로 등록해 더 빠르고 안전하게 로그인하세요.",
+    "nameLabel": "패스키 이름",
+    "namePlaceholder": "예: MacBook Air, 회사 보안 키",
+    "attachmentLabel": "등록 방식",
+    "platformAttachment": "이 기기",
+    "crossPlatformAttachment": "다른 기기/보안 키",
+    "add": "패스키 추가",
+    "adding": "패스키를 등록하고 있어요...",
+    "rename": "이름 저장",
+    "renaming": "이름을 저장하고 있어요...",
+    "delete": "삭제",
+    "deleting": "패스키를 삭제하고 있어요...",
+    "emptyTitle": "등록된 패스키가 없어요.",
+    "emptyDescription": "패스키를 추가하면 비밀번호 없이도 더 빠르게 로그인할 수 있습니다.",
+    "createdAt": "등록일"
+  },
+  "password": {
+    "title": "비밀번호 변경",
+    "description": "현재 비밀번호를 확인한 뒤 새 비밀번호로 교체하고, 필요하면 다른 세션도 함께 정리하세요.",
+    "currentPasswordLabel": "현재 비밀번호",
+    "newPasswordLabel": "새 비밀번호",
+    "newPasswordPlaceholder": "새 비밀번호를 입력하세요",
+    "revokeOtherSessions": "다른 기기의 로그인 세션도 함께 종료",
+    "submit": "비밀번호 변경",
+    "submitting": "비밀번호를 변경하고 있어요..."
+  },
+  "session": {
+    "title": "세션",
+    "description": "현재 계정 상태를 유지한 채 홈으로 돌아가거나, 안전하게 로그아웃할 수 있습니다.",
+    "home": "퍼블릭 홈으로 이동",
+    "signOut": "로그아웃",
+    "signingOut": "로그아웃 중..."
+  },
+  "feedback": {
+    "profileSaved": "계정 정보를 저장했습니다.",
+    "twoFactorEnabled": "TOTP 2단계 인증이 활성화되었습니다.",
+    "twoFactorDisabled": "TOTP 2단계 인증을 비활성화했습니다.",
+    "backupCodesCopied": "복구코드를 클립보드에 복사했습니다.",
+    "backupCodesDownloaded": "복구코드를 텍스트 파일로 저장했습니다.",
+    "passkeyAdded": "새 패스키를 등록했습니다.",
+    "passkeyUpdated": "패스키 이름을 저장했습니다.",
+    "passkeyDeleted": "패스키를 삭제했습니다.",
+    "passwordChanged": "비밀번호를 변경했습니다."
+  }
+}
