@@ -1,4 +1,4 @@
-import type { AuthSessionData } from "./api/v1/auth/auth";
+import type { AuthSessionData } from "@gyeoltare/auth/server";
 
 export type AppEnv = {
   Variables: {

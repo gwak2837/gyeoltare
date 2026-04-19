@@ -1,0 +1,25 @@
+{
+  "name": "@gyeoltare/auth",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json --noEmit",
+    "test": "bun test --pass-with-no-tests",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.5",
+    "@better-auth/passkey": "^1.6.5",
+    "@gyeoltare/db": "workspace:*",
+    "better-auth": "^1.6.5",
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": {
+    "@gyeoltare/typescript-config": "workspace:*"
+  }
+}

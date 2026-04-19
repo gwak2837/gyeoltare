@@ -4,7 +4,7 @@
   "type": "module",
   "packageManager": "pnpm@10.8.1",
   "scripts": {
-    "auth:generate": "pnpm exec auth generate --config apps/api/src/api/v1/auth/auth-cli.ts --output packages/db/src/schema/better-auth.generated.ts --yes",
+    "auth:generate": "pnpm exec auth generate --config packages/auth/src/cli.ts --output packages/db/src/schema/better-auth.generated.ts --yes",
     "build": "turbo build",
     "check:ci": "pnpm run lint && pnpm run typecheck && pnpm run test:all && pnpm run build",
     "check:pre-commit": "pnpm exec biome check --write --staged --no-errors-on-unmatched",

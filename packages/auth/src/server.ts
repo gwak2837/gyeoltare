@@ -1,10 +1,14 @@
 import { passkey } from "@better-auth/passkey";
 import { db, schema } from "@gyeoltare/db/client";
-import type { Auth, BetterAuthOptions } from "better-auth";
+import type { Auth, BetterAuthOptions, Session, User } from "better-auth";
+import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI, twoFactor, username } from "better-auth/plugins";
 
-type AuthEnv = {
+import { AUTH_BASE_PATH } from "./constants";
+
+export type AuthEnv = {
+  DATABASE_URL: string;
   BETTER_AUTH_PASSKEY_ORIGIN: string;
   BETTER_AUTH_PASSKEY_RP_ID: string;
   BETTER_AUTH_PASSKEY_RP_NAME: string;
@@ -24,10 +28,19 @@ export type AuthOptions = Omit<BetterAuthOptions, "plugins"> & {
 
 export type AuthInstance = Auth<AuthOptions>;
 
+export type AuthSessionData = {
+  session: Session<Record<string, never>, []>;
+  user: User<Record<string, never>, []> & {
+    displayUsername?: string | null;
+    twoFactorEnabled?: boolean | null;
+    username?: string | null;
+  };
+};
+
 export function createAuthOptions(env: AuthEnv): AuthOptions {
   return {
     appName: "gyeoltare",
-    basePath: "/api/v1/auth",
+    basePath: AUTH_BASE_PATH,
     baseURL: env.BETTER_AUTH_URL,
     database: drizzleAdapter(db, {
       provider: "pg",
@@ -49,6 +62,10 @@ export function createAuthOptions(env: AuthEnv): AuthOptions {
     secrets: parseBetterAuthSecrets(env.BETTER_AUTH_SECRETS),
     trustedOrigins: [env.WEB_ORIGIN],
   };
+}
+
+export function createAuth(env: AuthEnv): AuthInstance {
+  return betterAuth(createAuthOptions(env));
 }
 
 function parseBetterAuthSecrets(secretList: string) {

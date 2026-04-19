@@ -1,4 +1,4 @@
-import type { AuthOptions } from "./shared";
-import { createAuthOptions } from "./shared";
+import type { AuthOptions } from "./server";
+import { createAuthOptions } from "./server";
 
 export const auth: { options: AuthOptions } = { options: createAuthOptions(process.env as never) };

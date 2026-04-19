@@ -55,7 +55,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   reactCompiler: true,
-  transpilePackages: ["@gyeoltare/api-client", "@gyeoltare/db"],
+  transpilePackages: ["@gyeoltare/api", "@gyeoltare/api-client"],
   typedRoutes: true,
 
   ...(isProduction && {
