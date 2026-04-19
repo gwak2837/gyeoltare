@@ -46,8 +46,6 @@
 
 - PostgreSQL + Drizzle를 사용한다.
 - Drizzle migration 파일은 사용하지 않고 `drizzle-kit push`만 사용한다.
-- DB 정책은 `read-direct + write-via-Hono`다.
-- 모든 write, transaction, 외부 API 호출, 감사로그, 이벤트 발행은 Hono 서비스 계층으로 보낸다.
 
 ## Contracts And i18n
 
