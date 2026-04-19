@@ -13,6 +13,7 @@
 - https://cheongwoldang.com/landing/bluemoonladysaju26
 - https://luckyloveme.com/analysis-compatibility
 - https://sajunaru.com/
+- https://www.ingan.ai/ko/insta/web/2920a90d-2246-4206-86b6-ff46bbddca8d
 
 ## 공개 레포
 
