@@ -16,7 +16,10 @@
 - runtime은 `web=Node.js`, `api=Bun`이다.
 - 배포는 same-domain reverse proxy를 전제로 한다.
 - `/* -> Next`, `/api/* -> Hono`
-- `GET /live -> Next`, `GET /api/live -> Hono`
+- `GET /health -> Next`
+- `GET /api/live -> Hono`
+- `GET /api/ready -> Hono`
+- `GET /api/startup -> Hono`
 
 ## Web Rules
 
