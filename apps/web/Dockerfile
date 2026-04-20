@@ -43,9 +43,11 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=build /workspace/apps/web/public ./public
+COPY --from=build --chown=nextjs:nodejs /workspace/apps/web/public ./apps/web/public
 COPY --from=build --chown=nextjs:nodejs /workspace/apps/web/.next/standalone ./
-COPY --from=build --chown=nextjs:nodejs /workspace/apps/web/.next/static ./.next/static
+COPY --from=build --chown=nextjs:nodejs /workspace/apps/web/.next/static ./apps/web/.next/static
+
+WORKDIR /app/apps/web
 
 USER nextjs
 
