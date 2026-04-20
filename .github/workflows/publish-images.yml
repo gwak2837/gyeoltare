@@ -72,8 +72,6 @@ jobs:
           build-args: |
             CI=true
             COMMIT_SHA=${{ github.sha }}
-          cache-from: type=gha,scope=publish-${{ matrix.app }}
-          cache-to: type=gha,mode=max,scope=publish-${{ matrix.app }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           provenance: mode=max
