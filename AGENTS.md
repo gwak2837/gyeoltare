@@ -14,7 +14,7 @@
 
 - workspace package scope는 전부 `@gyeoltare/*`를 사용한다.
 - runtime은 `web=Node.js`, `api=Bun`이다.
-- 배포는 same-domain reverse proxy를 전제로 한다.
+- 배포는 same-domain을 전제로 한다.
 - `/* -> Next`, `/api/* -> Hono`
 - `GET /health -> Next`
 - `GET /api/live -> Hono`

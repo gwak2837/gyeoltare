@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const isProduction = process.env.NODE_ENV === "production";
 const commitSHA = process.env.COMMIT_SHA;
+const apiOrigin = process.env.API_ORIGIN ?? "http://localhost:3001";
 
 const cspHeader = `
   default-src 'self';
@@ -46,12 +47,7 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
-  rewrites: async () => [
-    {
-      source: "/api/:path*",
-      destination: `${process.env.API_ORIGIN ?? "http://localhost:3001"}/api/:path*`,
-    },
-  ],
+
   output: "standalone",
   poweredByHeader: false,
   reactCompiler: true,
@@ -64,6 +60,16 @@ const nextConfig: NextConfig = {
   ...(commitSHA && {
     deploymentId: commitSHA,
     generateBuildId: () => commitSHA,
+  }),
+
+  // NOTE: 로컬 개발 환경에선 포트가 달라 리버스 프록시가 필요해요.
+  ...(!isProduction && {
+    rewrites: async () => [
+      {
+        source: "/api/:path*",
+        destination: `${apiOrigin}/api/:path*`,
+      },
+    ],
   }),
 };
 
