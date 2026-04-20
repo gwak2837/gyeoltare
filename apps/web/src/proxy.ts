@@ -22,17 +22,12 @@ export function proxy(request: NextRequest) {
   return NextResponse.redirect(redirectUrl);
 }
 
+// https://clerk.com/blog/skip-nextjs-middleware-static-and-public-files
+// https://nextjs.org/docs/app/guides/content-security-policy#adding-a-nonce-with-proxy
 export const config = {
   matcher: [
     {
-      source: "/((?!.*\\.|_next/static|_next/image).*)",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
-    },
-    {
-      source: "/((?!.*\\.|_next/static|_next/image).*)",
+      source: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },

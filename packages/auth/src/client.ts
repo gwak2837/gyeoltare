@@ -11,13 +11,7 @@ type GyeoltareAuthClientOptions = {
   plugins: [ReturnType<typeof twoFactorClient>, ReturnType<typeof passkeyClient>, ReturnType<typeof usernameClient>];
 };
 
-type GyeoltareAuthClient = ReturnType<typeof createAuthClient<GyeoltareAuthClientOptions>>;
-
-function createGyeoltareAuthClient(): GyeoltareAuthClient {
-  return createAuthClient<GyeoltareAuthClientOptions>({
-    basePath: AUTH_BASE_PATH,
-    plugins: [twoFactorClient(), passkeyClient(), usernameClient()],
-  });
-}
-
-export const authClient: GyeoltareAuthClient = createGyeoltareAuthClient();
+export const authClient = createAuthClient<GyeoltareAuthClientOptions>({
+  basePath: AUTH_BASE_PATH,
+  plugins: [twoFactorClient(), passkeyClient(), usernameClient()],
+});

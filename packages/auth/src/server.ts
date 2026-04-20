@@ -9,11 +9,9 @@ import { AUTH_BASE_PATH } from "./constants";
 
 export type AuthEnv = {
   DATABASE_URL: string;
-  BETTER_AUTH_PASSKEY_ORIGIN: string;
   BETTER_AUTH_PASSKEY_RP_ID: string;
   BETTER_AUTH_PASSKEY_RP_NAME: string;
   BETTER_AUTH_SECRETS: string;
-  BETTER_AUTH_URL: string;
   WEB_ORIGIN: string;
 } & Record<string, unknown>;
 
@@ -41,7 +39,7 @@ export function createAuthOptions(env: AuthEnv): AuthOptions {
   return {
     appName: "gyeoltare",
     basePath: AUTH_BASE_PATH,
-    baseURL: env.BETTER_AUTH_URL,
+    baseURL: env.WEB_ORIGIN,
     database: drizzleAdapter(db, {
       provider: "pg",
       schema,
@@ -54,7 +52,7 @@ export function createAuthOptions(env: AuthEnv): AuthOptions {
       twoFactor(),
       username(),
       passkey({
-        origin: env.BETTER_AUTH_PASSKEY_ORIGIN,
+        origin: env.WEB_ORIGIN,
         rpID: env.BETTER_AUTH_PASSKEY_RP_ID,
         rpName: env.BETTER_AUTH_PASSKEY_RP_NAME,
       }),

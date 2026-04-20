@@ -8,7 +8,7 @@
     "build": "turbo build",
     "check:ci": "pnpm run lint && pnpm run typecheck && pnpm run test:all && pnpm run build",
     "check:pre-commit": "pnpm exec biome check --write --staged --no-errors-on-unmatched",
-    "check:pre-push": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "check:pre-push": "pnpm run lint && pnpm run typecheck && pnpm run test:all",
     "db:down": "docker compose -f infra/docker-compose.dev.yml down",
     "db:prepare": "docker compose -f infra/docker-compose.dev.yml up -d --wait postgres && pnpm run db:push",
     "db:prepare:dev": "docker compose -f infra/docker-compose.dev.yml up -d --wait postgres && pnpm run db:push:dev",
@@ -27,9 +27,9 @@
     "lint": "pnpm exec biome ci .",
     "lint:fix": "pnpm exec biome check --write .",
     "prepare": "lefthook install",
-    "test": "bun test",
-    "test:all": "bun test && bun test --timeout 120000 ./test/api-integration/**/*.test.ts",
-    "test:api:integration": "bun test --timeout 120000 ./test/api-integration/**/*.test.ts",
+    "test": "bun test apps packages --pass-with-no-tests",
+    "test:all": "bun test apps packages --pass-with-no-tests && bun test --timeout 120000 --max-concurrency=1 ./test/api-integration/**/*.test.ts",
+    "test:api:integration": "bun test --timeout 120000 --max-concurrency=1 ./test/api-integration/**/*.test.ts",
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
