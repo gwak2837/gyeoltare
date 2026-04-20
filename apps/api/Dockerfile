@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.10
 
 # 1. 설치
-FROM node:24-slim AS deps
+FROM node:24-alpine AS deps
 
 RUN corepack enable
 
@@ -11,6 +11,7 @@ WORKDIR /workspace
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json biome.jsonc ./
 COPY apps/api/package.json apps/api/package.json
+COPY packages/auth/package.json packages/auth/package.json
 COPY packages/db/package.json packages/db/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
 COPY packages/util/package.json packages/util/package.json
@@ -22,7 +23,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lo
 COPY . .
 
 # 2. 빌드
-FROM oven/bun:1.3-slim AS build
+FROM oven/bun:1.3-alpine AS build
 
 WORKDIR /workspace
 

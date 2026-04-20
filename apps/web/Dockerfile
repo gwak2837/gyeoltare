@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.10
 
 # 1. 설치/빌드
-FROM node:24-slim AS build
+FROM node:24-alpine AS build
 
 RUN corepack enable
 
