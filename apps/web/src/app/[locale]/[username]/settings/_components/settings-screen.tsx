@@ -450,9 +450,9 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
                 )}
 
                 {enrollmentData ? (
-                  <div className="space-y-4 rounded-[1.5rem] border border-page-border bg-page-soft p-5">
+                  <div className="space-y-4 rounded-3xl border border-page-border bg-page-soft p-5">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-                      <div className="flex h-44 w-44 items-center justify-center rounded-[1.5rem] bg-white p-4 shadow-sm">
+                      <div className="flex h-44 w-44 items-center justify-center rounded-3xl bg-white p-4 shadow-sm">
                         <QRCodeSVG size={152} value={enrollmentData.totpURI} />
                       </div>
                       <div className="flex-1">
@@ -484,7 +484,7 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
                 ) : null}
               </div>
 
-              <div className="rounded-[1.5rem] border border-page-border bg-page-soft p-5">
+              <div className="rounded-3xl border border-page-border bg-page-soft p-5">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <h3 className="font-semibold text-lg">{settingsT("totp.backupTitle")}</h3>
@@ -527,7 +527,7 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
 
           <SectionShell description={settingsT("passkeys.description")} title={settingsT("passkeys.title")}>
             <div className="grid gap-5 lg:grid-cols-[0.38fr_0.62fr]">
-              <div className="space-y-4 rounded-[1.5rem] border border-page-border bg-page-soft p-5">
+              <div className="space-y-4 rounded-3xl border border-page-border bg-page-soft p-5">
                 <AuthField label={settingsT("passkeys.nameLabel")}>
                   <AuthInput
                     onChange={(event) => setPasskeyName(event.target.value)}
@@ -556,13 +556,13 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
                 {passkeysQuery.isPending ? (
                   <InlineNotice>Passkeys are loading.</InlineNotice>
                 ) : passkeys.length === 0 ? (
-                  <div className="rounded-[1.5rem] border border-page-border border-dashed bg-page-soft px-5 py-6">
+                  <div className="rounded-3xl border border-page-border border-dashed bg-page-soft px-5 py-6">
                     <h3 className="font-semibold text-lg">{settingsT("passkeys.emptyTitle")}</h3>
                     <p className="mt-2 text-page-ink/68 text-sm leading-6">{settingsT("passkeys.emptyDescription")}</p>
                   </div>
                 ) : (
                   passkeys.map((passkey) => (
-                    <article className="rounded-[1.5rem] border border-page-border bg-page-soft p-5" key={passkey.id}>
+                    <article className="rounded-3xl border border-page-border bg-page-soft p-5" key={passkey.id}>
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0 flex-1">
                           <input
@@ -640,7 +640,7 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
               <label className="flex items-start gap-3 rounded-2xl border border-page-border bg-page-soft px-4 py-3 text-sm leading-6 md:col-span-2">
                 <input
                   checked={revokeOtherSessions}
-                  className="mt-1 h-4 w-4 rounded border-page-border accent-[var(--page-accent)]"
+                  className="mt-1 h-4 w-4 rounded border-page-border accent-page-accent"
                   onChange={(event) => setRevokeOtherSessions(event.target.checked)}
                   type="checkbox"
                 />
