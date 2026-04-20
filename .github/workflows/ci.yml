@@ -69,6 +69,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
       - name: Validate Docker build
         uses: docker/build-push-action@v7
         with:
@@ -82,3 +85,16 @@ jobs:
           pull: true
           push: false
           tags: local/gyeoltare-${{ matrix.app }}:ci
+
+      - name: Scan built image
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          scan-type: image
+          image-ref: local/gyeoltare-${{ matrix.app }}:ci
+          exit-code: "1"
+          format: table
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+        env:
+          TRIVY_USERNAME: ${{ github.actor }}
+          TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
