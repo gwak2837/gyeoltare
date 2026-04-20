@@ -82,6 +82,7 @@ jobs:
             COMMIT_SHA=${{ github.sha }}
           platforms: linux/amd64
           provenance: false
+          load: true
           pull: true
           push: false
           tags: local/gyeoltare-${{ matrix.app }}:ci
