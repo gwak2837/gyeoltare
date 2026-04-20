@@ -14,7 +14,9 @@ ENV NODE_ENV=production
 WORKDIR /workspace
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.json biome.jsonc ./
+COPY apps/api/package.json apps/api/package.json
 COPY apps/web/package.json apps/web/package.json
+COPY packages/auth/package.json packages/auth/package.json
 COPY packages/api-client/package.json packages/api-client/package.json
 COPY packages/db/package.json packages/db/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
