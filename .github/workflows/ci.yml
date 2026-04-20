@@ -80,7 +80,7 @@ jobs:
           build-args: |
             CI=true
             COMMIT_SHA=${{ github.sha }}
-          platforms: linux/amd64
+          platforms: linux/arm64
           provenance: false
           load: true
           pull: true

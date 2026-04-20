@@ -73,7 +73,7 @@ jobs:
             CI=true
             COMMIT_SHA=${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64
+          platforms: linux/arm64
           provenance: mode=max
           pull: true
           push: true
