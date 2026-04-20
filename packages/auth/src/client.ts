@@ -6,12 +6,12 @@ import { createAuthClient } from "better-auth/react";
 
 import { AUTH_BASE_PATH } from "./constants";
 
-type GyeoltareAuthClientOptions = {
+type Options = {
   basePath: typeof AUTH_BASE_PATH;
   plugins: [ReturnType<typeof twoFactorClient>, ReturnType<typeof passkeyClient>, ReturnType<typeof usernameClient>];
 };
 
-export const authClient = createAuthClient<GyeoltareAuthClientOptions>({
+export const authClient = createAuthClient<Options>({
   basePath: AUTH_BASE_PATH,
   plugins: [twoFactorClient(), passkeyClient(), usernameClient()],
 });
