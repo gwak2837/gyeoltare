@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "@gyeoltare/typescript-config": "workspace:*",
-    "@types/bun": "^1.2.15"
+    "@types/bun": "^1.3.12"
   }
 }

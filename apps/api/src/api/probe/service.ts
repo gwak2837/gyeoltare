@@ -1,5 +1,4 @@
 import { db } from "@gyeoltare/db/client";
-import { sql } from "drizzle-orm";
 
 type ProbeName = "live" | "ready" | "startup";
 
@@ -41,7 +40,7 @@ export async function getReadyResponse(): Promise<ProbeResponse> {
   }
 
   try {
-    await db.execute(sql`select 1`);
+    await db.execute("select 1");
 
     return createProbeResponse("ready", 200);
   } catch {
