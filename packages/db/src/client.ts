@@ -2,10 +2,15 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
 import * as betterAuthSchema from "./schema/better-auth.generated";
+import { DEFAULT_DATABASE_URL, getDatabaseSSLOptions } from "./ssl";
 
-const databaseUrl = process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:55432/gyeoltare";
+const databaseURL = process.env.DATABASE_URL ?? DEFAULT_DATABASE_URL;
+const databaseSSL = getDatabaseSSLOptions(databaseURL);
 
-const client = postgres(databaseUrl, { prepare: false });
+const client = postgres(databaseURL, {
+  prepare: false,
+  ...(databaseSSL && { ssl: databaseSSL }),
+});
 
 export const schema = {
   ...betterAuthSchema,
