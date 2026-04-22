@@ -12,24 +12,19 @@ const definitions = [
   {
     app: "web",
     artifact: "published-image-web.json",
-    targetByEnvironment: {
-      prod: "k8s/app/gyeoltare/web/prod/image-patch.yaml",
-      stg: "k8s/app/gyeoltare/web/stg/image-patch.yaml",
-    },
   },
   {
     app: "api",
     artifact: "published-image-api.json",
-    targetByEnvironment: {
-      prod: "k8s/app/gyeoltare/api/prod/image-patch.yaml",
-      stg: "k8s/app/gyeoltare/api/stg/image-patch.yaml",
-    },
   },
 ];
 
 if (!["prod", "stg"].includes(environment)) {
   throw new Error(`Unsupported environment: ${environment}`);
 }
+
+const targetPath = resolve(opsRepoDir, `k8s/app/gyeoltare/${environment}/kustomization.yaml`);
+let content = readFileSync(targetPath, "utf8");
 
 for (const definition of definitions) {
   const artifactPath = resolve(artifactsDir, definition.artifact);
@@ -40,19 +35,16 @@ for (const definition of definitions) {
     throw new Error(`SHA tag not found in ${artifactPath}`);
   }
 
-  const imageReference = `${imageTag}@${artifact.digest}`;
-  const targetPath = resolve(opsRepoDir, definition.targetByEnvironment[environment]);
+  const newTag = imageTag.slice(`${artifact.image}:`.length);
 
-  writeFileSync(
-    targetPath,
-    `- op: replace
-  path: /spec/template/spec/containers/0/image
-  value: ${imageReference}
-`,
+  content = updateImageEntry(content, artifact.image, newTag, artifact.digest, targetPath);
+
+  console.log(
+    `Updated ${definition.app} ${environment} image in kustomization: ${artifact.image}:${newTag}@${artifact.digest}`,
   );
-
-  console.log(`Updated ${definition.app} ${environment} image patch: ${imageReference}`);
 }
+
+writeFileSync(targetPath, content);
 
 function parseArgs(argv) {
   const parsed = new Map();
@@ -85,4 +77,18 @@ function requiredArg(argsMap, key) {
   }
 
   return value;
+}
+
+function updateImageEntry(content, imageName, newTag, digest, filePath) {
+  const pattern = new RegExp(`(^\\s*- name: ${escapeRegExp(imageName)}\\n)(\\s+)newTag: .*\\n\\2digest: .*\\n`, "m");
+
+  if (!pattern.test(content)) {
+    throw new Error(`Image entry not found for ${imageName} in ${filePath}`);
+  }
+
+  return content.replace(pattern, `$1$2newTag: ${newTag}\n$2digest: ${digest}\n`);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

@@ -178,13 +178,13 @@ jobs:
         with:
           kustomize-version: 5.6.0
 
-      - name: Update staging image patches
+      - name: Update staging kustomization images
         run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment stg
 
       - name: Validate staging kustomize build
-        run: kustomize build ./ops/k8s/app/gyeoltare/env/stg >/dev/null
+        run: kustomize build ./ops/k8s/app/gyeoltare/stg >/dev/null
 
-      - name: Ensure only staging image patches changed
+      - name: Ensure only staging kustomization changed
         id: changes
         working-directory: ops
         run: |
@@ -197,7 +197,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/api/stg/image-patch.yaml|k8s/app/gyeoltare/web/stg/image-patch.yaml)
+              k8s/app/gyeoltare/stg/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -225,7 +225,7 @@ jobs:
         run: |
           git config user.name "${{ steps.ops-app-token.outputs.app-slug }}[bot]"
           git config user.email "${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
-          git add k8s/app/gyeoltare/web/stg/image-patch.yaml k8s/app/gyeoltare/api/stg/image-patch.yaml
+          git add k8s/app/gyeoltare/stg/kustomization.yaml
           git commit -m "chore(stg): promote images from ${SOURCE_SHA}"
           git push origin HEAD:main
 
@@ -275,13 +275,13 @@ jobs:
         with:
           kustomize-version: 5.6.0
 
-      - name: Update production image patches
+      - name: Update production kustomization images
         run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment prod
 
       - name: Validate production kustomize build
-        run: kustomize build ./ops/k8s/app/gyeoltare/env/prod >/dev/null
+        run: kustomize build ./ops/k8s/app/gyeoltare/prod >/dev/null
 
-      - name: Ensure only production image patches changed
+      - name: Ensure only production kustomization changed
         id: changes
         working-directory: ops
         run: |
@@ -294,7 +294,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/api/prod/image-patch.yaml|k8s/app/gyeoltare/web/prod/image-patch.yaml)
+              k8s/app/gyeoltare/prod/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -329,11 +329,10 @@ jobs:
           body: |
             ## Summary
             - update production image digests from `gyeoltare` `main`
-            - keep the production rollout change limited to the prod image patch files
+            - keep the production rollout change limited to the prod kustomization image entries
 
             ## Source
             - app repo commit: `${{ github.sha }}`
             - workflow run: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
           add-paths: |
-            k8s/app/gyeoltare/api/prod/image-patch.yaml
-            k8s/app/gyeoltare/web/prod/image-patch.yaml
+            k8s/app/gyeoltare/prod/kustomization.yaml
