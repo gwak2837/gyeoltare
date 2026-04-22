@@ -27,3 +27,11 @@ pnpm run dev
 
 - `apps/web` runs on Node.js and serves HTML/UI only.
 - `apps/api` runs on Bun and owns all mutations and reusable backend workflows.
+
+## Deployment automation
+
+- `.github/workflows/publish-images.yml` publishes `web` and `api` images to GHCR with SBOM, provenance, and cosign signatures.
+- `stage` branch publish updates the `stg` image patches in `gwak2837/gyeoltare-ops` automatically so Argo CD can reconcile staging.
+- `main` branch publish opens a PR in `gwak2837/gyeoltare-ops` that updates the `prod` image patches.
+- cross-repo staging update and production PR creation both use a GitHub App installation token minted from repository variable `OPS_REPO_APP_CLIENT_ID` and secret `OPS_REPO_APP_PRIVATE_KEY`.
+- tag publish keeps publishing release images to GHCR but does not change `gwak2837/gyeoltare-ops` automatically.

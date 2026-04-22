@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - stage
     tags:
       - "v*.*.*"
 
@@ -131,3 +132,208 @@ jobs:
               echo "  - \`${tag}\`"
             done
           } >> "$GITHUB_STEP_SUMMARY"
+
+  update-staging:
+    if: github.ref == 'refs/heads/stage'
+    needs: publish
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout app repository
+        uses: actions/checkout@v6
+
+      - name: Download published image metadata
+        uses: actions/download-artifact@v8
+        with:
+          pattern: published-image-*
+          path: published-images
+          merge-multiple: true
+
+      - name: Create GitHub App token for ops repository
+        id: ops-app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.OPS_REPO_APP_CLIENT_ID }}
+          private-key: ${{ secrets.OPS_REPO_APP_PRIVATE_KEY }}
+          owner: gwak2837
+          repositories: |
+            gyeoltare-ops
+          permission-contents: write
+
+      - name: Checkout ops repository
+        uses: actions/checkout@v6
+        with:
+          repository: gwak2837/gyeoltare-ops
+          ref: main
+          fetch-depth: 0
+          path: ops
+          token: ${{ steps.ops-app-token.outputs.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v3
+        with:
+          kustomize-version: 5.6.0
+
+      - name: Update staging image patches
+        run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment stg
+
+      - name: Validate staging kustomize build
+        run: kustomize build ./ops/k8s/app/gyeoltare/env/stg >/dev/null
+
+      - name: Ensure only staging image patches changed
+        id: changes
+        working-directory: ops
+        run: |
+          changed_files="$(git diff --name-only)"
+
+          if [ -z "$changed_files" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          while IFS= read -r file; do
+            case "$file" in
+              k8s/app/gyeoltare/api/stg/image-patch.yaml|k8s/app/gyeoltare/web/stg/image-patch.yaml)
+                ;;
+              *)
+                echo "Unexpected file changed: $file" >&2
+                exit 1
+                ;;
+            esac
+          done <<EOF
+          $changed_files
+          EOF
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Get GitHub App bot user ID
+        if: steps.changes.outputs.changed == 'true'
+        id: app-bot-user
+        run: echo "user-id=$(gh api "/users/${{ steps.ops-app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.ops-app-token.outputs.token }}
+
+      - name: Commit staging image promotion
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: ops
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          git config user.name "${{ steps.ops-app-token.outputs.app-slug }}[bot]"
+          git config user.email "${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
+          git add k8s/app/gyeoltare/web/stg/image-patch.yaml k8s/app/gyeoltare/api/stg/image-patch.yaml
+          git commit -m "chore(stg): promote images from ${SOURCE_SHA}"
+          git push origin HEAD:main
+
+  open-production-pull-request:
+    if: github.ref == 'refs/heads/main'
+    needs: publish
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout app repository
+        uses: actions/checkout@v6
+
+      - name: Download published image metadata
+        uses: actions/download-artifact@v8
+        with:
+          pattern: published-image-*
+          path: published-images
+          merge-multiple: true
+
+      - name: Create GitHub App token for ops repository
+        id: ops-app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.OPS_REPO_APP_CLIENT_ID }}
+          private-key: ${{ secrets.OPS_REPO_APP_PRIVATE_KEY }}
+          owner: gwak2837
+          repositories: |
+            gyeoltare-ops
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Checkout ops repository
+        uses: actions/checkout@v6
+        with:
+          repository: gwak2837/gyeoltare-ops
+          ref: main
+          fetch-depth: 0
+          path: ops
+          token: ${{ steps.ops-app-token.outputs.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v3
+        with:
+          kustomize-version: 5.6.0
+
+      - name: Update production image patches
+        run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment prod
+
+      - name: Validate production kustomize build
+        run: kustomize build ./ops/k8s/app/gyeoltare/env/prod >/dev/null
+
+      - name: Ensure only production image patches changed
+        id: changes
+        working-directory: ops
+        run: |
+          changed_files="$(git diff --name-only)"
+
+          if [ -z "$changed_files" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          while IFS= read -r file; do
+            case "$file" in
+              k8s/app/gyeoltare/api/prod/image-patch.yaml|k8s/app/gyeoltare/web/prod/image-patch.yaml)
+                ;;
+              *)
+                echo "Unexpected file changed: $file" >&2
+                exit 1
+                ;;
+            esac
+          done <<EOF
+          $changed_files
+          EOF
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Get GitHub App bot user ID
+        if: steps.changes.outputs.changed == 'true'
+        id: app-bot-user
+        run: echo "user-id=$(gh api "/users/${{ steps.ops-app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.ops-app-token.outputs.token }}
+
+      - name: Create production promotion pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          path: ops
+          token: ${{ steps.ops-app-token.outputs.token }}
+          branch: automation/promote-prod-${{ github.sha }}
+          delete-branch: true
+          commit-message: "chore(prod): promote images from ${{ github.sha }}"
+          title: "chore(prod): promote images from ${{ github.sha }}"
+          author: ${{ steps.ops-app-token.outputs.app-slug }}[bot] <${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com>
+          committer: ${{ steps.ops-app-token.outputs.app-slug }}[bot] <${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com>
+          body: |
+            ## Summary
+            - update production image digests from `gyeoltare` `main`
+            - keep the production rollout change limited to the prod image patch files
+
+            ## Source
+            - app repo commit: `${{ github.sha }}`
+            - workflow run: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+          add-paths: |
+            k8s/app/gyeoltare/api/prod/image-patch.yaml
+            k8s/app/gyeoltare/web/prod/image-patch.yaml
