@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const schema = z.object({
-  API_ORIGIN: z.url().default("http://localhost:3001"),
   API_PORT: z.coerce.number().int().positive().default(3001),
   BETTER_AUTH_PASSKEY_RP_ID: z.string().min(1).default("localhost"),
   BETTER_AUTH_PASSKEY_RP_NAME: z.string().min(1).default("gyeoltare"),
@@ -15,7 +14,6 @@ const schema = z.object({
 });
 
 export const env = schema.parse({
-  API_ORIGIN: process.env.API_ORIGIN,
   API_PORT: process.env.API_PORT,
   BETTER_AUTH_PASSKEY_RP_ID: process.env.BETTER_AUTH_PASSKEY_RP_ID,
   BETTER_AUTH_PASSKEY_RP_NAME: process.env.BETTER_AUTH_PASSKEY_RP_NAME,
