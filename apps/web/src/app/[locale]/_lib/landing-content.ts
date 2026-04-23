@@ -20,7 +20,7 @@ export const factCards = [
     title: "하트 이모지가 10배 늘어나는 순간",
   },
   {
-    body: "핵심은 진단이 아니라 대화 안의 반복 패턴이에요. TalkLog는 공격 도구가 아닌 거울로 보여줘요.",
+    body: "핵심은 진단이 아니라 대화 안의 반복 패턴이에요. 결타래는 공격 도구가 아닌 거울로 보여줘요.",
     source: "Gottman Love Lab",
     title: "대화 패턴은 관계의 힌트를 남겨요",
   },
