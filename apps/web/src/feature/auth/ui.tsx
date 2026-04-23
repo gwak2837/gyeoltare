@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { type ComponentPropsWithoutRef, cloneElement, isValidElement, type ReactNode, useId } from "react";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -28,10 +28,17 @@ export function AuthHeading({ description, eyebrow, title }: { description: stri
 }
 
 export function AuthField({ children, hint, label }: { children: ReactNode; hint?: string; label: string }) {
+  const generatedId = useId();
+  const childControl = isValidElement<{ id?: string }>(children) ? children : null;
+  const controlId = childControl?.props.id ?? generatedId;
+  const control = childControl ? cloneElement(childControl, { id: controlId }) : children;
+
   return (
     <div className="block">
-      <span className="mb-2 block font-medium text-page-ink text-sm">{label}</span>
-      {children}
+      <label className="mb-2 block font-medium text-page-ink text-sm" htmlFor={controlId}>
+        {label}
+      </label>
+      {control}
       {hint ? <span className="mt-2 block text-page-ink/55 text-xs leading-5">{hint}</span> : null}
     </div>
   );
@@ -65,7 +72,7 @@ export function PrimaryButton({ className, ...props }: ComponentPropsWithoutRef<
   return (
     <button
       className={cn(
-        "inline-flex w-full items-center justify-center rounded-full bg-page-ink px-5 py-3 font-semibold text-sm text-white transition hover:-translate-y-0.5 hover:bg-page-ink/92 disabled:cursor-not-allowed disabled:opacity-55",
+        "inline-flex w-full touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 py-3 font-semibold text-sm text-white transition hover:-translate-y-0.5 hover:bg-page-ink/92 focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-55",
         className,
       )}
       {...props}
@@ -77,7 +84,7 @@ export function SecondaryButton({ className, ...props }: ComponentPropsWithoutRe
   return (
     <button
       className={cn(
-        "inline-flex w-full items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition hover:-translate-y-0.5 hover:border-page-accent/40 hover:bg-page-soft disabled:cursor-not-allowed disabled:opacity-55",
+        "inline-flex w-full touch-manipulation items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition hover:-translate-y-0.5 hover:border-page-accent/40 hover:bg-page-soft focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-55",
         className,
       )}
       {...props}

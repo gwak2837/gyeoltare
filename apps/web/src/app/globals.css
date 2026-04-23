@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfaf6;
+  --foreground: #241617;
+  --page-accent: #ff4d6d;
+  --page-bg: #fdfaf6;
+  --page-border: #eadbd0;
+  --page-danger: #d93654;
+  --page-ink: #241617;
+  --page-soft: #f7eee6;
+  --page-success: #147a4a;
+  --page-surface: #fffdf9;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-page-accent: var(--page-accent);
+  --color-page-bg: var(--page-bg);
+  --color-page-border: var(--page-border);
+  --color-page-danger: var(--page-danger);
+  --color-page-ink: var(--page-ink);
+  --color-page-soft: var(--page-soft);
+  --color-page-success: var(--page-success);
+  --color-page-surface: var(--page-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@theme {
+  --animate-bubble-rise: bubble-rise 6s ease-in-out infinite;
+  --animate-fact-marquee: fact-marquee 42s linear infinite;
+  --animate-hero-float: hero-float 7s ease-in-out infinite;
+  --animate-report-settle: report-settle 5.8s ease-in-out infinite;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @keyframes hero-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-1deg);
+    }
+
+    50% {
+      transform: translate3d(0, -12px, 0) rotate(1deg);
+    }
+  }
+
+  @keyframes bubble-rise {
+    0%,
+    100% {
+      opacity: 0.76;
+      transform: translate3d(0, 8px, 0);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+
+  @keyframes report-settle {
+    0%,
+    100% {
+      transform: translate3d(0, 6px, 0);
+    }
+
+    50% {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+
+  @keyframes fact-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
 }

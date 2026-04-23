@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { getCurrentSession } from "@/feature/auth/session";
 import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
+import { LandingPage } from "./_components/landing-page";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
@@ -32,7 +32,5 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     notFound();
   }
 
-  const session = await getCurrentSession();
-
-  return <main className=""></main>;
+  return <LandingPage locale={locale} />;
 }
