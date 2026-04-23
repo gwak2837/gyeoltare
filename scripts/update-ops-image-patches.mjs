@@ -23,10 +23,9 @@ if (!["prod", "stg"].includes(environment)) {
   throw new Error(`Unsupported environment: ${environment}`);
 }
 
-const targetPath = resolve(opsRepoDir, `k8s/app/gyeoltare/${environment}/kustomization.yaml`);
-let content = readFileSync(targetPath, "utf8");
-
 for (const definition of definitions) {
+  const targetPath = resolve(opsRepoDir, `k8s/app/gyeoltare/${environment}/${definition.app}/kustomization.yaml`);
+  const content = readFileSync(targetPath, "utf8");
   const artifactPath = resolve(artifactsDir, definition.artifact);
   const artifact = JSON.parse(readFileSync(artifactPath, "utf8"));
   const imageTag = artifact.tags.find((tag) => tag.startsWith(`${artifact.image}:sha-`));
@@ -36,15 +35,14 @@ for (const definition of definitions) {
   }
 
   const newTag = imageTag.slice(`${artifact.image}:`.length);
+  const updatedContent = updateImageEntry(content, artifact.image, newTag, artifact.digest, targetPath);
 
-  content = updateImageEntry(content, artifact.image, newTag, artifact.digest, targetPath);
+  writeFileSync(targetPath, updatedContent);
 
   console.log(
-    `Updated ${definition.app} ${environment} image in kustomization: ${artifact.image}:${newTag}@${artifact.digest}`,
+    `Updated ${definition.app} ${environment} image in ${targetPath}: ${artifact.image}:${newTag}@${artifact.digest}`,
   );
 }
-
-writeFileSync(targetPath, content);
 
 function parseArgs(argv) {
   const parsed = new Map();

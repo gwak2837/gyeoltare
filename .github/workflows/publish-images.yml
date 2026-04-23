@@ -197,7 +197,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/stg/kustomization.yaml)
+              k8s/app/gyeoltare/stg/api/kustomization.yaml|k8s/app/gyeoltare/stg/web/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -225,7 +225,7 @@ jobs:
         run: |
           git config user.name "${{ steps.ops-app-token.outputs.app-slug }}[bot]"
           git config user.email "${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
-          git add k8s/app/gyeoltare/stg/kustomization.yaml
+          git add k8s/app/gyeoltare/stg/api/kustomization.yaml k8s/app/gyeoltare/stg/web/kustomization.yaml
           git commit -m "chore(stg): promote images from ${SOURCE_SHA}"
           git push origin HEAD:main
 
@@ -294,7 +294,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/prod/kustomization.yaml)
+              k8s/app/gyeoltare/prod/api/kustomization.yaml|k8s/app/gyeoltare/prod/web/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -335,4 +335,5 @@ jobs:
             - app repo commit: `${{ github.sha }}`
             - workflow run: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
           add-paths: |
-            k8s/app/gyeoltare/prod/kustomization.yaml
+            k8s/app/gyeoltare/prod/api/kustomization.yaml
+            k8s/app/gyeoltare/prod/web/kustomization.yaml
