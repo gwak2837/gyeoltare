@@ -149,8 +149,7 @@ export const trustItems = [
 
 export const faqs = [
   {
-    answer:
-      "아니요. TalkLog의 제품 원칙은 원문 자체가 아니라 개인정보가 제거된 분석용 Fact Bundle을 다루는 방향이에요.",
+    answer: "아니요. 결타래의 제품 원칙은 원문 자체가 아니라 개인정보가 제거된 분석용 Fact Bundle을 다루는 방향이에요.",
     question: "카톡 원문을 그대로 AI에게 보내나요?",
   },
   {

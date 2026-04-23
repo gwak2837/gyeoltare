@@ -78,7 +78,7 @@ export function LandingPage({ locale }: LandingPageProps) {
               T
             </span>
             <span className="text-lg" translate="no">
-              TalkLog
+              결타래
             </span>
           </Link>
           <div className="hidden items-center gap-8 md:flex">
@@ -488,7 +488,7 @@ function FinalCta({ startPath }: { startPath: ReturnType<typeof getLocalizedPath
       </div>
       <footer className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-page-ink/52 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <p>
-          <span translate="no">TalkLog</span> · 우리의 연대기
+          <span translate="no">결타래</span> · 우리의 연대기
         </p>
         <p>비임상 관계 리포트 · 원문 직접 인용 없음 · 로컬 우선 원칙</p>
       </footer>
