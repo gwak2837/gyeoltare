@@ -11,8 +11,8 @@
 
 ```bash
 pnpm i
-pnpm run db:prepare
-pnpm run dev
+pnpm db:prepare
+pnpm dev
 ```
 
 ## Workspace layout
