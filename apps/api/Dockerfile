@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.10
 
 # 1. 설치
-FROM node:24-bookworm-slim AS deps
+FROM node:24-alpine AS deps
 
 RUN corepack enable
 
@@ -23,7 +23,6 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store pnpm install --frozen-lo
 COPY . .
 
 # 2. 빌드
-# bun --compile output must match the Debian distroless runtime's libc.
 FROM oven/bun:1.3 AS build
 
 WORKDIR /workspace
