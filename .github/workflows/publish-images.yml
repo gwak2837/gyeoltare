@@ -320,10 +320,10 @@ jobs:
         with:
           path: ops
           token: ${{ steps.ops-app-token.outputs.token }}
-          branch: automation/promote-prod-${{ github.sha }}
+          branch: automation/promote-prod
           delete-branch: true
           commit-message: "chore(prod): promote images from ${{ github.sha }}"
-          title: "chore(prod): promote images from ${{ github.sha }}"
+          title: "chore(prod): promote images from main"
           author: ${{ steps.ops-app-token.outputs.app-slug }}[bot] <${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com>
           committer: ${{ steps.ops-app-token.outputs.app-slug }}[bot] <${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com>
           body: |
@@ -331,9 +331,11 @@ jobs:
             - update production image digests from `gyeoltare` `main`
             - keep the production rollout change limited to the prod kustomization image entries
 
-            ## Source
-            - app repo commit: `${{ github.sha }}`
-            - workflow run: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+            ## Links
+            - [Source commit](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            - [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Web image package](${{ github.server_url }}/users/${{ github.repository_owner }}/packages/container/package/gyeoltare-web)
+            - [API image package](${{ github.server_url }}/users/${{ github.repository_owner }}/packages/container/package/gyeoltare-api)
           add-paths: |
             k8s/app/gyeoltare/prod/api/kustomization.yaml
             k8s/app/gyeoltare/prod/web/kustomization.yaml
