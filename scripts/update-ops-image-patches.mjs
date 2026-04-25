@@ -24,7 +24,7 @@ if (!["prod", "stg"].includes(environment)) {
 }
 
 for (const definition of definitions) {
-  const targetPath = resolve(opsRepoDir, `k8s/app/gyeoltare/${environment}/${definition.app}/kustomization.yaml`);
+  const targetPath = resolve(opsRepoDir, `k8s/workload/gyeoltare/${environment}/${definition.app}/kustomization.yaml`);
   const content = readFileSync(targetPath, "utf8");
   const artifactPath = resolve(artifactsDir, definition.artifact);
   const artifact = JSON.parse(readFileSync(artifactPath, "utf8"));

@@ -182,7 +182,7 @@ jobs:
         run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment stg
 
       - name: Validate staging kustomize build
-        run: kustomize build ./ops/k8s/app/gyeoltare/stg >/dev/null
+        run: kustomize build ./ops/k8s/workload/gyeoltare/stg >/dev/null
 
       - name: Ensure only staging kustomization changed
         id: changes
@@ -197,7 +197,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/stg/api/kustomization.yaml|k8s/app/gyeoltare/stg/web/kustomization.yaml)
+              k8s/workload/gyeoltare/stg/api/kustomization.yaml|k8s/workload/gyeoltare/stg/web/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -225,7 +225,7 @@ jobs:
         run: |
           git config user.name "${{ steps.ops-app-token.outputs.app-slug }}[bot]"
           git config user.email "${{ steps.app-bot-user.outputs.user-id }}+${{ steps.ops-app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
-          git add k8s/app/gyeoltare/stg/api/kustomization.yaml k8s/app/gyeoltare/stg/web/kustomization.yaml
+          git add k8s/workload/gyeoltare/stg/api/kustomization.yaml k8s/workload/gyeoltare/stg/web/kustomization.yaml
           git commit -m "chore(stg): promote images from ${SOURCE_SHA}"
           git push origin HEAD:main
 
@@ -279,7 +279,7 @@ jobs:
         run: node ./scripts/update-ops-image-patches.mjs --artifacts-dir ./published-images --ops-repo-dir ./ops --environment prod
 
       - name: Validate production kustomize build
-        run: kustomize build ./ops/k8s/app/gyeoltare/prod >/dev/null
+        run: kustomize build ./ops/k8s/workload/gyeoltare/prod >/dev/null
 
       - name: Ensure only production kustomization changed
         id: changes
@@ -294,7 +294,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              k8s/app/gyeoltare/prod/api/kustomization.yaml|k8s/app/gyeoltare/prod/web/kustomization.yaml)
+              k8s/workload/gyeoltare/prod/api/kustomization.yaml|k8s/workload/gyeoltare/prod/web/kustomization.yaml)
                 ;;
               *)
                 echo "Unexpected file changed: $file" >&2
@@ -337,5 +337,5 @@ jobs:
             - [Web image package](${{ github.server_url }}/users/${{ github.repository_owner }}/packages/container/package/gyeoltare-web)
             - [API image package](${{ github.server_url }}/users/${{ github.repository_owner }}/packages/container/package/gyeoltare-api)
           add-paths: |
-            k8s/app/gyeoltare/prod/api/kustomization.yaml
-            k8s/app/gyeoltare/prod/web/kustomization.yaml
+            k8s/workload/gyeoltare/prod/api/kustomization.yaml
+            k8s/workload/gyeoltare/prod/web/kustomization.yaml
