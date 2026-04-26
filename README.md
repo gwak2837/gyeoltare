@@ -27,8 +27,3 @@ pnpm dev
 
 - `apps/web` runs on Node.js and serves HTML/UI only.
 - `apps/api` runs on Bun and owns all mutations and reusable backend workflows.
-
-## Deployment automation
-
-- `stage` branch publish updates the `stg` image patches in `gwak2837/gyeoltare-ops` automatically so Argo CD can reconcile staging.
-- `main` branch publish opens a PR in `gwak2837/gyeoltare-ops` that updates the `prod` image patches.
