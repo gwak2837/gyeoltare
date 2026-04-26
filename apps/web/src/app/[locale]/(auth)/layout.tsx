@@ -133,16 +133,13 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
                 <h3 className="font-black text-[0.8rem]">{t("layout.previewReportTitle")}</h3>
                 <span className="font-bold text-[#746b64] text-xs">{t("layout.previewReportAction")} ›</span>
               </div>
-              <div className="mt-4 rounded-2xl border border-[#eadbd0] bg-white/70 px-4 py-2.5">
-                <div className="flex items-center justify-between">
-                  <p className="font-black text-[#5b534e] text-xs">{t("layout.previewGraphLabel")}</p>
-                  <div className="space-y-1 text-right text-[#8c857f] text-xs leading-4">
-                    <p>{t("layout.previewGraphGood")}</p>
-                    <p>{t("layout.previewGraphNormal")}</p>
-                    <p>{t("layout.previewGraphHard")}</p>
-                  </div>
-                </div>
-                <MiniReportChart />
+              <div className="mt-4 rounded-2xl border border-[#eadbd0] bg-white/70 px-4 py-3">
+                <p className="font-black text-[#5b534e] text-xs">{t("layout.previewGraphLabel")}</p>
+                <MiniReportChart
+                  hardLabel={t("layout.previewGraphHard")}
+                  normalLabel={t("layout.previewGraphNormal")}
+                  goodLabel={t("layout.previewGraphGood")}
+                />
               </div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <PreviewList
@@ -223,21 +220,39 @@ function WorkflowStep({
   );
 }
 
-function MiniReportChart() {
+function MiniReportChart({
+  goodLabel,
+  hardLabel,
+  normalLabel,
+}: {
+  goodLabel: string;
+  hardLabel: string;
+  normalLabel: string;
+}) {
   return (
-    <svg aria-hidden="true" className="mt-1 h-10 w-full" preserveAspectRatio="none" viewBox="0 0 300 72">
-      <path d="M0 52H300" stroke="rgba(36,22,23,0.08)" />
-      <path d="M0 34H300" stroke="rgba(36,22,23,0.08)" />
-      <path d="M0 16H300" stroke="rgba(36,22,23,0.08)" />
-      <path
-        d="M0 50C18 9 34 25 48 26C66 27 68 54 88 50C112 45 112 22 136 31C160 40 160 54 184 46C208 37 208 27 231 37C256 48 266 44 300 18"
-        fill="none"
-        stroke="#ff5b63"
-        strokeLinecap="round"
-        strokeWidth="3"
-      />
-      <circle cx="184" cy="46" fill="#ff5b63" r="4" />
-    </svg>
+    <div className="mt-3 grid w-full grid-cols-[minmax(0,1fr)_2.4rem] items-stretch gap-2">
+      <svg aria-hidden="true" className="aspect-5/1 w-full" fill="none" viewBox="0 0 260 52">
+        <path d="M2 8H258" stroke="rgba(36,22,23,0.07)" />
+        <path d="M2 26H258" stroke="rgba(36,22,23,0.07)" />
+        <path d="M2 44H258" stroke="rgba(36,22,23,0.07)" />
+        <path d="M86 8V44" stroke="rgba(36,22,23,0.055)" />
+        <path d="M172 8V44" stroke="rgba(36,22,23,0.055)" />
+        <path d="M258 8V44" stroke="rgba(36,22,23,0.055)" />
+        <path
+          d="M2 35C10 17 19 3 31 7C43 11 37 27 54 27C70 27 72 16 87 18C104 20 105 40 124 42C143 44 148 25 165 26C181 27 180 37 197 34C215 31 218 49 234 47C246 45 248 33 258 26"
+          stroke="#ff7b73"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+        />
+        <circle cx="197" cy="34" fill="#ff6b63" r="3.4" />
+      </svg>
+      <div aria-hidden="true" className="grid h-full grid-rows-3 break-keep text-[#827972] text-[0.65rem] leading-none">
+        <span className="self-start">{goodLabel}</span>
+        <span className="self-center">{normalLabel}</span>
+        <span className="self-end">{hardLabel}</span>
+      </div>
+    </div>
   );
 }
 
