@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
+import { getCurrentSession } from "@/feature/auth/session";
+import { buildSettingsPath } from "@/feature/auth/shared";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
@@ -59,12 +62,6 @@ export function LandingPage({ locale }: LandingPageProps) {
 
   return (
     <>
-      <a
-        className={`sr-only touch-manipulation focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-page-ink focus:px-5 focus:py-3 focus:font-semibold focus:text-sm focus:text-white ${focusClassName}`}
-        href="#main-content"
-      >
-        본문으로 건너뛰기
-      </a>
       <header className="sticky top-0 z-50 border-page-border/70 border-b bg-page-bg/88 px-[max(1rem,env(safe-area-inset-left))] backdrop-blur-2xl">
         <nav
           aria-label="주요 탐색"
@@ -75,7 +72,7 @@ export function LandingPage({ locale }: LandingPageProps) {
             href={homePath}
           >
             <span className="grid h-9 w-9 place-items-center rounded-2xl bg-page-ink text-white shadow-[0_14px_40px_rgba(36,22,23,0.18)]">
-              T
+              G
             </span>
             <span className="text-lg" translate="no">
               결타래
@@ -92,20 +89,9 @@ export function LandingPage({ locale }: LandingPageProps) {
               </a>
             ))}
           </div>
-          <div className="flex items-center gap-3">
-            <Link
-              className={`hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex ${focusClassName}`}
-              href={loginPath}
-            >
-              로그인
-            </Link>
-            <Link
-              className={`inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5 ${focusClassName}`}
-              href={startPath}
-            >
-              시작하기
-            </Link>
-          </div>
+          <Suspense fallback={<LandingHeaderGuestActions loginPath={loginPath} startPath={startPath} />}>
+            <LandingHeaderActions locale={locale} loginPath={loginPath} startPath={startPath} />
+          </Suspense>
         </nav>
       </header>
 
@@ -123,6 +109,54 @@ export function LandingPage({ locale }: LandingPageProps) {
         <FinalCta startPath={startPath} />
       </main>
     </>
+  );
+}
+
+type LandingHeaderActionsProps = {
+  locale: Locale;
+  loginPath: ReturnType<typeof getLocalizedPath>;
+  startPath: ReturnType<typeof getLocalizedPath>;
+};
+
+async function LandingHeaderActions({ locale, loginPath, startPath }: LandingHeaderActionsProps) {
+  const session = await getCurrentSession();
+  const myPagePath = session?.user.username ? getLocalizedPath(locale, buildSettingsPath(session.user.username)) : null;
+
+  if (myPagePath) {
+    return (
+      <div className="flex items-center gap-3">
+        <Link
+          className={`inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+          href={myPagePath}
+        >
+          마이페이지
+        </Link>
+      </div>
+    );
+  }
+
+  return <LandingHeaderGuestActions loginPath={loginPath} startPath={startPath} />;
+}
+
+function LandingHeaderGuestActions({
+  loginPath,
+  startPath,
+}: Pick<LandingHeaderActionsProps, "loginPath" | "startPath">) {
+  return (
+    <div className="flex items-center gap-3">
+      <Link
+        className={`hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex ${focusClassName}`}
+        href={loginPath}
+      >
+        로그인
+      </Link>
+      <Link
+        className={`inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+        href={startPath}
+      >
+        시작하기
+      </Link>
+    </div>
   );
 }
 
