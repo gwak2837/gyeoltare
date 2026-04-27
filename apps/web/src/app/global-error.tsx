@@ -7,9 +7,9 @@ type GlobalErrorProps = {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   return (
-    <html lang="en">
-      <body>
-        <main className="flex min-h-app-screen items-center justify-center px-safe py-16">
+    <html className="h-full" lang="en">
+      <body className="flex h-full flex-col bg-page-bg font-sans text-page-ink">
+        <main className="flex flex-1 items-center justify-center px-safe py-16">
           <div className="max-w-xl rounded-4xl border border-page-border bg-page-surface px-8 py-10 shadow-[0_24px_80px_rgba(21,33,29,0.08)] backdrop-blur">
             <p className="text-page-accent text-xs uppercase tracking-[0.35em]">Global Error</p>
             <h1 className="mt-4 font-semibold text-4xl">

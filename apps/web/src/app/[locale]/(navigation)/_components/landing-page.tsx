@@ -52,7 +52,7 @@ export function LandingPage({ locale }: LandingPageProps) {
   const startPath = getLocalizedPath(locale, "/sign-up");
 
   return (
-    <main className="overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
+    <main className="flex flex-1 flex-col overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
       <HeroSection coupleTypePath={coupleTypePath} startPath={startPath} />
       <FactSection startPath={startPath} />
       <ValueSection />
@@ -76,11 +76,11 @@ function HeroSection({
   startPath: ReturnType<typeof getLocalizedPath>;
 }) {
   return (
-    <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-[#1a1a1a] px-[env(safe-area-inset-left)] text-white">
+    <section className="relative isolate flex h-full shrink-0 overflow-hidden bg-[#1a1a1a] px-safe-0 text-white">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,rgba(255,77,109,0.34),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(255,215,180,0.18),transparent_28%),linear-gradient(135deg,#1a1a1a_0%,#251719_58%,#120f0e_100%)]" />
       <div className="absolute right-0 bottom-0 -z-10 h-72 w-72 rounded-full bg-page-accent/24 blur-3xl" />
 
-      <div className="mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="mx-auto grid h-full w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="max-w-4xl">
           <p className="font-semibold text-page-accent text-xs uppercase tracking-[0.32em]">
             Zero-Upload-Raw · Fact Bundle · Non-Clinical
@@ -231,7 +231,7 @@ function FactSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
 
 function ValueSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24">
+    <section className="px-safe py-16 sm:py-24">
       <div className="mx-auto grid max-w-7xl gap-10 rounded-[2.5rem] bg-page-ink px-6 py-10 text-white shadow-[0_40px_120px_rgba(36,22,23,0.18)] sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
         <div>
           <p className="font-bold text-page-accent text-sm">핵심 가치</p>
@@ -258,7 +258,7 @@ function ValueSection() {
 
 function ExperienceSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24" id="experience">
+    <section className="px-safe py-16 sm:py-24" id="experience">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="6가지 체험" title="우리 관계 전체를 손에 쥐는 한 권의 앨범" />
         <div className="mt-10 grid gap-px overflow-hidden rounded-4xl border border-page-border bg-page-border md:grid-cols-2 lg:grid-cols-3">
@@ -277,7 +277,7 @@ function ExperienceSection() {
 
 function SampleSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24" id="sample">
+    <section className="px-safe py-16 sm:py-24" id="sample">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="샘플 프리뷰" title="직접 인용 없이도 충분히 우리답게 읽혀요" />
         <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -317,7 +317,7 @@ function SampleSection() {
 
 function HowItWorksSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24">
+    <section className="px-safe py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="How It Works" title="원문보다 안전한 분석 흐름을 먼저 설계했어요" />
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
@@ -336,7 +336,7 @@ function HowItWorksSection() {
 
 function ModeSection({ startPath }: { startPath: ReturnType<typeof getLocalizedPath> }) {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24">
+    <section className="px-safe py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="이용 모드" title="혼자 돌아보거나, 둘이 함께 열어보거나" />
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
@@ -367,7 +367,7 @@ function ModeSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
 
 function PricingSection({ startPath }: { startPath: ReturnType<typeof getLocalizedPath> }) {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24" id="pricing">
+    <section className="px-safe py-16 sm:py-24" id="pricing">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="Pricing" title="먼저 미리보고, 필요할 때 전체 리포트를 열어요" />
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
@@ -407,7 +407,7 @@ function PricingSection({ startPath }: { startPath: ReturnType<typeof getLocaliz
 
 function TrustSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24">
+    <section className="px-safe py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 rounded-[2.5rem] border border-page-border bg-page-surface p-8 shadow-[0_24px_90px_rgba(36,22,23,0.07)] lg:grid-cols-[0.75fr_1.25fr] lg:p-12">
           <div>
@@ -429,7 +429,7 @@ function TrustSection() {
 
 function FaqSection() {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24" id="faq">
+    <section className="px-safe py-16 sm:py-24" id="faq">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="FAQ" title="결정하기 전에 가장 먼저 확인할 것들" />
         <div className="mt-10 divide-y divide-page-border overflow-hidden rounded-4xl border border-page-border bg-page-surface">
@@ -457,7 +457,7 @@ function FaqSection() {
 
 function FinalCta({ startPath }: { startPath: ReturnType<typeof getLocalizedPath> }) {
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-16 sm:py-24">
+    <section className="px-safe py-16 sm:py-24">
       <div className="mx-auto max-w-7xl rounded-[2.7rem] bg-page-accent px-6 py-14 text-center text-white shadow-[0_40px_120px_rgba(255,77,109,0.22)] sm:px-10">
         <p className="font-bold text-sm text-white/70">무료 미리보기</p>
         <h2 className="mx-auto mt-4 max-w-3xl text-balance font-black text-4xl tracking-[-0.05em] sm:text-6xl">

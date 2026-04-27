@@ -182,7 +182,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
   return (
     <section className="w-full">
       {mode === "reauth" && (
-        <div className="flex min-h-[3.65rem] items-center gap-3 rounded-lg border border-[#f4d8c8] bg-[#fff3eb] px-6 text-[#a96855]">
+        <div className="flex items-center gap-3 rounded-lg border border-[#f4d8c8] bg-[#fff3eb] px-6 py-4 text-[#a96855]">
           <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#ef9b80] text-[#e98369]">
             <Danger aria-hidden="true" className="h-3.5 w-3.5" stroke={2} />
           </span>
@@ -208,7 +208,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
             autoCapitalize="off"
             autoComplete="username webauthn"
             autoCorrect="off"
-            className="mt-3 min-h-[3.65rem] w-full rounded-lg border border-[#eadbd0] bg-white px-4 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
+            className="mt-3 h-14 w-full rounded-lg border border-[#eadbd0] bg-white px-4 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
             disabled={isBusy}
             enterKeyHint="next"
             id={identifierId}
@@ -234,7 +234,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
               autoCapitalize="off"
               autoComplete="current-password"
               autoCorrect="off"
-              className="min-h-[3.65rem] w-full rounded-lg border border-[#eadbd0] bg-white px-4 pr-12 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
+              className="h-14 w-full rounded-lg border border-[#eadbd0] bg-white px-4 pr-12 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
               disabled={isBusy}
               enterKeyHint="done"
               id={passwordInputId}
@@ -288,7 +288,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         )}
 
         <button
-          className="mt-9 inline-flex min-h-[3.65rem] w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#ff4d54] px-5 font-black text-base text-white shadow-[0_18px_38px_rgba(255,77,84,0.18)] transition hover:bg-[#f14049] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-9 inline-flex h-14 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#ff4d54] px-5 font-black text-base text-white shadow-[0_18px_38px_rgba(255,77,84,0.18)] transition hover:bg-[#f14049] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isBusy}
           type="submit"
         >
@@ -306,7 +306,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
       </div>
 
       <button
-        className="inline-flex min-h-[3.65rem] w-full touch-manipulation items-center justify-center gap-3 rounded-lg border border-[#ff7d7d] bg-white px-5 font-black text-[#241617] text-base transition hover:bg-[#fff6f2] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-14 w-full touch-manipulation items-center justify-center gap-3 rounded-lg border border-[#ff7d7d] bg-white px-5 font-black text-[#241617] text-base transition hover:bg-[#fff6f2] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isBusy}
         onClick={handlePasskeySignIn}
         type="button"

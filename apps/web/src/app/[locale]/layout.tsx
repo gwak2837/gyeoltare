@@ -61,7 +61,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
         "scheme-light h-full scroll-smooth antialiased motion-reduce:scroll-auto",
       )}
     >
-      <body className="flex min-h-full flex-col bg-page-bg font-sans text-page-ink [text-rendering:optimizeLegibility]">
+      <body className="flex h-full flex-col bg-page-bg font-sans text-page-ink [text-rendering:optimizeLegibility]">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
