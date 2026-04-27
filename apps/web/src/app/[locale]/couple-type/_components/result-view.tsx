@@ -3,6 +3,7 @@ import type { Route } from "next";
 import Link from "next/link";
 
 import { cn } from "@/component/cn";
+import type { Locale } from "@/i18n/config";
 
 import { axisOrder, getAxisOption } from "../_lib/model";
 import type { AxisValue, CoupleTypeContent, CoupleTypeResult } from "../_lib/types";
@@ -10,6 +11,7 @@ import type { AxisValue, CoupleTypeContent, CoupleTypeResult } from "../_lib/typ
 type ResultViewProps = {
   answerCount: number;
   axisDefinitions: CoupleTypeContent["axisDefinitions"];
+  locale: Locale;
   onEdit: () => void;
   onRestart: () => void;
   result: CoupleTypeResult;
@@ -22,6 +24,7 @@ const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 f
 export function ResultView({
   answerCount,
   axisDefinitions,
+  locale,
   onEdit,
   onRestart,
   result,
@@ -29,6 +32,7 @@ export function ResultView({
   ui,
 }: ResultViewProps) {
   const codeLetters = result.code.split("") as AxisValue[];
+  const keepHeadingBreakClassName = locale === "ko" ? "break-keep" : undefined;
 
   return (
     <section className="px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">
@@ -38,7 +42,9 @@ export function ResultView({
             <Sparkles aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
             {ui.resultEyebrow}
           </p>
-          <h1 className="mt-7 break-keep font-black text-4xl leading-tight sm:text-6xl">{result.title}</h1>
+          <h1 className={cn("mt-7 font-black text-4xl leading-tight sm:text-6xl", keepHeadingBreakClassName)}>
+            {result.title}
+          </h1>
           <p className="mt-5 font-black text-2xl text-page-accent">{result.displayCode}</p>
           <p className="mt-5 text-white/70 leading-8">{result.summary}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

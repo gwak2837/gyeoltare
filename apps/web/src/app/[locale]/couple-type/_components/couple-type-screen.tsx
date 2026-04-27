@@ -19,6 +19,7 @@ type CoupleTypeScreenProps = {
 
 type CoupleTypeFlowProps = {
   content: CoupleTypeContent;
+  locale: Locale;
   signUpPath: ReturnType<typeof getLocalizedPath>;
 };
 
@@ -57,12 +58,12 @@ export function CoupleTypeScreen({ content, locale }: CoupleTypeScreenProps) {
         </nav>
       </header>
 
-      <CoupleTypeFlow content={content} signUpPath={signUpPath} />
+      <CoupleTypeFlow content={content} locale={locale} signUpPath={signUpPath} />
     </main>
   );
 }
 
-function CoupleTypeFlow({ content, signUpPath }: CoupleTypeFlowProps) {
+function CoupleTypeFlow({ content, locale, signUpPath }: CoupleTypeFlowProps) {
   const { axisDefinitions, questions, results, ui } = content;
   const [answers, setAnswers] = useState<CoupleTypeAnswers>({});
   const [isResultVisible, setIsResultVisible] = useState(false);
@@ -104,6 +105,7 @@ function CoupleTypeFlow({ content, signUpPath }: CoupleTypeFlowProps) {
     <ResultView
       answerCount={answeredCount}
       axisDefinitions={axisDefinitions}
+      locale={locale}
       onEdit={editAnswers}
       onRestart={restart}
       result={result}
@@ -114,6 +116,7 @@ function CoupleTypeFlow({ content, signUpPath }: CoupleTypeFlowProps) {
     <QuizView
       answers={answers}
       axisDefinitions={axisDefinitions}
+      locale={locale}
       onComplete={showResult}
       onSelect={selectAnswer}
       questions={questions}

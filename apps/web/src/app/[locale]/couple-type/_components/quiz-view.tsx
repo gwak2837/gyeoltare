@@ -4,12 +4,14 @@ import { ArrowLeft, ArrowRight, HeartWaves } from "@mynaui/icons-react";
 import { useState } from "react";
 
 import { cn } from "@/component/cn";
+import type { Locale } from "@/i18n/config";
 
 import type { AxisValue, CoupleTypeAnswers, CoupleTypeContent } from "../_lib/types";
 
 type QuizViewProps = {
   answers: CoupleTypeAnswers;
   axisDefinitions: CoupleTypeContent["axisDefinitions"];
+  locale: Locale;
   onComplete: () => void;
   onSelect: (questionId: string, value: AxisValue) => void;
   questions: CoupleTypeContent["questions"];
@@ -23,7 +25,7 @@ type MiniStatProps = {
 
 const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-page-accent";
 
-export function QuizView({ answers, axisDefinitions, onComplete, onSelect, questions, ui }: QuizViewProps) {
+export function QuizView({ answers, axisDefinitions, locale, onComplete, onSelect, questions, ui }: QuizViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const currentQuestion = questions[currentIndex];
@@ -36,6 +38,7 @@ export function QuizView({ answers, axisDefinitions, onComplete, onSelect, quest
   const isComplete = answeredCount === totalQuestions;
   const axis = axisDefinitions[currentQuestion.axis];
   const canGoNext = Boolean(selectedValue);
+  const keepHeadingBreakClassName = locale === "ko" ? "break-keep" : undefined;
 
   const nextButtonLabel =
     isLastQuestion && selectedValue && isComplete
@@ -81,7 +84,12 @@ export function QuizView({ answers, axisDefinitions, onComplete, onSelect, quest
             <HeartWaves aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
             {ui.heroEyebrow}
           </p>
-          <h1 className="mt-6 break-keep font-black text-4xl leading-tight lg:text-[2.8rem] xl:text-6xl">
+          <h1
+            className={cn(
+              "mt-6 font-black text-4xl leading-tight lg:text-[2.8rem] xl:text-6xl",
+              keepHeadingBreakClassName,
+            )}
+          >
             {ui.heroTitle}
           </h1>
           <p className="mt-5 text-lg text-page-ink/66 leading-8">{ui.heroDescription}</p>
@@ -117,7 +125,9 @@ export function QuizView({ answers, axisDefinitions, onComplete, onSelect, quest
           </div>
 
           <fieldset className="mt-7">
-            <legend className="break-keep font-black text-2xl leading-snug">{currentQuestion.question}</legend>
+            <legend className={cn("font-black text-2xl leading-snug", keepHeadingBreakClassName)}>
+              {currentQuestion.question}
+            </legend>
             <div className="mt-6 grid gap-3">
               {currentQuestion.options.map((option) => {
                 const isSelected = selectedValue === option.value;
