@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
 
 import { coupleTypeContent as en } from "../_content/en";
 import { coupleTypeContent as ja } from "../_content/ja";
@@ -8,6 +9,7 @@ import { axisOrder, calculateCoupleTypeCode } from "./model";
 import type { AxisValue, CoupleTypeContent } from "./types";
 
 const contents = { en, ja, ko, zh } as const satisfies Record<string, CoupleTypeContent>;
+const resultImageDirectory = new URL("../../../../../../public/image/", import.meta.url);
 
 describe("couple type localized content", () => {
   for (const [locale, content] of Object.entries(contents)) {
@@ -35,6 +37,7 @@ describe("couple type localized content", () => {
         expect(result.code).toBe(code);
         expect(result.strengths.length).toBeGreaterThan(0);
         expect(result.title.length).toBeGreaterThan(0);
+        expect(existsSync(new URL(`${code}.png`, resultImageDirectory))).toBe(true);
       }
 
       const firstOptionAnswers = Object.fromEntries(
