@@ -72,7 +72,7 @@ export const coupleTypeQuestions = [
     id: "pace-start",
     options: [
       { label: "想到对方就马上发消息，把聊天带起来", value: "S" },
-      { label: "先攒一点想法，等舒服的时机再接上", value: "H" },
+      { label: "先攒一点想法—话题，等舒服的时机再接上", value: "H" },
     ],
     question: "你们之间的聊天最自然开始的时刻是？",
   },
