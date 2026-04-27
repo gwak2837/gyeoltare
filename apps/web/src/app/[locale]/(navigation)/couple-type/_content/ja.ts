@@ -392,7 +392,7 @@ export const coupleTypeResults = {
   SOQP: {
     code: "SOQP",
     dateMission: "二人だけの短い合図を決めて、今日中に一度先に送ってみてください。",
-    displayCode: "FUCK",
+    displayCode: "FUXK",
     strengths: [
       "会話が止まってもすぐまた火をつけます。",
       "正直な言葉と冗談が混ざり、もどかしさが少ないです。",

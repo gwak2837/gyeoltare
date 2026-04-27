@@ -365,7 +365,7 @@ export const coupleTypeResults = {
   SOQP: {
     code: "SOQP",
     dateMission: "定一个只有你们懂的短呼号，今天之内先发一次。",
-    displayCode: "FUCK",
+    displayCode: "FUXK",
     strengths: [
       "就算聊天停下来，也能很快重新点火。",
       "坦率的话和玩笑混在一起，不太容易憋闷。",

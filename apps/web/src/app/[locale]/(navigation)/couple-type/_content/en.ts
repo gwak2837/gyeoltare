@@ -394,7 +394,7 @@ export const coupleTypeResults = {
   SOQP: {
     code: "SOQP",
     dateMission: "Create a short call sign that only you two use and send it once today.",
-    displayCode: "FUCK",
+    displayCode: "FUXK",
     strengths: [
       "Even when conversation stops, you relight it quickly.",
       "Honest words and jokes mix, reducing frustration.",

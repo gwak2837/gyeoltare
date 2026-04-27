@@ -391,7 +391,7 @@ export const coupleTypeResults = {
   SOQP: {
     code: "SOQP",
     dateMission: "둘만의 짧은 콜사인을 정하고, 오늘 안에 한 번 먼저 보내보세요.",
-    displayCode: "FUCK",
+    displayCode: "FUXK",
     strengths: [
       "대화가 멈춰도 금방 다시 불을 붙여요.",
       "솔직한 말과 장난이 섞여 답답함이 적어요.",

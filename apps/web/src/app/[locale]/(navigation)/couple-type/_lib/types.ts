@@ -13,7 +13,7 @@ export type CoupleTypeDisplayCode =
   | "DEEP"
   | "FIRE"
   | "FOOL"
-  | "FUCK"
+  | "FUXK"
   | "KINK"
   | "KISS"
   | "LOVE"
