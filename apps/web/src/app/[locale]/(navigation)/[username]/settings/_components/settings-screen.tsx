@@ -425,7 +425,7 @@ export function SettingsScreen({ initialSession, locale }: SettingsScreenProps) 
                 ) : (
                   <div className="grid gap-3 sm:grid-cols-3">
                     <Link
-                      className="inline-flex items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition hover:-translate-y-0.5 hover:border-page-accent/40 hover:bg-page-soft"
+                      className="inline-flex items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition-colors hover:border-page-accent/40 hover:bg-page-soft"
                       href={getLocalizedPath(locale, buildBackupCodesPath(currentSession.user.username ?? ""))}
                     >
                       {settingsT("totp.view")}

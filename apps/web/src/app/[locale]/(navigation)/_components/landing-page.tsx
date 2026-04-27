@@ -97,7 +97,7 @@ function HeroSection({
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
               className={cn(
-                "inline-flex min-h-14 w-full flex-1 touch-manipulation items-center justify-center rounded-2xl bg-page-accent px-6 font-bold text-base text-white shadow-[0_24px_80px_rgba(255,77,109,0.34)] transition-transform hover:-translate-y-0.5 sm:w-90",
+                "inline-flex min-h-14 w-full flex-1 touch-manipulation items-center justify-center rounded-2xl bg-page-accent px-6 font-bold text-base text-white shadow-[0_24px_80px_rgba(255,77,109,0.34)] transition-colors hover:bg-page-accent/92 sm:w-90",
                 focusClassName,
               )}
               href={startPath}
@@ -195,7 +195,7 @@ function FactSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
           </div>
           <Link
             className={cn(
-              "inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform hover:-translate-y-0.5",
+              "inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-colors hover:bg-page-ink/92",
               focusClassName,
             )}
             href={startPath}
@@ -342,7 +342,7 @@ function ModeSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {modes.map((mode) => (
             <article
-              className="group rounded-[2.3rem] border border-page-border bg-page-surface p-8 shadow-[0_24px_90px_rgba(36,22,23,0.07)] transition-transform hover:-translate-y-1"
+              className="group rounded-[2.3rem] border border-page-border bg-page-surface p-8 shadow-[0_24px_90px_rgba(36,22,23,0.07)] transition-colors hover:bg-white"
               key={mode.label}
             >
               <p className="font-black text-page-accent text-sm uppercase tracking-[0.28em]">{mode.label}</p>
@@ -350,7 +350,7 @@ function ModeSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
               <p className="mt-5 max-w-xl text-page-ink/66 leading-7">{mode.body}</p>
               <Link
                 className={cn(
-                  "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform group-hover:translate-x-1",
+                  "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-colors group-hover:bg-page-ink/92",
                   focusClassName,
                 )}
                 href={startPath}
@@ -378,6 +378,7 @@ function PricingSection({ startPath }: { startPath: ReturnType<typeof getLocaliz
               : "bg-page-ink text-white shadow-[0_32px_110px_rgba(36,22,23,0.18)]";
             const planBodyClassName = isPreviewPlan ? "text-page-ink/66" : "text-white/68";
             const planActionClassName = isPreviewPlan ? "bg-page-ink text-white" : "bg-page-accent text-white";
+            const planActionHoverClassName = isPreviewPlan ? "hover:bg-page-ink/92" : "hover:bg-page-accent/92";
 
             return (
               <article className={cn("rounded-[2.3rem] p-8", planCardClassName)} key={plan.name}>
@@ -386,9 +387,10 @@ function PricingSection({ startPath }: { startPath: ReturnType<typeof getLocaliz
                 <p className={cn("mt-5 leading-7", planBodyClassName)}>{plan.body}</p>
                 <Link
                   className={cn(
-                    "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full px-5 font-bold text-sm transition-transform hover:-translate-y-0.5",
+                    "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full px-5 font-bold text-sm transition-colors",
                     focusClassName,
                     planActionClassName,
+                    planActionHoverClassName,
                   )}
                   href={startPath}
                 >
@@ -463,7 +465,7 @@ function FinalCta({ startPath }: { startPath: ReturnType<typeof getLocalizedPath
         </h2>
         <Link
           className={cn(
-            "mt-9 inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl bg-white px-7 font-black text-base text-page-accent transition-transform hover:-translate-y-0.5",
+            "mt-9 inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl bg-white px-7 font-black text-base text-page-accent transition-colors hover:bg-white/90",
             focusClassName,
           )}
           href={startPath}

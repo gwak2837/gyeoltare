@@ -174,7 +174,7 @@ export function QuizView({ answers, axisDefinitions, locale, onComplete, onSelec
             </button>
             <button
               className={cn(
-                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-ink px-6 font-black text-sm text-white transition-transform disabled:cursor-not-allowed disabled:opacity-45",
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-ink px-6 font-black text-sm text-white transition-colors enabled:hover:bg-page-ink/92 disabled:cursor-not-allowed disabled:opacity-45",
                 focusClassName,
               )}
               disabled={!canGoNext}

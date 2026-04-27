@@ -40,7 +40,7 @@ export function ResultView({ answerCount, axisDefinitions, locale, onEdit, onRes
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
               className={cn(
-                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-accent px-5 font-black text-sm text-white transition-transform",
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-accent px-5 font-black text-sm text-white transition-colors hover:bg-page-accent/92",
                 focusClassName,
               )}
               onClick={onEdit}

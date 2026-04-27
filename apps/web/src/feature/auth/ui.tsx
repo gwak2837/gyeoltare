@@ -70,7 +70,7 @@ export function PrimaryButton({ className, ...props }: ComponentPropsWithoutRef<
   return (
     <button
       className={cn(
-        "inline-flex w-full touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 py-3 font-semibold text-sm text-white transition hover:-translate-y-0.5 hover:bg-page-ink/92 focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-55",
+        "inline-flex w-full touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 py-3 font-semibold text-sm text-white transition-colors focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 enabled:hover:bg-page-ink/92 disabled:cursor-not-allowed disabled:opacity-55",
         className,
       )}
       {...props}
@@ -82,7 +82,7 @@ export function SecondaryButton({ className, ...props }: ComponentPropsWithoutRe
   return (
     <button
       className={cn(
-        "inline-flex w-full touch-manipulation items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition hover:-translate-y-0.5 hover:border-page-accent/40 hover:bg-page-soft focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-55",
+        "inline-flex w-full touch-manipulation items-center justify-center rounded-full border border-page-border bg-white px-5 py-3 font-semibold text-page-ink text-sm transition-colors focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 enabled:hover:border-page-accent/40 enabled:hover:bg-page-soft disabled:cursor-not-allowed disabled:opacity-55",
         className,
       )}
       {...props}

@@ -111,7 +111,7 @@ async function NavigationHeaderActions({ labels, locale, loginPath, startPath }:
       <div className="flex w-35 items-center justify-end sm:w-53">
         <Link
           className={cn(
-            "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
+            "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-colors hover:bg-page-accent/92",
             focusClassName,
           )}
           href={myPagePath}
@@ -139,7 +139,7 @@ function NavigationHeaderGuestActions({ labels, loginPath, startPath }: Navigati
       </Link>
       <Link
         className={cn(
-          "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
+          "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-colors hover:bg-page-accent/92",
           focusClassName,
         )}
         href={startPath}
