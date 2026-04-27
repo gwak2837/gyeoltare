@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { loadBackupCodes } from "@/app/[locale]/[username]/settings/backup-codes/_lib/server";
+import { loadBackupCodes } from "@/app/[locale]/(navigation)/settings/backup-codes/_lib/server";
 import { resolveAuthErrorMessage } from "@/feature/auth/errors";
 import { getCurrentSession } from "@/feature/auth/session";
 import {
