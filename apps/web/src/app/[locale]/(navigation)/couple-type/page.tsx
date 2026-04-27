@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { isLocale, type Locale } from "@/i18n/config";
+import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
-import { getLocalizedPath } from "@/i18n/pathnames";
 
 import { CoupleTypeFlow } from "./_components/couple-type-screen";
 import { getCoupleTypeContent } from "./_lib/content";
-import type { CoupleTypeContent } from "./_lib/types";
-
-type CoupleTypeScreenProps = {
-  content: CoupleTypeContent;
-  locale: Locale;
-};
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/couple-type">): Promise<Metadata> {
   const { locale } = await params;
