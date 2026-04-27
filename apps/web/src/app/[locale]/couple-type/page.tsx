@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 
 import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
 
 import { CoupleTypeScreen } from "./_components/couple-type-screen";
+import { getCoupleTypeContent } from "./_lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/couple-type">): Promise<Metadata> {
   const { locale } = await params;
@@ -14,16 +14,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/couple-t
     return {};
   }
 
-  const t = await getTranslations({
-    locale,
-    namespace: "common",
-  });
+  const content = await getCoupleTypeContent(locale);
 
   return await buildLocalizedMetadata({
-    description: t("coupleType.metadataDescription"),
+    description: content.metadata.description,
     locale,
     pathname: "/couple-type",
-    title: t("coupleType.metadataTitle"),
+    title: content.metadata.title,
   });
 }
 
@@ -34,5 +31,7 @@ export default async function CoupleTypePage({ params }: PageProps<"/[locale]/co
     notFound();
   }
 
-  return <CoupleTypeScreen locale={locale} />;
+  const content = await getCoupleTypeContent(locale);
+
+  return <CoupleTypeScreen content={content} locale={locale} />;
 }

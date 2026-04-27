@@ -8,35 +8,43 @@ import { cn } from "@/component/cn";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
-import { axisDefinitions, axisOrder, coupleTypeQuestions } from "../_lib/questions";
-import { coupleTypeResults } from "../_lib/results";
-import type { Axis, AxisOption, AxisValue, CoupleTypeCode } from "../_lib/types";
+import { axisOrder, calculateCoupleTypeCode, getAxisOption } from "../_lib/model";
+import type {
+  AxisValue,
+  CoupleTypeAnswers,
+  CoupleTypeContent,
+  CoupleTypeQuestion,
+  CoupleTypeResult,
+} from "../_lib/types";
 
 type CoupleTypeScreenProps = {
+  content: CoupleTypeContent;
   locale: Locale;
 };
 
-type Answers = Partial<Record<(typeof coupleTypeQuestions)[number]["id"], AxisValue>>;
-
 const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-page-accent";
-const totalQuestions = coupleTypeQuestions.length;
 
-export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
+export function CoupleTypeScreen({ content, locale }: CoupleTypeScreenProps) {
+  const { axisDefinitions, questions, results, ui } = content;
   const homePath = getLocalizedPath(locale, "/");
   const signUpPath = getLocalizedPath(locale, "/sign-up");
-  const [answers, setAnswers] = useState<Answers>({});
+  const [answers, setAnswers] = useState<CoupleTypeAnswers>({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isResultVisible, setIsResultVisible] = useState(false);
 
-  const currentQuestion = coupleTypeQuestions[currentIndex];
+  const currentQuestion = questions[currentIndex];
+  const totalQuestions = questions.length;
   const selectedValue = answers[currentQuestion.id];
   const answeredCount = Object.keys(answers).length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
   const isFirstQuestion = currentIndex === 0;
   const isLastQuestion = currentIndex === totalQuestions - 1;
   const isComplete = answeredCount === totalQuestions;
-  const resultCode = useMemo(() => (isComplete ? calculateCoupleTypeCode(answers) : null), [answers, isComplete]);
-  const result = resultCode ? coupleTypeResults[resultCode] : null;
+  const resultCode = useMemo(
+    () => (isComplete ? calculateCoupleTypeCode({ answers, axisDefinitions, questions }) : null),
+    [answers, axisDefinitions, isComplete, questions],
+  );
+  const result = resultCode ? results[resultCode] : null;
 
   function selectAnswer(value: AxisValue) {
     setAnswers((current) => ({
@@ -79,7 +87,7 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
     <main className="flex flex-1 flex-col overflow-hidden bg-page-bg text-page-ink">
       <header className="border-page-border/70 border-b bg-page-surface/88 px-[max(1rem,env(safe-area-inset-left))] backdrop-blur-2xl">
         <nav
-          aria-label="커플 대화 유형 탐색"
+          aria-label={ui.navigationLabel}
           className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
         >
           <Link
@@ -98,7 +106,7 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
             )}
             href={homePath}
           >
-            홈으로
+            {ui.homeLink}
           </Link>
         </nav>
       </header>
@@ -106,14 +114,17 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
       {isResultVisible && result ? (
         <ResultView
           answers={answers}
+          axisDefinitions={axisDefinitions}
           onEdit={editAnswers}
           onRestart={restart}
           result={result}
           signUpPath={signUpPath}
+          ui={ui}
         />
       ) : (
         <QuizView
           answeredCount={answeredCount}
+          axisDefinitions={axisDefinitions}
           currentIndex={currentIndex}
           currentQuestion={currentQuestion}
           isComplete={isComplete}
@@ -124,6 +135,8 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
           onSelect={selectAnswer}
           progressPercent={progressPercent}
           selectedValue={selectedValue}
+          totalQuestions={totalQuestions}
+          ui={ui}
         />
       )}
     </main>
@@ -132,6 +145,7 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
 
 function QuizView({
   answeredCount,
+  axisDefinitions,
   currentIndex,
   currentQuestion,
   isComplete,
@@ -142,10 +156,13 @@ function QuizView({
   onSelect,
   progressPercent,
   selectedValue,
+  totalQuestions,
+  ui,
 }: {
   answeredCount: number;
+  axisDefinitions: CoupleTypeContent["axisDefinitions"];
   currentIndex: number;
-  currentQuestion: (typeof coupleTypeQuestions)[number];
+  currentQuestion: CoupleTypeQuestion;
   isComplete: boolean;
   isFirstQuestion: boolean;
   isLastQuestion: boolean;
@@ -154,12 +171,18 @@ function QuizView({
   onSelect: (value: AxisValue) => void;
   progressPercent: number;
   selectedValue: AxisValue | undefined;
+  totalQuestions: number;
+  ui: CoupleTypeContent["ui"];
 }) {
   const axis = axisDefinitions[currentQuestion.axis];
   const canGoNext = Boolean(selectedValue);
 
   const nextButtonLabel =
-    isLastQuestion && selectedValue && isComplete ? "결과 보기" : selectedValue ? "다음 문항" : "응답 선택하기";
+    isLastQuestion && selectedValue && isComplete
+      ? ui.resultButton
+      : selectedValue
+        ? ui.nextButton
+        : ui.selectAnswerButton;
 
   return (
     <section className="flex flex-1 flex-col justify-center px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">
@@ -167,18 +190,18 @@ function QuizView({
         <div className="hidden max-w-3xl lg:block">
           <p className="inline-flex items-center gap-2 rounded-full bg-page-ink px-4 py-2 font-bold text-sm text-white">
             <HeartWaves aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
-            커플 대화 유형 16종
+            {ui.heroEyebrow}
           </p>
           <h1 className="mt-6 break-keep font-black text-4xl leading-tight lg:text-[2.8rem] xl:text-6xl">
-            둘의 대화는 어떤 리듬으로 가까워질까요?
+            {ui.heroTitle}
           </h1>
-          <p className="mt-5 text-lg text-page-ink/66 leading-8">
-            12개의 가벼운 선택으로 둘의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴봐요. 사람을 단정하지 않고
-            지금의 패턴을 읽는 테스트예요.
-          </p>
+          <p className="mt-5 text-lg text-page-ink/66 leading-8">{ui.heroDescription}</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <MiniStat label="문항" value={`${totalQuestions}개`} />
-            <MiniStat label="결과" value="16가지 유형" />
+            <MiniStat
+              label={ui.questionCountLabel}
+              value={formatText(ui.questionCountValue, { count: totalQuestions })}
+            />
+            <MiniStat label={ui.resultCountLabel} value={ui.resultCountValue} />
           </div>
         </div>
 
@@ -192,7 +215,7 @@ function QuizView({
             </div>
             <div className="min-w-40">
               <div className="flex items-center justify-between text-page-ink/48 text-xs">
-                <span>{answeredCount}개 응답</span>
+                <span>{formatText(ui.answeredCount, { count: answeredCount })}</span>
                 <span>{progressPercent}%</span>
               </div>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-page-soft">
@@ -248,7 +271,7 @@ function QuizView({
               type="button"
             >
               <ArrowLeft aria-hidden="true" className="h-4 w-4" stroke={1.8} />
-              이전
+              {ui.previousButton}
             </button>
             <button
               className={cn(
@@ -271,16 +294,20 @@ function QuizView({
 
 function ResultView({
   answers,
+  axisDefinitions,
   onEdit,
   onRestart,
   result,
   signUpPath,
+  ui,
 }: {
-  answers: Answers;
+  answers: CoupleTypeAnswers;
+  axisDefinitions: CoupleTypeContent["axisDefinitions"];
   onEdit: () => void;
   onRestart: () => void;
-  result: (typeof coupleTypeResults)[CoupleTypeCode];
+  result: CoupleTypeResult;
   signUpPath: ReturnType<typeof getLocalizedPath>;
+  ui: CoupleTypeContent["ui"];
 }) {
   const codeLetters = result.code.split("") as AxisValue[];
 
@@ -290,7 +317,7 @@ function ResultView({
         <div className="rounded-4xl bg-page-ink p-6 text-white shadow-[0_36px_120px_rgba(36,22,23,0.2)] sm:p-8 lg:sticky lg:top-24 lg:self-start">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-bold text-sm text-white/78">
             <Sparkles aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
-            커플 대화 유형 결과
+            {ui.resultEyebrow}
           </p>
           <h1 className="mt-7 break-keep font-black text-4xl leading-tight sm:text-6xl">{result.title}</h1>
           <p className="mt-5 font-black text-2xl text-page-accent">{result.displayCode}</p>
@@ -305,7 +332,7 @@ function ResultView({
               type="button"
             >
               <ArrowLeft aria-hidden="true" className="h-4 w-4" stroke={1.8} />
-              응답 조정하기
+              {ui.editButton}
             </button>
             <button
               className={cn(
@@ -316,19 +343,19 @@ function ResultView({
               type="button"
             >
               <Refresh aria-hidden="true" className="h-4 w-4" stroke={1.8} />
-              다시 하기
+              {ui.restartButton}
             </button>
           </div>
         </div>
 
         <div className="grid gap-5">
           <section className="rounded-4xl border border-page-border bg-page-surface p-6 shadow-[0_24px_90px_rgba(36,22,23,0.08)] sm:p-8">
-            <h2 className="font-black text-2xl">둘의 네 가지 리듬</h2>
+            <h2 className="font-black text-2xl">{ui.rhythmsTitle}</h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {axisOrder.map((axisKey, index) => {
                 const letter = codeLetters[index];
                 const axis = axisDefinitions[axisKey];
-                const option = getAxisOption(axisKey, letter);
+                const option = getAxisOption({ axis: axisKey, axisDefinitions, value: letter });
 
                 return (
                   <article className="rounded-3xl bg-page-soft p-5" key={axisKey}>
@@ -342,7 +369,7 @@ function ResultView({
           </section>
 
           <section className="rounded-4xl border border-page-border bg-white p-6 shadow-[0_24px_90px_rgba(36,22,23,0.08)] sm:p-8">
-            <h2 className="font-black text-2xl">잘 맞는 지점</h2>
+            <h2 className="font-black text-2xl">{ui.strengthsTitle}</h2>
             <ul className="mt-5 grid gap-3">
               {result.strengths.map((strength) => (
                 <li className="flex gap-3 rounded-2xl bg-[#f4fbf7] px-4 py-3 text-page-ink/72 leading-7" key={strength}>
@@ -355,21 +382,18 @@ function ResultView({
 
           <section className="grid gap-5 lg:grid-cols-2">
             <article className="rounded-4xl bg-[#fff3f0] p-6 sm:p-8">
-              <h2 className="font-black text-2xl">조심할 점</h2>
+              <h2 className="font-black text-2xl">{ui.watchOutTitle}</h2>
               <p className="mt-4 text-page-ink/70 leading-8">{result.watchOut}</p>
             </article>
             <article className="rounded-4xl bg-[#eef7ff] p-6 sm:p-8">
-              <h2 className="font-black text-2xl">오늘의 대화 미션</h2>
+              <h2 className="font-black text-2xl">{ui.dateMissionTitle}</h2>
               <p className="mt-4 text-page-ink/70 leading-8">{result.dateMission}</p>
             </article>
           </section>
 
           <section className="rounded-4xl bg-page-accent p-6 text-white shadow-[0_24px_90px_rgba(255,77,109,0.18)] sm:p-8">
-            <h2 className="font-black text-2xl">대화 원문 없이도 더 깊게 볼 수 있어요</h2>
-            <p className="mt-4 max-w-2xl text-white/74 leading-8">
-              이 테스트는 브라우저 안에서만 계산돼요. 결타래 미리보기에서는 원문 직접 인용 없이 대화 패턴을 더 촘촘하게
-              살펴보는 흐름을 준비하고 있어요.
-            </p>
+            <h2 className="font-black text-2xl">{ui.ctaTitle}</h2>
+            <p className="mt-4 max-w-2xl text-white/74 leading-8">{ui.ctaDescription}</p>
             <Link
               className={cn(
                 "mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 font-black text-page-accent text-sm transition",
@@ -377,13 +401,13 @@ function ResultView({
               )}
               href={signUpPath}
             >
-              결타래 무료 미리보기
+              {ui.ctaLink}
               <ArrowRight aria-hidden="true" className="h-4 w-4" stroke={1.8} />
             </Link>
           </section>
 
           <p className="text-page-ink/46 text-sm">
-            응답 수 {Object.keys(answers).length}개 · 결과는 서버에 저장되지 않고 새로고침하면 초기화돼요.
+            {formatText(ui.privacyNotice, { count: Object.keys(answers).length })}
           </p>
         </div>
       </div>
@@ -400,42 +424,6 @@ function MiniStat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function calculateCoupleTypeCode(answers: Answers): CoupleTypeCode {
-  const selected = axisOrder.map((axis) => resolveAxisValue(axis, answers)).join("");
-
-  return selected as CoupleTypeCode;
-}
-
-function resolveAxisValue(axis: Axis, answers: Answers): AxisValue {
-  const values = axisDefinitions[axis].values;
-
-  const score = {
-    [values[0]]: 0,
-    [values[1]]: 0,
-  } as Record<AxisValue, number>;
-
-  for (const question of coupleTypeQuestions) {
-    if (question.axis !== axis) {
-      continue;
-    }
-
-    const answer = answers[question.id];
-
-    if (answer) {
-      score[answer] += 1;
-    }
-  }
-
-  return score[values[0]] > score[values[1]] ? values[0] : values[1];
-}
-
-function getAxisOption(axis: Axis, value: AxisValue): AxisOption {
-  const options = axisDefinitions[axis].options as Partial<Record<AxisValue, AxisOption>>;
-  const option = options[value];
-
-  if (!option) {
-    throw new Error(`Invalid axis option: ${axis}:${value}`);
-  }
-
-  return option;
+function formatText(template: string, values: Record<string, number | string>) {
+  return template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ""));
 }
