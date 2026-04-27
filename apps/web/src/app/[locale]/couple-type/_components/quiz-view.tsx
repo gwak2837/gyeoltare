@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowLeft, ArrowRight, HeartWaves } from "@mynaui/icons-react";
 import { useState } from "react";
 
@@ -44,6 +46,12 @@ export function QuizView({ answers, axisDefinitions, onComplete, onSelect, quest
 
   function selectAnswer(value: AxisValue) {
     onSelect(currentQuestion.id, value);
+
+    if (isLastQuestion) {
+      return;
+    }
+
+    setCurrentIndex((index) => Math.min(totalQuestions - 1, index + 1));
   }
 
   function goToPreviousQuestion() {

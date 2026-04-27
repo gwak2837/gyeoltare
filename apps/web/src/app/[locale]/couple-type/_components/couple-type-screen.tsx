@@ -88,9 +88,7 @@ function CoupleTypeFlow({ content, signUpPath }: CoupleTypeFlowProps) {
   }
 
   function showResult() {
-    if (isComplete) {
-      setIsResultVisible(true);
-    }
+    setIsResultVisible(true);
   }
 
   function restart() {
