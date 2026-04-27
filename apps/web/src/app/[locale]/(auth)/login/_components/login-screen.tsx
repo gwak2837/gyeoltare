@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
+import { cn } from "@/component/cn";
 import { resolveAuthErrorMessage } from "@/feature/auth/errors";
 import {
   type AuthMode,
@@ -189,7 +190,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         </div>
       )}
 
-      <div className={mode === "reauth" ? "mt-[2.35rem]" : undefined}>
+      <div className={cn(mode === "reauth" && "mt-[2.35rem]")}>
         <p className="font-black text-[#241617] text-[2.05rem] leading-tight tracking-normal">
           {t("login.simpleTitle")}
         </p>

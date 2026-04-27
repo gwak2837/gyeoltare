@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, HeartWaves, MessageDots, Refresh, Sparkles } fro
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { cn } from "@/component/cn";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
@@ -81,14 +82,20 @@ export function CoupleTypeScreen({ locale }: CoupleTypeScreenProps) {
           aria-label="커플 대화 유형 탐색"
           className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
         >
-          <Link className={`inline-flex items-center gap-3 font-bold text-page-ink ${focusClassName}`} href={homePath}>
+          <Link
+            className={cn("inline-flex items-center gap-3 font-bold text-page-ink", focusClassName)}
+            href={homePath}
+          >
             <span className="grid h-9 w-9 place-items-center rounded-2xl bg-page-ink text-white shadow-[0_14px_40px_rgba(36,22,23,0.18)]">
               G
             </span>
             <span translate="no">결타래</span>
           </Link>
           <Link
-            className={`inline-flex min-h-10 items-center justify-center rounded-full border border-page-border bg-white px-4 font-bold text-page-ink/70 text-sm transition-colors hover:text-page-ink ${focusClassName}`}
+            className={cn(
+              "inline-flex min-h-10 items-center justify-center rounded-full border border-page-border bg-white px-4 font-bold text-page-ink/70 text-sm transition-colors hover:text-page-ink",
+              focusClassName,
+            )}
             href={homePath}
           >
             홈으로
@@ -205,11 +212,12 @@ function QuizView({
 
                 return (
                   <label
-                    className={`group flex cursor-pointer items-start gap-4 rounded-3xl border p-5 transition ${
+                    className={cn(
+                      "group flex cursor-pointer items-start gap-4 rounded-3xl border p-5 transition",
                       isSelected
                         ? "border-page-accent bg-[#fff3f0] shadow-[0_18px_50px_rgba(255,77,109,0.16)]"
-                        : "border-page-border bg-white hover:border-page-accent/50 hover:bg-page-soft/50"
-                    }`}
+                        : "border-page-border bg-white hover:border-page-accent/50 hover:bg-page-soft/50",
+                    )}
                     key={option.value}
                   >
                     <input
@@ -231,7 +239,10 @@ function QuizView({
 
           <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
             <button
-              className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-page-border bg-white px-5 font-bold text-page-ink/70 text-sm transition-colors enabled:hover:text-page-ink disabled:cursor-not-allowed disabled:opacity-45 ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-page-border bg-white px-5 font-bold text-page-ink/70 text-sm transition-colors enabled:hover:text-page-ink disabled:cursor-not-allowed disabled:opacity-45",
+                focusClassName,
+              )}
               disabled={isFirstQuestion}
               onClick={onPrevious}
               type="button"
@@ -240,7 +251,10 @@ function QuizView({
               이전
             </button>
             <button
-              className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-ink px-6 font-black text-sm text-white transition-transform disabled:cursor-not-allowed disabled:opacity-45 ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-ink px-6 font-black text-sm text-white transition-transform disabled:cursor-not-allowed disabled:opacity-45",
+                focusClassName,
+              )}
               disabled={!canGoNext}
               onClick={onNext}
               type="button"
@@ -283,7 +297,10 @@ function ResultView({
           <p className="mt-5 text-white/70 leading-8">{result.summary}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
-              className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-accent px-5 font-black text-sm text-white transition-transform ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-page-accent px-5 font-black text-sm text-white transition-transform",
+                focusClassName,
+              )}
               onClick={onEdit}
               type="button"
             >
@@ -291,7 +308,10 @@ function ResultView({
               응답 조정하기
             </button>
             <button
-              className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/18 bg-white/8 px-5 font-black text-sm text-white transition-colors hover:bg-white/14 ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/18 bg-white/8 px-5 font-black text-sm text-white transition-colors hover:bg-white/14",
+                focusClassName,
+              )}
               onClick={onRestart}
               type="button"
             >
@@ -351,7 +371,10 @@ function ResultView({
               살펴보는 흐름을 준비하고 있어요.
             </p>
             <Link
-              className={`mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 font-black text-page-accent text-sm transition ${focusClassName}`}
+              className={cn(
+                "mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 font-black text-page-accent text-sm transition",
+                focusClassName,
+              )}
               href={signUpPath}
             >
               결타래 무료 미리보기

@@ -1,8 +1,6 @@
 import { type ComponentPropsWithoutRef, cloneElement, isValidElement, type ReactNode, useId } from "react";
 
-function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
+import { cn } from "@/component/cn";
 
 export function AuthCard({ children, className }: { children: ReactNode; className?: string }) {
   return (

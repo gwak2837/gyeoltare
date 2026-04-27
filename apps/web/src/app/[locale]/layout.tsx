@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 
+import { cn } from "@/component/cn";
 import { env } from "@/env";
 import { isLocale, locales } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
@@ -45,7 +46,11 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
   return (
     <html
       lang={locale}
-      className={`${jakartaSans.variable} ${plexMono.variable} scheme-light h-full scroll-smooth antialiased motion-reduce:scroll-auto`}
+      className={cn(
+        jakartaSans.variable,
+        plexMono.variable,
+        "scheme-light h-full scroll-smooth antialiased motion-reduce:scroll-auto",
+      )}
     >
       <body className="flex min-h-full flex-col bg-page-bg font-sans text-page-ink [text-rendering:optimizeLegibility]">
         <NextIntlClientProvider locale={locale} messages={messages}>

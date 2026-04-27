@@ -5,6 +5,7 @@ import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { cn } from "@/component/cn";
 import { resolveAuthErrorMessage } from "@/feature/auth/errors";
 import { type AuthMode, trimText } from "@/feature/auth/shared";
 import { AuthCard, AuthField, AuthHeading, AuthInput, InlineNotice, PrimaryButton } from "@/feature/auth/ui";
@@ -70,18 +71,20 @@ export function TwoFactorScreen({ mode, returnTo }: TwoFactorScreenProps) {
 
       <div className="mt-8 flex rounded-full bg-page-soft p-1">
         <button
-          className={`flex-1 rounded-full px-4 py-2 font-semibold text-sm ${
-            verificationMethod === "totp" ? "bg-white text-page-ink shadow-sm" : "text-page-ink/60"
-          }`}
+          className={cn(
+            "flex-1 rounded-full px-4 py-2 font-semibold text-sm",
+            verificationMethod === "totp" ? "bg-white text-page-ink shadow-sm" : "text-page-ink/60",
+          )}
           onClick={() => setVerificationMethod("totp")}
           type="button"
         >
           {t("twoFactor.totpTab")}
         </button>
         <button
-          className={`flex-1 rounded-full px-4 py-2 font-semibold text-sm ${
-            verificationMethod === "backup" ? "bg-white text-page-ink shadow-sm" : "text-page-ink/60"
-          }`}
+          className={cn(
+            "flex-1 rounded-full px-4 py-2 font-semibold text-sm",
+            verificationMethod === "backup" ? "bg-white text-page-ink shadow-sm" : "text-page-ink/60",
+          )}
           onClick={() => setVerificationMethod("backup")}
           type="button"
         >

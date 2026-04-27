@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { cn } from "@/component/cn";
 import { getCurrentSession } from "@/feature/auth/session";
 import { buildSettingsPath } from "@/feature/auth/shared";
 import type { Locale } from "@/i18n/config";
@@ -69,7 +70,10 @@ export function LandingPage({ locale }: LandingPageProps) {
           className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
         >
           <Link
-            className={`group inline-flex touch-manipulation items-center gap-3 font-bold text-page-ink tracking-tight ${focusClassName}`}
+            className={cn(
+              "group inline-flex touch-manipulation items-center gap-3 font-bold text-page-ink tracking-tight",
+              focusClassName,
+            )}
             href={homePath}
           >
             <span className="grid h-9 w-9 place-items-center rounded-2xl bg-page-ink text-white shadow-[0_14px_40px_rgba(36,22,23,0.18)]">
@@ -81,14 +85,20 @@ export function LandingPage({ locale }: LandingPageProps) {
           </Link>
           <div className="hidden items-center gap-8 md:flex">
             <Link
-              className={`touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink ${focusClassName}`}
+              className={cn(
+                "touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink",
+                focusClassName,
+              )}
               href={coupleTypePath}
             >
               유형 테스트
             </Link>
             {navItems.map((item) => (
               <a
-                className={`touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink ${focusClassName}`}
+                className={cn(
+                  "touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink",
+                  focusClassName,
+                )}
                 href={item.href}
                 key={item.href}
               >
@@ -133,7 +143,10 @@ async function LandingHeaderActions({ locale, loginPath, startPath }: LandingHea
     return (
       <div className="flex items-center gap-3">
         <Link
-          className={`inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+          className={cn(
+            "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
+            focusClassName,
+          )}
           href={myPagePath}
         >
           마이페이지
@@ -152,13 +165,19 @@ function LandingHeaderGuestActions({
   return (
     <div className="flex items-center gap-3">
       <Link
-        className={`hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex ${focusClassName}`}
+        className={cn(
+          "hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex",
+          focusClassName,
+        )}
         href={loginPath}
       >
         로그인
       </Link>
       <Link
-        className={`inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+        className={cn(
+          "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
+          focusClassName,
+        )}
         href={startPath}
       >
         시작하기
@@ -195,13 +214,19 @@ function HeroSection({
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
-              className={`inline-flex min-h-14 w-full flex-1 touch-manipulation items-center justify-center rounded-2xl bg-page-accent px-6 font-bold text-base text-white shadow-[0_24px_80px_rgba(255,77,109,0.34)] transition-transform hover:-translate-y-0.5 sm:w-90 ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-14 w-full flex-1 touch-manipulation items-center justify-center rounded-2xl bg-page-accent px-6 font-bold text-base text-white shadow-[0_24px_80px_rgba(255,77,109,0.34)] transition-transform hover:-translate-y-0.5 sm:w-90",
+                focusClassName,
+              )}
               href={startPath}
             >
               우리 카톡 분석하기 · 무료 미리보기
             </Link>
             <a
-              className={`inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl border border-white/18 bg-white/8 px-6 font-bold text-base text-white backdrop-blur transition-colors hover:bg-white/14 ${focusClassName}`}
+              className={cn(
+                "inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl border border-white/18 bg-white/8 px-6 font-bold text-base text-white backdrop-blur transition-colors hover:bg-white/14",
+                focusClassName,
+              )}
               href="#sample"
             >
               샘플 먼저 보기
@@ -211,7 +236,10 @@ function HeroSection({
             원본은 내 컴퓨터만 · AI 학습 0 · 개인정보 없는 데이터만 AI에게 · 6분이면 완성
           </p>
           <Link
-            className={`mt-4 inline-flex touch-manipulation items-center font-bold text-page-accent text-sm transition-colors hover:text-white ${focusClassName}`}
+            className={cn(
+              "mt-4 inline-flex touch-manipulation items-center font-bold text-page-accent text-sm transition-colors hover:text-white",
+              focusClassName,
+            )}
             href={coupleTypePath}
           >
             커플 대화 유형 보기
@@ -239,9 +267,11 @@ function HeroVisual() {
           <div className="space-y-3">
             {heroBubbles.map((bubble, index) => (
               <div
-                className={`max-w-[78%] rounded-3xl px-4 py-3 text-sm shadow-sm motion-safe:animate-bubble-rise ${heroBubbleDelayClassNames[index]} ${
-                  index % 2 === 0 ? "bg-page-soft text-page-ink" : "ml-auto bg-page-ink text-white"
-                }`}
+                className={cn(
+                  "max-w-[78%] rounded-3xl px-4 py-3 text-sm shadow-sm motion-safe:animate-bubble-rise",
+                  heroBubbleDelayClassNames[index],
+                  index % 2 === 0 ? "bg-page-soft text-page-ink" : "ml-auto bg-page-ink text-white",
+                )}
                 key={bubble}
               >
                 {bubble}
@@ -251,7 +281,10 @@ function HeroVisual() {
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
             {reportCards.slice(0, 3).map((card, index) => (
               <div
-                className={`rounded-3xl bg-white p-4 shadow-[0_18px_48px_rgba(36,22,23,0.12)] motion-safe:animate-report-settle ${heroReportDelayClassNames[index]}`}
+                className={cn(
+                  "rounded-3xl bg-white p-4 shadow-[0_18px_48px_rgba(36,22,23,0.12)] motion-safe:animate-report-settle",
+                  heroReportDelayClassNames[index],
+                )}
                 key={card.label}
               >
                 <p className="font-semibold text-[0.68rem] text-page-accent uppercase tracking-[0.16em]">
@@ -279,7 +312,10 @@ function FactSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
             </h2>
           </div>
           <Link
-            className={`inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+            className={cn(
+              "inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform hover:-translate-y-0.5",
+              focusClassName,
+            )}
             href={startPath}
           >
             우리는 어떨까?
@@ -368,9 +404,10 @@ function SampleSection() {
             <div className="relative grid gap-4">
               {reportCards.map((card, index) => (
                 <article
-                  className={`rounded-[1.7rem] border border-white/12 bg-white/10 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur ${
-                    index > 2 ? "blur-[1px]" : ""
-                  }`}
+                  className={cn(
+                    "rounded-[1.7rem] border border-white/12 bg-white/10 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur",
+                    index > 2 && "blur-[1px]",
+                  )}
                   key={card.label}
                 >
                   <p className="font-bold text-page-accent text-xs">{card.label}</p>
@@ -430,7 +467,10 @@ function ModeSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
               <h3 className="mt-8 font-black text-4xl tracking-[-0.05em]">{mode.title}</h3>
               <p className="mt-5 max-w-xl text-page-ink/66 leading-7">{mode.body}</p>
               <Link
-                className={`mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform group-hover:translate-x-1 ${focusClassName}`}
+                className={cn(
+                  "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-bold text-sm text-white transition-transform group-hover:translate-x-1",
+                  focusClassName,
+                )}
                 href={startPath}
               >
                 이 모드로 시작하기
@@ -449,28 +489,32 @@ function PricingSection({ startPath }: { startPath: ReturnType<typeof getLocaliz
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionIntro eyebrow="Pricing" title="먼저 미리보고, 필요할 때 전체 리포트를 열어요" />
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
-          {pricingPlans.map((plan, index) => (
-            <article
-              className={`rounded-[2.3rem] p-8 ${
-                index === 0
-                  ? "border border-page-border bg-page-surface"
-                  : "bg-page-ink text-white shadow-[0_32px_110px_rgba(36,22,23,0.18)]"
-              }`}
-              key={plan.name}
-            >
-              <p className="font-black text-page-accent text-sm uppercase tracking-[0.28em]">{plan.name}</p>
-              <p className="mt-7 font-black text-5xl tracking-[-0.06em]">{plan.price}</p>
-              <p className={`mt-5 leading-7 ${index === 0 ? "text-page-ink/66" : "text-white/68"}`}>{plan.body}</p>
-              <Link
-                className={`mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full px-5 font-bold text-sm transition-transform hover:-translate-y-0.5 ${focusClassName} ${
-                  index === 0 ? "bg-page-ink text-white" : "bg-page-accent text-white"
-                }`}
-                href={startPath}
-              >
-                무료 미리보기 시작
-              </Link>
-            </article>
-          ))}
+          {pricingPlans.map((plan, index) => {
+            const isPreviewPlan = index === 0;
+            const planCardClassName = isPreviewPlan
+              ? "border border-page-border bg-page-surface"
+              : "bg-page-ink text-white shadow-[0_32px_110px_rgba(36,22,23,0.18)]";
+            const planBodyClassName = isPreviewPlan ? "text-page-ink/66" : "text-white/68";
+            const planActionClassName = isPreviewPlan ? "bg-page-ink text-white" : "bg-page-accent text-white";
+
+            return (
+              <article className={cn("rounded-[2.3rem] p-8", planCardClassName)} key={plan.name}>
+                <p className="font-black text-page-accent text-sm uppercase tracking-[0.28em]">{plan.name}</p>
+                <p className="mt-7 font-black text-5xl tracking-[-0.06em]">{plan.price}</p>
+                <p className={cn("mt-5 leading-7", planBodyClassName)}>{plan.body}</p>
+                <Link
+                  className={cn(
+                    "mt-8 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full px-5 font-bold text-sm transition-transform hover:-translate-y-0.5",
+                    focusClassName,
+                    planActionClassName,
+                  )}
+                  href={startPath}
+                >
+                  무료 미리보기 시작
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -508,7 +552,10 @@ function FaqSection() {
           {faqs.map((faq) => (
             <details className="group p-6 [&>summary::-webkit-details-marker]:hidden" key={faq.question}>
               <summary
-                className={`flex cursor-pointer touch-manipulation list-none items-center justify-between gap-6 font-bold text-lg ${focusClassName}`}
+                className={cn(
+                  "flex cursor-pointer touch-manipulation list-none items-center justify-between gap-6 font-bold text-lg",
+                  focusClassName,
+                )}
               >
                 <span>{faq.question}</span>
                 <span aria-hidden="true" className="text-page-accent transition-transform group-open:rotate-45">
@@ -533,7 +580,10 @@ function FinalCta({ startPath }: { startPath: ReturnType<typeof getLocalizedPath
           오늘의 대화를 내일의 힌트로 바꿔보세요
         </h2>
         <Link
-          className={`mt-9 inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl bg-white px-7 font-black text-base text-page-accent transition-transform hover:-translate-y-0.5 ${focusClassName}`}
+          className={cn(
+            "mt-9 inline-flex min-h-14 touch-manipulation items-center justify-center rounded-2xl bg-white px-7 font-black text-base text-page-accent transition-transform hover:-translate-y-0.5",
+            focusClassName,
+          )}
           href={startPath}
         >
           우리 카톡 분석하기 · 무료 미리보기
