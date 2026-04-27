@@ -34,7 +34,7 @@ export default async function CoupleTypePage({ params }: PageProps<"/[locale]/co
   const content = await getCoupleTypeContent(locale);
 
   return (
-    <main className="flex flex-1 flex-col overflow-hidden bg-page-bg text-page-ink">
+    <main className="flex flex-1 flex-col bg-page-bg text-page-ink">
       <CoupleTypeFlow content={content} locale={locale} />
     </main>
   );
