@@ -9,7 +9,7 @@ import { getLocalizedPath } from "@/i18n/pathnames";
 import { SettingsScreen } from "./_components/settings-screen";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/[username]/settings">): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, username } = await params;
 
   if (!isLocale(locale)) {
     return {};
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/[usernam
   return await buildLocalizedMetadata({
     description: t("metadata.description"),
     locale,
-    pathname: "/settings",
+    pathname: buildSettingsPath(username),
     title: t("metadata.title"),
   });
 }

@@ -1,4 +1,15 @@
 {
+  "navigation": {
+    "aria": "주요 탐색",
+    "homeAria": "결타래 홈으로 이동",
+    "coupleType": "유형 테스트",
+    "experience": "체험",
+    "pricing": "가격",
+    "faq": "FAQ",
+    "login": "로그인",
+    "start": "시작하기",
+    "myPage": "마이페이지"
+  },
   "notFound": {
     "eyebrow": "페이지 없음",
     "title": "길을 다시 찾고 있어요.",

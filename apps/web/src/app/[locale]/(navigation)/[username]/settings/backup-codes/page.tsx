@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { loadBackupCodes } from "@/app/[locale]/(navigation)/settings/backup-codes/_lib/server";
 import { resolveAuthErrorMessage } from "@/feature/auth/errors";
 import { getCurrentSession } from "@/feature/auth/session";
 import {
@@ -18,11 +17,12 @@ import { buildLocalizedMetadata } from "@/i18n/metadata";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
 import { BackupCodesPanel } from "./_components/backup-codes-panel";
+import { loadBackupCodes } from "./_lib/server";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/[username]/settings/backup-codes">): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, username } = await params;
 
   if (!isLocale(locale)) {
     return {};
@@ -36,7 +36,7 @@ export async function generateMetadata({
   return await buildLocalizedMetadata({
     description: t("backupCodesPage.metadataDescription"),
     locale,
-    pathname: "/settings/backup-codes",
+    pathname: buildBackupCodesPath(username),
     title: t("backupCodesPage.metadataTitle"),
   });
 }

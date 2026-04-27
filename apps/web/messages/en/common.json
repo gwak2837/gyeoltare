@@ -1,4 +1,15 @@
 {
+  "navigation": {
+    "aria": "Primary navigation",
+    "homeAria": "Go to Gyeoltare home",
+    "coupleType": "Type test",
+    "experience": "Experience",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "login": "Log in",
+    "start": "Start",
+    "myPage": "My page"
+  },
   "notFound": {
     "eyebrow": "Not Found",
     "title": "We are finding the route again.",

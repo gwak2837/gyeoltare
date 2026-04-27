@@ -1,9 +1,6 @@
 import Link from "next/link";
-import { Suspense } from "react";
 
 import { cn } from "@/component/cn";
-import { getCurrentSession } from "@/feature/auth/session";
-import { buildSettingsPath } from "@/feature/auth/shared";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
@@ -22,12 +19,6 @@ import {
 type LandingPageProps = {
   locale: Locale;
 };
-
-const navItems = [
-  { href: "#experience", label: "체험" },
-  { href: "#pricing", label: "가격" },
-  { href: "#faq", label: "FAQ" },
-] as const;
 
 const factRailGroups = [
   { id: "primary", isHidden: false },
@@ -57,132 +48,23 @@ const heroReportDelayClassNames = [
 ] as const;
 
 export function LandingPage({ locale }: LandingPageProps) {
-  const homePath = getLocalizedPath(locale, "/");
   const coupleTypePath = getLocalizedPath(locale, "/couple-type");
   const startPath = getLocalizedPath(locale, "/sign-up");
-  const loginPath = getLocalizedPath(locale, "/login");
 
   return (
-    <>
-      <header className="sticky top-0 z-50 border-page-border/70 border-b bg-page-bg/88 px-[max(1rem,env(safe-area-inset-left))] backdrop-blur-2xl">
-        <nav
-          aria-label="주요 탐색"
-          className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
-        >
-          <Link
-            className={cn(
-              "group inline-flex touch-manipulation items-center gap-3 font-bold text-page-ink tracking-tight",
-              focusClassName,
-            )}
-            href={homePath}
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-2xl bg-page-ink text-white shadow-[0_14px_40px_rgba(36,22,23,0.18)]">
-              G
-            </span>
-            <span className="text-lg" translate="no">
-              결타래
-            </span>
-          </Link>
-          <div className="hidden items-center gap-8 md:flex">
-            <Link
-              className={cn(
-                "touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink",
-                focusClassName,
-              )}
-              href={coupleTypePath}
-            >
-              유형 테스트
-            </Link>
-            {navItems.map((item) => (
-              <a
-                className={cn(
-                  "touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink",
-                  focusClassName,
-                )}
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <Suspense fallback={<LandingHeaderGuestActions loginPath={loginPath} startPath={startPath} />}>
-            <LandingHeaderActions locale={locale} loginPath={loginPath} startPath={startPath} />
-          </Suspense>
-        </nav>
-      </header>
-
-      <main className="overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
-        <HeroSection coupleTypePath={coupleTypePath} startPath={startPath} />
-        <FactSection startPath={startPath} />
-        <ValueSection />
-        <ExperienceSection />
-        <SampleSection />
-        <HowItWorksSection />
-        <ModeSection startPath={startPath} />
-        <PricingSection startPath={startPath} />
-        <TrustSection />
-        <FaqSection />
-        <FinalCta startPath={startPath} />
-      </main>
-    </>
-  );
-}
-
-type LandingHeaderActionsProps = {
-  locale: Locale;
-  loginPath: ReturnType<typeof getLocalizedPath>;
-  startPath: ReturnType<typeof getLocalizedPath>;
-};
-
-async function LandingHeaderActions({ locale, loginPath, startPath }: LandingHeaderActionsProps) {
-  const session = await getCurrentSession();
-  const myPagePath = session?.user.username ? getLocalizedPath(locale, buildSettingsPath(session.user.username)) : null;
-
-  if (myPagePath) {
-    return (
-      <div className="flex items-center gap-3">
-        <Link
-          className={cn(
-            "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
-            focusClassName,
-          )}
-          href={myPagePath}
-        >
-          마이페이지
-        </Link>
-      </div>
-    );
-  }
-
-  return <LandingHeaderGuestActions loginPath={loginPath} startPath={startPath} />;
-}
-
-function LandingHeaderGuestActions({
-  loginPath,
-  startPath,
-}: Pick<LandingHeaderActionsProps, "loginPath" | "startPath">) {
-  return (
-    <div className="flex items-center gap-3">
-      <Link
-        className={cn(
-          "hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex",
-          focusClassName,
-        )}
-        href={loginPath}
-      >
-        로그인
-      </Link>
-      <Link
-        className={cn(
-          "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-transform hover:-translate-y-0.5",
-          focusClassName,
-        )}
-        href={startPath}
-      >
-        시작하기
-      </Link>
-    </div>
+    <main className="overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
+      <HeroSection coupleTypePath={coupleTypePath} startPath={startPath} />
+      <FactSection startPath={startPath} />
+      <ValueSection />
+      <ExperienceSection />
+      <SampleSection />
+      <HowItWorksSection />
+      <ModeSection startPath={startPath} />
+      <PricingSection startPath={startPath} />
+      <TrustSection />
+      <FaqSection />
+      <FinalCta startPath={startPath} />
+    </main>
   );
 }
 
