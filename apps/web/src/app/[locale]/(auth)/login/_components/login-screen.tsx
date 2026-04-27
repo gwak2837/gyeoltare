@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@gyeoltare/auth/client";
+import { Danger, Eye, EyeOff, FaceId, Lock, Scan, Spinner } from "@mynaui/icons-react";
 import type { Route } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -182,7 +183,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
       {mode === "reauth" && (
         <div className="flex min-h-[3.65rem] items-center gap-3 rounded-lg border border-[#f4d8c8] bg-[#fff3eb] px-6 text-[#a96855]">
           <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#ef9b80] text-[#e98369]">
-            <AlertIcon />
+            <Danger aria-hidden="true" className="h-3.5 w-3.5" stroke={2} />
           </span>
           <p className="font-bold text-[0.9rem]">{t("login.reauthBanner")}</p>
         </div>
@@ -252,7 +253,11 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
               onMouseDown={(event) => event.preventDefault()}
               type="button"
             >
-              {isPasswordVisible ? <EyeOffIcon /> : <EyeIcon />}
+              {isPasswordVisible ? (
+                <EyeOff aria-hidden="true" className="h-5 w-5" stroke={1.7} />
+              ) : (
+                <Eye aria-hidden="true" className="h-5 w-5" stroke={1.7} />
+              )}
             </button>
           </div>
         </div>
@@ -286,7 +291,9 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
           disabled={isBusy}
           type="submit"
         >
-          {isSubmitting ? <SpinnerIcon /> : null}
+          {isSubmitting && (
+            <Spinner aria-hidden="true" className="h-5 w-5 animate-spin motion-reduce:animate-none" stroke={1.8} />
+          )}
           {isSubmitting ? t("login.submitting") : t("login.submit")}
         </button>
       </form>
@@ -303,7 +310,11 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         onClick={handlePasskeySignIn}
         type="button"
       >
-        {isPasskeyPending ? <SpinnerIcon /> : <KeyIcon />}
+        {isPasskeyPending ? (
+          <Spinner aria-hidden="true" className="h-5 w-5 animate-spin motion-reduce:animate-none" stroke={1.8} />
+        ) : (
+          <FaceId aria-hidden="true" className="h-5 w-5" stroke={1.8} />
+        )}
         {isPasskeyPending ? t("login.passkeyPending") : t("login.passkey")}
       </button>
 
@@ -321,94 +332,12 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
 
       <p className="mt-12 text-center text-[#888078] text-sm leading-7">
         <span className="mx-auto mb-1 flex items-center justify-center gap-2">
-          <SmallLockIcon />
+          <Lock aria-hidden="true" className="h-4 w-4" stroke={1.7} />
           {t("login.securityNoteTitle")}
         </span>
         {t("login.securityNoteBody")}
       </p>
     </section>
-  );
-}
-
-function AlertIcon() {
-  return (
-    <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" viewBox="0 0 14 14">
-      <path d="M7 3.4v4.1" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
-      <path d="M7 10.2h.01" stroke="currentColor" strokeLinecap="round" strokeWidth="2.4" />
-    </svg>
-  );
-}
-
-function EyeIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path
-        d="M2.7 10s2.6-4.1 7.3-4.1S17.3 10 17.3 10s-2.6 4.1-7.3 4.1S2.7 10 2.7 10Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <circle cx="10" cy="10" r="2.2" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
-function EyeOffIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path d="M3.5 3.5 16.5 16.5" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
-      <path
-        d="M7.1 6.4A7.9 7.9 0 0 1 10 5.9c4.7 0 7.3 4.1 7.3 4.1a11.4 11.4 0 0 1-2.2 2.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M12.2 13.7a6.9 6.9 0 0 1-2.2.4C5.3 14.1 2.7 10 2.7 10a11.2 11.2 0 0 1 2.4-2.7"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.6"
-      />
-      <path d="M8.6 8.8a2.2 2.2 0 0 0 2.8 2.8" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
-function KeyIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path
-        d="M7.6 12.1a4.2 4.2 0 1 1 2.3 2.3l-2.5 2.5H4.8v-2.6l2.8-2.2Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <path d="M12.1 6.9h.01" stroke="currentColor" strokeLinecap="round" strokeWidth="2.4" />
-    </svg>
-  );
-}
-
-function SpinnerIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5 animate-spin motion-reduce:animate-none" fill="none" viewBox="0 0 20 20">
-      <circle className="opacity-25" cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2.2" />
-      <path
-        className="opacity-85"
-        d="M18 10a8 8 0 0 0-8-8"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2.2"
-      />
-    </svg>
-  );
-}
-
-function SmallLockIcon() {
-  return (
-    <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 16 16">
-      <path d="M5 7V5.7a3 3 0 0 1 6 0V7" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
-      <rect height="6.2" rx="1.5" stroke="currentColor" strokeWidth="1.5" width="9.2" x="3.4" y="6.6" />
-    </svg>
   );
 }
 

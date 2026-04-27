@@ -1,3 +1,4 @@
+import { Aperture, ArrowRight, ChatDots, Check, FileCheck, FileText, Lock, ShieldCheck } from "@mynaui/icons-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -21,34 +22,34 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
   const workflowSteps = [
     {
       body: t("layout.workflowUploadBody"),
-      icon: <ChatIcon />,
+      icon: <ChatDots aria-hidden="true" className="h-5 w-5" stroke={1.7} />,
       title: t("layout.workflowUploadTitle"),
     },
     {
       body: t("layout.workflowProcessBody"),
-      icon: <LockIcon />,
+      icon: <Lock aria-hidden="true" className="h-5 w-5" stroke={1.7} />,
       title: t("layout.workflowProcessTitle"),
     },
     {
       body: t("layout.workflowReportBody"),
-      icon: <ReportIcon />,
+      icon: <FileText aria-hidden="true" className="h-5 w-5" stroke={1.7} />,
       title: t("layout.workflowReportTitle"),
     },
   ] as const;
 
   const trustItems = [
     {
-      icon: <ShieldIcon />,
+      icon: <ShieldCheck aria-hidden="true" className="h-9 w-9" stroke={1.7} />,
       body: t("layout.trustEncryptionBody"),
       title: t("layout.trustEncryptionTitle"),
     },
     {
-      icon: <LockIcon />,
+      icon: <Lock aria-hidden="true" className="h-9 w-9" stroke={1.7} />,
       body: t("layout.trustPrivateBody"),
       title: t("layout.trustPrivateTitle"),
     },
     {
-      icon: <DocumentShieldIcon />,
+      icon: <FileCheck aria-hidden="true" className="h-9 w-9" stroke={1.7} />,
       body: t("layout.trustOwnershipBody"),
       title: t("layout.trustOwnershipTitle"),
     },
@@ -62,7 +63,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
           className="inline-flex touch-manipulation items-center gap-2 rounded-xl transition focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3"
           href={getLocalizedPath(locale, "/")}
         >
-          <KnotMark />
+          <Aperture aria-hidden="true" className="h-10 w-10 text-[#ff5252]" stroke={1.9} />
           <span className="font-black text-[1.72rem] tracking-[-0.055em]" translate="no">
             결타래
           </span>
@@ -204,7 +205,7 @@ function WorkflowStep({
     <>
       {index > 0 ? (
         <li aria-hidden="true" className="hidden items-center justify-center px-1 text-[#a89f97] sm:flex">
-          <ArrowIcon />
+          <ArrowRight className="h-5 w-5" stroke={1.7} />
         </li>
       ) : null}
       <li className="flex items-center gap-4 px-5 py-2">
@@ -276,7 +277,7 @@ function PreviewList({
                 aria-hidden="true"
                 className="mt-1 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-[#ffe0dc] text-[#ff6b63]"
               >
-                <CheckMiniIcon />
+                <Check className="h-2.5 w-2.5" stroke={2.3} />
               </span>
             ) : (
               <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#4b423d]" />
@@ -286,124 +287,6 @@ function PreviewList({
         ))}
       </ul>
     </div>
-  );
-}
-
-function CheckMiniIcon() {
-  return (
-    <svg aria-hidden="true" className="h-2.5 w-2.5" fill="none" viewBox="0 0 10 10">
-      <path
-        d="m2.2 5 1.8 1.7 3.7-4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  );
-}
-
-function KnotMark() {
-  return (
-    <svg aria-hidden="true" className="-ml-2 h-[2.65rem] w-[2.65rem]" fill="none" viewBox="0 0 42 42">
-      <g stroke="#ff5252" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.95">
-        <path d="M21 4.6c6.4 0 9.6 6.9 6.3 12.2-3.5 5.6-12.2 5-14.5-.9-2.2-5.8 4.2-11.9 10-8.6 6.4 3.7 4.9 13.9-2.3 15.4-7.5 1.6-13.4-6.2-9.8-12.7" />
-        <path d="M32.8 9.1c4.7 4.7 3.2 12.4-2.7 14.9-6.4 2.7-13.1-3-11.6-9.5 1.4-6.1 9.9-7.4 13.1-2 3.7 6.3-2 14-9.2 12.5-7.5-1.6-10.2-11.3-4.5-16.2" />
-        <path d="M36.9 20.9c0 6.4-6.9 9.6-12.2 6.3-5.6-3.5-5-12.2.9-14.5 5.8-2.2 11.9 4.2 8.6 10-3.7 6.4-13.9 4.9-15.4-2.3-1.6-7.5 6.2-13.4 12.7-9.8" />
-        <path d="M32.9 32.8c-4.7 4.7-12.4 3.2-14.9-2.7-2.7-6.4 3-13.1 9.5-11.6 6.1 1.4 7.4 9.9 2 13.1-6.3 3.7-14-2-12.5-9.2 1.6-7.5 11.3-10.2 16.2-4.5" />
-        <path d="M21 37.4c-6.4 0-9.6-6.9-6.3-12.2 3.5-5.6 12.2-5 14.5.9 2.2 5.8-4.2 11.9-10 8.6-6.4-3.7-4.9-13.9 2.3-15.4 7.5-1.6 13.4 6.2 9.8 12.7" />
-        <path d="M9.2 32.9C4.5 28.2 6 20.5 11.9 18c6.4-2.7 13.1 3 11.6 9.5-1.4 6.1-9.9 7.4-13.1 2-3.7-6.3 2-14 9.2-12.5 7.5 1.6 10.2 11.3 4.5 16.2" />
-        <path d="M5.1 21.1c0-6.4 6.9-9.6 12.2-6.3 5.6 3.5 5 12.2-.9 14.5-5.8 2.2-11.9-4.2-8.6-10 3.7-6.4 13.9-4.9 15.4 2.3 1.6 7.5-6.2 13.4-12.7 9.8" />
-        <path d="M9.1 9.2c4.7-4.7 12.4-3.2 14.9 2.7 2.7 6.4-3 13.1-9.5 11.6-6.1-1.4-7.4-9.9-2-13.1 6.3-3.7 14 2 12.5 9.2-1.6 7.5-11.3 10.2-16.2 4.5" />
-      </g>
-    </svg>
-  );
-}
-
-function ChatIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path
-        d="M4.2 5.3h11.6v7.2H9.2l-3.7 2.8v-2.8H4.2V5.3Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.6"
-      />
-      <path d="M7.3 8.9h.01M10 8.9h.01M12.7 8.9h.01" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
-      <path d="M7.5 10V8.1a4.5 4.5 0 0 1 9 0V10" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
-      <rect height="9.2" rx="2" stroke="currentColor" strokeWidth="1.8" width="13.6" x="5.2" y="9.5" />
-    </svg>
-  );
-}
-
-function ReportIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path d="M5.2 3.4h6.9l2.7 2.8v10.4H5.2V3.4Z" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.6" />
-      <path d="M12 3.6v3h2.8M7.6 9.3h4.8M7.6 12.1h4.8" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg aria-hidden="true" className="h-9 w-9" fill="none" viewBox="0 0 36 36">
-      <path
-        d="M18 4.6 28.2 8v8.1c0 6.8-4.5 12.4-10.2 14.9C12.3 28.5 7.8 22.9 7.8 16.1V8L18 4.6Z"
-        stroke="currentColor"
-        strokeWidth="1.9"
-      />
-      <path
-        d="m13.8 17.7 2.7 2.7 5.8-6.1"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.9"
-      />
-    </svg>
-  );
-}
-
-function DocumentShieldIcon() {
-  return (
-    <svg aria-hidden="true" className="h-9 w-9" fill="none" viewBox="0 0 36 36">
-      <path d="M9 5.8h13.2l4.8 4.9v19.5H9V5.8Z" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.9" />
-      <path d="M22 6v5h5M13.5 15.4h7M13.5 19.3h5.5" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
-      <path
-        d="M24.6 21.1 30 22.9v3.2c0 3.1-2.1 5.5-5.4 6.8-3.3-1.3-5.4-3.7-5.4-6.8v-3.2l5.4-1.8Z"
-        fill="#fffdf9"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path
-        d="m22.2 26.6 1.5 1.5 3.2-3.3"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.6"
-      />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
-      <path
-        d="M4 10h11.5m-4-4 4 4-4 4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-      />
-    </svg>
   );
 }
 
