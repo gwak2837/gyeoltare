@@ -97,7 +97,7 @@ export default async function BackupCodesPage({ params }: PageProps<"/[locale]/[
     : settingsT("backupCodesPage.genericHint");
 
   return (
-    <main className="mx-auto w-full max-w-4xl sm:p-8 lg:p-10">
+    <main className="mx-auto w-full max-w-4xl px-safe sm:p-8 lg:p-10">
       <div className="border border-page-border/80 bg-page-surface/92 p-7 shadow-[0_30px_120px_rgba(33,26,65,0.12)] backdrop-blur sm:rounded-4xl sm:p-10">
         <div className="flex flex-col gap-5 border-page-border/70 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
           <AuthHeading

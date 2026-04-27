@@ -56,7 +56,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
   ] as const;
 
   return (
-    <main className="mx-auto flex h-full w-full max-w-screen-2xl flex-1 items-center justify-center text-page-ink xl:grid xl:grid-cols-[2fr_1fr]">
+    <main className="mx-auto flex h-full w-full max-w-screen-2xl flex-1 items-center justify-center pt-safe pb-safe text-page-ink xl:grid xl:grid-cols-[2fr_1fr]">
       <section className="hidden px-6 py-10 sm:px-10 xl:block xl:border-[#e9dfd7] xl:border-r xl:py-10 2xl:px-15">
         <Link
           aria-label={t("layout.homeAria")}
@@ -183,7 +183,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
         <p className="mt-7 text-[#9a928c] text-sm">{t("layout.footer")}</p>
       </section>
 
-      <section className="w-full max-w-lg flex-1 justify-center px-4 py-10 sm:px-10 xl:pt-30 2xl:px-15">
+      <section className="w-full max-w-lg flex-1 justify-center px-safe py-10 sm:px-10 xl:pt-30 2xl:px-15">
         {children}
       </section>
     </main>

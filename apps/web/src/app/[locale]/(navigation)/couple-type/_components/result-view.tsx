@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, MessageDots, Refresh, Sparkles } from "@mynaui/icons-react";
+import { ArrowLeft, ArrowRight, HeartWaves, MessageDots, Refresh } from "@mynaui/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,11 +27,11 @@ export function ResultView({ answerCount, axisDefinitions, locale, onEdit, onRes
   const signUpPath = getLocalizedPath(locale, "/sign-up");
 
   return (
-    <section className="px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
+    <section className="px-safe py-10 sm:py-16">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
         <div className="rounded-4xl bg-page-ink p-6 text-white shadow-[0_36px_120px_rgba(36,22,23,0.2)] sm:p-8 lg:sticky lg:top-24">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-bold text-sm text-white/78">
-            <Sparkles aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
+            <HeartWaves aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
             {ui.resultEyebrow}
           </p>
           <div className="mt-7 overflow-hidden rounded-4xl border border-white/10 bg-white/8">

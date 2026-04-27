@@ -1,15 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 
 import { cn } from "@/component/cn";
+import { THEME_COLOR } from "@/constant";
 import { env } from "@/env";
 import { isLocale, locales } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
 import "../globals.css";
 
 export const dynamicParams = false;
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  initialScale: 1,
+  themeColor: THEME_COLOR,
+  viewportFit: "cover",
+  width: "device-width",
+};
 
 const { WEB_ORIGIN } = env;
 

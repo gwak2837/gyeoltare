@@ -77,7 +77,7 @@ export function QuizView({ answers, axisDefinitions, locale, onComplete, onSelec
   }
 
   return (
-    <section className="flex flex-1 flex-col justify-center px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">
+    <section className="flex flex-1 flex-col justify-center px-safe py-10 sm:py-16">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="hidden max-w-3xl lg:block">
           <p className="inline-flex items-center gap-2 rounded-full bg-page-ink px-4 py-2 font-bold text-sm text-white">

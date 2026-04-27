@@ -51,10 +51,10 @@ export async function NavigationHeader({ locale }: NavigationHeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-page-border/70 border-b bg-page-bg/88 px-[max(1rem,env(safe-area-inset-left))] backdrop-blur-2xl">
+    <header className="sticky top-0 z-50 border-page-border/70 border-b bg-page-bg/88 px-safe pt-safe backdrop-blur-2xl">
       <nav
         aria-label={t("navigation.aria")}
-        className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex h-(--app-header-height) w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
       >
         <Link
           aria-label={t("navigation.homeAria")}
