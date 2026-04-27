@@ -9,79 +9,48 @@ import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
 
 import { axisOrder, calculateCoupleTypeCode, getAxisOption } from "../_lib/model";
-import type {
-  AxisValue,
-  CoupleTypeAnswers,
-  CoupleTypeContent,
-  CoupleTypeQuestion,
-  CoupleTypeResult,
-} from "../_lib/types";
+import type { AxisValue, CoupleTypeAnswers, CoupleTypeContent, CoupleTypeResult } from "../_lib/types";
 
 type CoupleTypeScreenProps = {
   content: CoupleTypeContent;
   locale: Locale;
 };
 
+type CoupleTypeFlowProps = {
+  content: CoupleTypeContent;
+  signUpPath: ReturnType<typeof getLocalizedPath>;
+};
+
+type QuizViewProps = {
+  answers: CoupleTypeAnswers;
+  axisDefinitions: CoupleTypeContent["axisDefinitions"];
+  onComplete: () => void;
+  onSelect: (questionId: string, value: AxisValue) => void;
+  questions: CoupleTypeContent["questions"];
+  ui: CoupleTypeContent["ui"];
+};
+
+type ResultViewProps = {
+  answerCount: number;
+  axisDefinitions: CoupleTypeContent["axisDefinitions"];
+  onEdit: () => void;
+  onRestart: () => void;
+  result: CoupleTypeResult;
+  signUpPath: ReturnType<typeof getLocalizedPath>;
+  ui: CoupleTypeContent["ui"];
+};
+
+type MiniStatProps = {
+  label: string;
+  value: string;
+};
+
 const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-page-accent";
 
 export function CoupleTypeScreen({ content, locale }: CoupleTypeScreenProps) {
-  const { axisDefinitions, questions, results, ui } = content;
+  const { ui } = content;
   const homePath = getLocalizedPath(locale, "/");
   const signUpPath = getLocalizedPath(locale, "/sign-up");
-  const [answers, setAnswers] = useState<CoupleTypeAnswers>({});
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isResultVisible, setIsResultVisible] = useState(false);
-
-  const currentQuestion = questions[currentIndex];
-  const totalQuestions = questions.length;
-  const selectedValue = answers[currentQuestion.id];
-  const answeredCount = Object.keys(answers).length;
-  const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
-  const isFirstQuestion = currentIndex === 0;
-  const isLastQuestion = currentIndex === totalQuestions - 1;
-  const isComplete = answeredCount === totalQuestions;
-  const resultCode = useMemo(
-    () => (isComplete ? calculateCoupleTypeCode({ answers, axisDefinitions, questions }) : null),
-    [answers, axisDefinitions, isComplete, questions],
-  );
-  const result = resultCode ? results[resultCode] : null;
-
-  function selectAnswer(value: AxisValue) {
-    setAnswers((current) => ({
-      ...current,
-      [currentQuestion.id]: value,
-    }));
-  }
-
-  function goToPreviousQuestion() {
-    setCurrentIndex((index) => Math.max(0, index - 1));
-  }
-
-  function goToNextQuestion() {
-    if (!selectedValue) {
-      return;
-    }
-
-    if (isLastQuestion) {
-      if (isComplete) {
-        setIsResultVisible(true);
-      }
-      return;
-    }
-
-    setCurrentIndex((index) => Math.min(totalQuestions - 1, index + 1));
-  }
-
-  function restart() {
-    setAnswers({});
-    setCurrentIndex(0);
-    setIsResultVisible(false);
-  }
-
-  function editAnswers() {
-    setCurrentIndex(0);
-    setIsResultVisible(false);
-  }
 
   return (
     <main className="flex flex-1 flex-col overflow-hidden bg-page-bg text-page-ink">
@@ -111,69 +80,84 @@ export function CoupleTypeScreen({ content, locale }: CoupleTypeScreenProps) {
         </nav>
       </header>
 
-      {isResultVisible && result ? (
-        <ResultView
-          answers={answers}
-          axisDefinitions={axisDefinitions}
-          onEdit={editAnswers}
-          onRestart={restart}
-          result={result}
-          signUpPath={signUpPath}
-          ui={ui}
-        />
-      ) : (
-        <QuizView
-          answeredCount={answeredCount}
-          axisDefinitions={axisDefinitions}
-          currentIndex={currentIndex}
-          currentQuestion={currentQuestion}
-          isComplete={isComplete}
-          isFirstQuestion={isFirstQuestion}
-          isLastQuestion={isLastQuestion}
-          onNext={goToNextQuestion}
-          onPrevious={goToPreviousQuestion}
-          onSelect={selectAnswer}
-          progressPercent={progressPercent}
-          selectedValue={selectedValue}
-          totalQuestions={totalQuestions}
-          ui={ui}
-        />
-      )}
+      <CoupleTypeFlow content={content} signUpPath={signUpPath} />
     </main>
   );
 }
 
-function QuizView({
-  answeredCount,
-  axisDefinitions,
-  currentIndex,
-  currentQuestion,
-  isComplete,
-  isFirstQuestion,
-  isLastQuestion,
-  onNext,
-  onPrevious,
-  onSelect,
-  progressPercent,
-  selectedValue,
-  totalQuestions,
-  ui,
-}: {
-  answeredCount: number;
-  axisDefinitions: CoupleTypeContent["axisDefinitions"];
-  currentIndex: number;
-  currentQuestion: CoupleTypeQuestion;
-  isComplete: boolean;
-  isFirstQuestion: boolean;
-  isLastQuestion: boolean;
-  onNext: () => void;
-  onPrevious: () => void;
-  onSelect: (value: AxisValue) => void;
-  progressPercent: number;
-  selectedValue: AxisValue | undefined;
-  totalQuestions: number;
-  ui: CoupleTypeContent["ui"];
-}) {
+function CoupleTypeFlow({ content, signUpPath }: CoupleTypeFlowProps) {
+  const { axisDefinitions, questions, results, ui } = content;
+  const [answers, setAnswers] = useState<CoupleTypeAnswers>({});
+  const [isResultVisible, setIsResultVisible] = useState(false);
+
+  const answeredCount = Object.keys(answers).length;
+  const isComplete = answeredCount === questions.length;
+
+  const result = useMemo(() => {
+    if (!isComplete) {
+      return null;
+    }
+
+    const resultCode = calculateCoupleTypeCode({ answers, axisDefinitions, questions });
+
+    return results[resultCode];
+  }, [answers, axisDefinitions, isComplete, questions, results]);
+
+  function selectAnswer(questionId: string, value: AxisValue) {
+    setAnswers((current) => ({
+      ...current,
+      [questionId]: value,
+    }));
+  }
+
+  function showResult() {
+    if (isComplete) {
+      setIsResultVisible(true);
+    }
+  }
+
+  function restart() {
+    setAnswers({});
+    setIsResultVisible(false);
+  }
+
+  function editAnswers() {
+    setIsResultVisible(false);
+  }
+
+  return isResultVisible && result ? (
+    <ResultView
+      answerCount={answeredCount}
+      axisDefinitions={axisDefinitions}
+      onEdit={editAnswers}
+      onRestart={restart}
+      result={result}
+      signUpPath={signUpPath}
+      ui={ui}
+    />
+  ) : (
+    <QuizView
+      answers={answers}
+      axisDefinitions={axisDefinitions}
+      onComplete={showResult}
+      onSelect={selectAnswer}
+      questions={questions}
+      ui={ui}
+    />
+  );
+}
+
+function QuizView({ answers, axisDefinitions, onComplete, onSelect, questions, ui }: QuizViewProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const currentQuestion = questions[currentIndex];
+  const totalQuestions = questions.length;
+  const selectedValue = answers[currentQuestion.id];
+  const answeredCount = Object.keys(answers).length;
+  const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
+  const isFirstQuestion = currentIndex === 0;
+  const isLastQuestion = currentIndex === totalQuestions - 1;
+  const isComplete = answeredCount === totalQuestions;
   const axis = axisDefinitions[currentQuestion.axis];
   const canGoNext = Boolean(selectedValue);
 
@@ -183,6 +167,29 @@ function QuizView({
       : selectedValue
         ? ui.nextButton
         : ui.selectAnswerButton;
+
+  function selectAnswer(value: AxisValue) {
+    onSelect(currentQuestion.id, value);
+  }
+
+  function goToPreviousQuestion() {
+    setCurrentIndex((index) => Math.max(0, index - 1));
+  }
+
+  function goToNextQuestion() {
+    if (!selectedValue) {
+      return;
+    }
+
+    if (isLastQuestion) {
+      if (isComplete) {
+        onComplete();
+      }
+      return;
+    }
+
+    setCurrentIndex((index) => Math.min(totalQuestions - 1, index + 1));
+  }
 
   return (
     <section className="flex flex-1 flex-col justify-center px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">
@@ -247,7 +254,7 @@ function QuizView({
                       checked={isSelected}
                       className="mt-1 h-5 w-5 accent-page-accent"
                       name={currentQuestion.id}
-                      onChange={() => onSelect(option.value)}
+                      onChange={() => selectAnswer(option.value)}
                       type="radio"
                       value={option.value}
                     />
@@ -267,7 +274,7 @@ function QuizView({
                 focusClassName,
               )}
               disabled={isFirstQuestion}
-              onClick={onPrevious}
+              onClick={goToPreviousQuestion}
               type="button"
             >
               <ArrowLeft aria-hidden="true" className="h-4 w-4" stroke={1.8} />
@@ -279,7 +286,7 @@ function QuizView({
                 focusClassName,
               )}
               disabled={!canGoNext}
-              onClick={onNext}
+              onClick={goToNextQuestion}
               type="button"
             >
               {nextButtonLabel}
@@ -292,23 +299,7 @@ function QuizView({
   );
 }
 
-function ResultView({
-  answers,
-  axisDefinitions,
-  onEdit,
-  onRestart,
-  result,
-  signUpPath,
-  ui,
-}: {
-  answers: CoupleTypeAnswers;
-  axisDefinitions: CoupleTypeContent["axisDefinitions"];
-  onEdit: () => void;
-  onRestart: () => void;
-  result: CoupleTypeResult;
-  signUpPath: ReturnType<typeof getLocalizedPath>;
-  ui: CoupleTypeContent["ui"];
-}) {
+function ResultView({ answerCount, axisDefinitions, onEdit, onRestart, result, signUpPath, ui }: ResultViewProps) {
   const codeLetters = result.code.split("") as AxisValue[];
 
   return (
@@ -406,16 +397,14 @@ function ResultView({
             </Link>
           </section>
 
-          <p className="text-page-ink/46 text-sm">
-            {formatText(ui.privacyNotice, { count: Object.keys(answers).length })}
-          </p>
+          <p className="text-page-ink/46 text-sm">{formatText(ui.privacyNotice, { count: answerCount })}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function MiniStat({ label, value }: { label: string; value: string }) {
+function MiniStat({ label, value }: MiniStatProps) {
   return (
     <div className="rounded-3xl border border-page-border bg-page-surface p-5 shadow-[0_18px_55px_rgba(36,22,23,0.07)]">
       <p className="font-bold text-page-ink/48 text-sm">{label}</p>
