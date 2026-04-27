@@ -3,5 +3,9 @@
     "eyebrow": "Not Found",
     "title": "We are finding the route again.",
     "description": "The page you requested is missing or has moved."
+  },
+  "coupleType": {
+    "metadataTitle": "Couple Conversation Type - Gyeoltare",
+    "metadataDescription": "A non-clinical 12-question couple conversation type test for reading pace, expression, repair rhythm, and bonding style."
   }
 }

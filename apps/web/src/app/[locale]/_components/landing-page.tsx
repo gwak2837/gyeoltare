@@ -57,6 +57,7 @@ const heroReportDelayClassNames = [
 
 export function LandingPage({ locale }: LandingPageProps) {
   const homePath = getLocalizedPath(locale, "/");
+  const coupleTypePath = getLocalizedPath(locale, "/couple-type");
   const startPath = getLocalizedPath(locale, "/sign-up");
   const loginPath = getLocalizedPath(locale, "/login");
 
@@ -79,6 +80,12 @@ export function LandingPage({ locale }: LandingPageProps) {
             </span>
           </Link>
           <div className="hidden items-center gap-8 md:flex">
+            <Link
+              className={`touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink ${focusClassName}`}
+              href={coupleTypePath}
+            >
+              유형 테스트
+            </Link>
             {navItems.map((item) => (
               <a
                 className={`touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink ${focusClassName}`}
@@ -96,7 +103,7 @@ export function LandingPage({ locale }: LandingPageProps) {
       </header>
 
       <main className="overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
-        <HeroSection startPath={startPath} />
+        <HeroSection coupleTypePath={coupleTypePath} startPath={startPath} />
         <FactSection startPath={startPath} />
         <ValueSection />
         <ExperienceSection />
@@ -160,21 +167,27 @@ function LandingHeaderGuestActions({
   );
 }
 
-function HeroSection({ startPath }: { startPath: ReturnType<typeof getLocalizedPath> }) {
+function HeroSection({
+  coupleTypePath,
+  startPath,
+}: {
+  coupleTypePath: ReturnType<typeof getLocalizedPath>;
+  startPath: ReturnType<typeof getLocalizedPath>;
+}) {
   return (
     <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-[#1a1a1a] px-[env(safe-area-inset-left)] text-white">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,rgba(255,77,109,0.34),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(255,215,180,0.18),transparent_28%),linear-gradient(135deg,#1a1a1a_0%,#251719_58%,#120f0e_100%)]" />
       <div className="absolute right-0 bottom-0 -z-10 h-72 w-72 rounded-full bg-page-accent/24 blur-3xl" />
 
-      <div className="mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-        <div className="max-w-2xl">
+      <div className="mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="max-w-4xl">
           <p className="font-semibold text-page-accent text-xs uppercase tracking-[0.32em]">
             Zero-Upload-Raw · Fact Bundle · Non-Clinical
           </p>
-          <h1 className="mt-5 text-balance font-black text-5xl leading-[1.02] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 text-balance font-black text-5xl leading-tight tracking-tight sm:text-6xl">
             어제의 카톡에서,
             <br />
-            내일의 대화법을 찾아드려요
+            내일의 대화를 찾아드려요
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg text-white/72 leading-8 sm:text-xl">
             우리의 모든 대화를 AI가 분석해서 관계 패턴, 내 소통 습관, 앞으로의 힌트까지. 혼자 돌아보거나, 둘이 함께
@@ -197,6 +210,12 @@ function HeroSection({ startPath }: { startPath: ReturnType<typeof getLocalizedP
           <p className="mt-5 max-w-2xl text-sm text-white/62 leading-7">
             원본은 내 컴퓨터만 · AI 학습 0 · 개인정보 없는 데이터만 AI에게 · 6분이면 완성
           </p>
+          <Link
+            className={`mt-4 inline-flex touch-manipulation items-center font-bold text-page-accent text-sm transition-colors hover:text-white ${focusClassName}`}
+            href={coupleTypePath}
+          >
+            커플 대화 유형 보기
+          </Link>
         </div>
 
         <HeroVisual />

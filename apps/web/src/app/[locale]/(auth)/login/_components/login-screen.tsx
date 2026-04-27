@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@gyeoltare/auth/client";
-import { Danger, Eye, EyeOff, FaceId, Lock, Scan, Spinner } from "@mynaui/icons-react";
+import { Danger, Eye, EyeOff, FaceId, Lock, Spinner } from "@mynaui/icons-react";
 import type { Route } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
