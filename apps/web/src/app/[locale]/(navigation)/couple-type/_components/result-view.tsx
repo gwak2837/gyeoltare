@@ -1,10 +1,9 @@
 import { ArrowLeft, ArrowRight, MessageDots, Refresh, Sparkles } from "@mynaui/icons-react";
-import type { Route } from "next";
 import Link from "next/link";
 
 import { cn } from "@/component/cn";
 import type { Locale } from "@/i18n/config";
-
+import { getLocalizedPath } from "@/i18n/pathnames";
 import { axisOrder, getAxisOption } from "../_lib/model";
 import type { AxisValue, CoupleTypeContent, CoupleTypeResult } from "../_lib/types";
 
@@ -15,24 +14,15 @@ type ResultViewProps = {
   onEdit: () => void;
   onRestart: () => void;
   result: CoupleTypeResult;
-  signUpPath: Route;
   ui: CoupleTypeContent["ui"];
 };
 
 const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-page-accent";
 
-export function ResultView({
-  answerCount,
-  axisDefinitions,
-  locale,
-  onEdit,
-  onRestart,
-  result,
-  signUpPath,
-  ui,
-}: ResultViewProps) {
+export function ResultView({ answerCount, axisDefinitions, locale, onEdit, onRestart, result, ui }: ResultViewProps) {
   const codeLetters = result.code.split("") as AxisValue[];
   const keepHeadingBreakClassName = locale === "ko" ? "break-keep" : undefined;
+  const signUpPath = getLocalizedPath(locale, "/sign-up");
 
   return (
     <section className="px-[max(1rem,env(safe-area-inset-left))] py-10 sm:py-16">

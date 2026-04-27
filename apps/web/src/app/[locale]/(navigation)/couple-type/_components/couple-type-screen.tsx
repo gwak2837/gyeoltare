@@ -3,35 +3,18 @@
 import { useMemo, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
-import { getLocalizedPath } from "@/i18n/pathnames";
 
 import { calculateCoupleTypeCode } from "../_lib/model";
 import type { AxisValue, CoupleTypeAnswers, CoupleTypeContent } from "../_lib/types";
 import { QuizView } from "./quiz-view";
 import { ResultView } from "./result-view";
 
-type CoupleTypeScreenProps = {
-  content: CoupleTypeContent;
-  locale: Locale;
-};
-
 type CoupleTypeFlowProps = {
   content: CoupleTypeContent;
   locale: Locale;
-  signUpPath: ReturnType<typeof getLocalizedPath>;
 };
 
-export function CoupleTypeScreen({ content, locale }: CoupleTypeScreenProps) {
-  const signUpPath = getLocalizedPath(locale, "/sign-up");
-
-  return (
-    <main className="flex flex-1 flex-col overflow-hidden bg-page-bg text-page-ink">
-      <CoupleTypeFlow content={content} locale={locale} signUpPath={signUpPath} />
-    </main>
-  );
-}
-
-function CoupleTypeFlow({ content, locale, signUpPath }: CoupleTypeFlowProps) {
+export function CoupleTypeFlow({ content, locale }: CoupleTypeFlowProps) {
   const { axisDefinitions, questions, results, ui } = content;
   const [answers, setAnswers] = useState<CoupleTypeAnswers>({});
   const [isResultVisible, setIsResultVisible] = useState(false);
@@ -77,7 +60,6 @@ function CoupleTypeFlow({ content, locale, signUpPath }: CoupleTypeFlowProps) {
       onEdit={editAnswers}
       onRestart={restart}
       result={result}
-      signUpPath={signUpPath}
       ui={ui}
     />
   ) : (
