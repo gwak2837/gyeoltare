@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
-import { cn } from "@/component/cn";
 import { resolveAuthErrorMessage } from "@/feature/auth/errors";
 import {
   type AuthMode,
@@ -180,7 +179,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
   }
 
   return (
-    <section className="w-full">
+    <section className="grid w-full gap-8">
       {mode === "reauth" && (
         <div className="flex items-center gap-3 rounded-lg border border-[#f4d8c8] bg-[#fff3eb] px-6 py-4 text-[#a96855]">
           <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#ef9b80] text-[#e98369]">
@@ -190,14 +189,14 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         </div>
       )}
 
-      <div className={cn(mode === "reauth" && "mt-[2.35rem]")}>
+      <div className="mt-1">
         <p className="font-black text-[#241617] text-[2.05rem] leading-tight tracking-normal">
           {t("login.simpleTitle")}
         </p>
         <p className="mt-3 text-[#6d665f] text-[0.98rem] leading-6">{t("login.simpleDescription")}</p>
       </div>
 
-      <form aria-busy={isBusy} className="mt-[2.85rem]" onInput={handleFormInput} onSubmit={handleSubmit}>
+      <form aria-busy={isBusy} className="mt-3 grid gap-5" onInput={handleFormInput} onSubmit={handleSubmit}>
         <div>
           <label className="block font-black text-[#241617] text-sm" htmlFor={identifierId}>
             {t("login.identifierLabel")}
@@ -208,7 +207,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
             autoCapitalize="off"
             autoComplete="username webauthn"
             autoCorrect="off"
-            className="mt-3 h-14 w-full rounded-lg border border-[#eadbd0] bg-white px-4 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
+            className="mt-3 w-full rounded-lg border border-[#eadbd0] bg-white px-4 py-3 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
             disabled={isBusy}
             enterKeyHint="next"
             id={identifierId}
@@ -223,7 +222,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
           />
         </div>
 
-        <div className="mt-6">
+        <div className="mt-1">
           <label className="block font-black text-[#241617] text-sm" htmlFor={passwordInputId}>
             {t("login.passwordLabel")}
           </label>
@@ -234,7 +233,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
               autoCapitalize="off"
               autoComplete="current-password"
               autoCorrect="off"
-              className="h-14 w-full rounded-lg border border-[#eadbd0] bg-white px-4 pr-12 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
+              className="w-full rounded-lg border border-[#eadbd0] bg-white px-4 py-3 pr-12 text-base text-page-ink outline-none transition placeholder:text-[#b7afa7] focus:border-[#ff6a63] focus:ring-4 focus:ring-[#ff6a63]/10 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-page-danger/60 aria-invalid:focus:border-page-danger aria-invalid:focus:ring-page-danger/10"
               disabled={isBusy}
               enterKeyHint="done"
               id={passwordInputId}
@@ -263,7 +262,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
           </div>
         </div>
 
-        <div className="mt-5 flex items-center gap-4">
+        <div className="flex items-center gap-4">
           <label className="inline-flex cursor-pointer items-center gap-2 text-[#4e4741] text-sm" htmlFor={rememberId}>
             <input
               checked={rememberIdentifier}
@@ -279,7 +278,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
 
         {errorMessage && (
           <div
-            className="mt-5 rounded-lg border border-page-danger/20 bg-page-danger/8 px-4 py-3 text-page-danger text-sm leading-6"
+            className="rounded-lg border border-page-danger/20 bg-page-danger/8 px-4 py-3 text-page-danger text-sm leading-6"
             id={errorId}
             role="alert"
           >
@@ -288,7 +287,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         )}
 
         <button
-          className="mt-9 inline-flex h-14 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#ff4d54] px-5 font-black text-base text-white shadow-[0_18px_38px_rgba(255,77,84,0.18)] transition hover:bg-[#f14049] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-4 inline-flex w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#ff4d54] p-3 font-black text-base text-white shadow-[0_18px_38px_rgba(255,77,84,0.18)] transition hover:bg-[#f14049] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isBusy}
           type="submit"
         >
@@ -299,14 +298,14 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         </button>
       </form>
 
-      <div className="my-[1.95rem] flex items-center gap-4 text-[#9c948d] text-sm">
+      <div className="flex items-center gap-4 text-[#9c948d] text-sm">
         <span className="h-px flex-1 bg-[#eadbd0]" />
         <span>{t("login.divider")}</span>
         <span className="h-px flex-1 bg-[#eadbd0]" />
       </div>
 
       <button
-        className="inline-flex h-14 w-full touch-manipulation items-center justify-center gap-3 rounded-lg border border-[#ff7d7d] bg-white px-5 font-black text-[#241617] text-base transition hover:bg-[#fff6f2] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-full touch-manipulation items-center justify-center gap-3 rounded-lg border border-[#ff7d7d] bg-white p-3 font-black text-[#241617] text-base transition hover:bg-[#fff6f2] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3 disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isBusy}
         onClick={handlePasskeySignIn}
         type="button"
@@ -320,7 +319,7 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
       </button>
 
       {mode !== "reauth" && (
-        <p className="mt-7 text-center text-[#5f5852] text-base">
+        <p className="text-center text-[#5f5852] text-base">
           {t("login.signUpPrompt")}{" "}
           <Link
             className="font-black text-[#ff4d54] transition hover:text-[#e43c45] focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3"
@@ -331,12 +330,12 @@ export function LoginScreen({ locale, mode, returnTo }: LoginScreenProps) {
         </p>
       )}
 
-      <p className="mt-12 text-center text-[#888078] text-sm leading-7">
-        <span className="mx-auto mb-1 flex items-center justify-center gap-2">
+      <p className="text-center text-[#888078] text-sm leading-7">
+        <span className="mx-auto flex items-center justify-center gap-2">
           <Lock aria-hidden="true" className="h-4 w-4" stroke={1.7} />
           {t("login.securityNoteTitle")}
         </span>
-        {t("login.securityNoteBody")}
+        <span>{t("login.securityNoteBody")}</span>
       </p>
     </section>
   );

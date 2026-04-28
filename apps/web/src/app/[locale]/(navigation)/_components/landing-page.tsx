@@ -76,11 +76,11 @@ function HeroSection({
   startPath: ReturnType<typeof getLocalizedPath>;
 }) {
   return (
-    <section className="relative isolate flex h-full shrink-0 overflow-hidden bg-[#1a1a1a] px-safe-0 text-white">
+    <section className="relative isolate flex min-h-[calc(100dvh-var(--app-header-height))] bg-[#1a1a1a] px-safe-0 text-white">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,rgba(255,77,109,0.34),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(255,215,180,0.18),transparent_28%),linear-gradient(135deg,#1a1a1a_0%,#251719_58%,#120f0e_100%)]" />
       <div className="absolute right-0 bottom-0 -z-10 h-72 w-72 rounded-full bg-page-accent/24 blur-3xl" />
 
-      <div className="mx-auto grid h-full w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="max-w-4xl">
           <p className="font-semibold text-page-accent text-xs uppercase tracking-[0.32em]">
             Zero-Upload-Raw · Fact Bundle · Non-Clinical

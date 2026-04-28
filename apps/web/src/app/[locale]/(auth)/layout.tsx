@@ -56,8 +56,8 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
   ] as const;
 
   return (
-    <main className="mx-auto flex h-full w-full max-w-screen-2xl flex-1 items-center justify-center pt-safe pb-safe text-page-ink xl:grid xl:grid-cols-[2fr_1fr]">
-      <section className="hidden px-6 py-10 sm:px-10 xl:block xl:border-[#e9dfd7] xl:border-r xl:py-10 2xl:px-15">
+    <main className="mx-auto grid min-h-dvh w-full max-w-screen-2xl flex-1 grid-cols-1 items-center pt-safe pb-safe text-page-ink xl:grid-cols-[2fr_1fr]">
+      <section className="hidden min-w-0 px-6 py-10 sm:px-10 xl:block xl:border-[#e9dfd7] xl:border-r xl:py-10 2xl:px-15">
         <Link
           aria-label={t("layout.homeAria")}
           className="inline-flex touch-manipulation items-center gap-2 rounded-xl transition focus-visible:outline-3 focus-visible:outline-page-accent focus-visible:outline-offset-3"
@@ -183,7 +183,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
         <p className="mt-7 text-[#9a928c] text-sm">{t("layout.footer")}</p>
       </section>
 
-      <section className="w-full max-w-lg flex-1 justify-center px-safe py-10 sm:px-10 xl:pt-30 2xl:px-15">
+      <section className="w-full min-w-0 max-w-lg justify-self-center px-safe py-10 sm:px-10 xl:pt-30 2xl:px-15">
         {children}
       </section>
     </main>

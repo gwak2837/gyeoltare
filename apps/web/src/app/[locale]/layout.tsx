@@ -58,10 +58,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[lo
       className={cn(
         jakartaSans.variable,
         plexMono.variable,
-        "scheme-light h-full scroll-smooth antialiased motion-reduce:scroll-auto",
+        "scheme-light scroll-smooth antialiased motion-reduce:scroll-auto",
       )}
     >
-      <body className="flex h-full flex-col bg-page-bg font-sans text-page-ink [text-rendering:optimizeLegibility]">
+      <body className="flex min-h-dvh flex-col bg-page-bg font-sans text-page-ink [text-rendering:optimizeLegibility]">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
