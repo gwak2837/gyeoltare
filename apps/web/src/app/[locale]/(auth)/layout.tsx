@@ -183,7 +183,7 @@ export default async function AuthLayout({ children, params }: LayoutProps<"/[lo
         <p className="mt-7 text-[#9a928c] text-sm">{t("layout.footer")}</p>
       </section>
 
-      <section className="w-full min-w-0 max-w-lg justify-self-center px-safe py-10 sm:px-10 xl:pt-30 2xl:px-15">
+      <section className="w-full min-w-0 max-w-lg justify-self-center px-safe py-10 sm:px-10 2xl:px-15">
         {children}
       </section>
     </main>
