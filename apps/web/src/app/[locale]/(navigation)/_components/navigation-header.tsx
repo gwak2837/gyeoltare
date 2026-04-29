@@ -118,7 +118,7 @@ async function NavigationHeaderActions({ labels, locale, loginPath, startPath }:
 
   if (myPagePath) {
     return (
-      <div className="flex w-35 items-center justify-end sm:w-53">
+      <div className="flex items-center justify-end">
         <Link
           className={cn(
             "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full bg-page-accent px-5 font-bold text-sm text-white shadow-[0_16px_40px_rgba(255,77,109,0.25)] transition-colors hover:bg-page-accent/92",
@@ -137,7 +137,7 @@ async function NavigationHeaderActions({ labels, locale, loginPath, startPath }:
 
 function NavigationHeaderGuestActions({ labels, loginPath, startPath }: NavigationHeaderGuestActionsProps) {
   return (
-    <div className="flex w-35 items-center justify-end gap-3 sm:w-53">
+    <div className="flex items-center justify-end gap-3">
       <Link
         className={cn(
           "hidden touch-manipulation font-semibold text-page-ink/62 text-sm transition-colors hover:text-page-ink sm:inline-flex",

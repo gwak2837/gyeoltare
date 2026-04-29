@@ -1,4 +1,4 @@
-import { ArrowRight, ChartNoAxesColumnIncreasing, Sparkles } from "@mynaui/icons-react";
+import { ArrowRight, ChartNoAxesColumnIncreasing, HeartWaves } from "@mynaui/icons-react";
 import Image from "next/image";
 
 import { cn } from "@/component/cn";
@@ -16,7 +16,7 @@ type IntroViewProps = {
 const focusClassName = "focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-page-accent";
 
 export function IntroView({ content, hasInvalidSharedResult, locale, onStart }: IntroViewProps) {
-  const keepHeadingBreakClassName = locale === "en" ? undefined : "break-keep";
+  const keepHeadingBreakClassName = locale === "ko" ? "break-keep" : undefined;
 
   return (
     <main className="flex flex-1 flex-col overflow-hidden bg-page-bg text-page-ink" id="main-content">
@@ -24,7 +24,7 @@ export function IntroView({ content, hasInvalidSharedResult, locale, onStart }: 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-6 sm:px-6 lg:grid-cols-2">
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-page-ink px-4 py-2 font-bold text-sm text-white">
-              <Sparkles aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
+              <HeartWaves aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
               {content.ui.heroEyebrow}
             </p>
             <h1

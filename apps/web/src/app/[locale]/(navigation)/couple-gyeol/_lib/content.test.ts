@@ -19,7 +19,7 @@ const resultCodes = [
 ] as const satisfies readonly GyeolResultCode[];
 const gradeOrder = [1, 2, 3, 4, 5, 6, 7] as const satisfies readonly GyeolGrade[];
 
-describe("conversation rarity localized content", () => {
+describe("couple gyeol localized content", () => {
   for (const [locale, content] of Object.entries(contents) as Array<[string, GyeolContent]>) {
     test(`${locale} content is complete and internally consistent`, () => {
       expect(content.questions.map((question) => question.id)).toEqual([...rarityQuestionIds]);
@@ -68,6 +68,22 @@ describe("conversation rarity localized content", () => {
 
     for (const text of collectStrings(ko)) {
       expect(text).not.toMatch(bannedWords);
+    }
+  });
+
+  test("localized content avoids old conversation-rarity positioning", () => {
+    const bannedByLocale = {
+      en: /conversation rarity|rarity index/i,
+      ja: /会話希少度|希少度/,
+      zh: /聊天稀有度|稀有度/,
+    } as const;
+
+    for (const [locale, content] of Object.entries({ en, ja, zh }) as Array<
+      [keyof typeof bannedByLocale, GyeolContent]
+    >) {
+      for (const text of collectStrings(content)) {
+        expect(text).not.toMatch(bannedByLocale[locale]);
+      }
     }
   });
 });
