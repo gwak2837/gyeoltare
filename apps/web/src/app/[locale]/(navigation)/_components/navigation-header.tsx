@@ -42,7 +42,7 @@ export async function NavigationHeader({ locale }: NavigationHeaderProps) {
 
   const homePath = getLocalizedPath(locale, "/");
   const coupleTypePath = getLocalizedPath(locale, "/couple-type");
-  const coupleRarityPath = getLocalizedPath(locale, "/couple-rarity");
+  const coupleGyeolPath = getLocalizedPath(locale, "/couple-gyeol");
   const loginPath = getLocalizedPath(locale, "/login");
   const startPath = getLocalizedPath(locale, "/sign-up");
   const actionLabels = {
@@ -86,9 +86,9 @@ export async function NavigationHeader({ locale }: NavigationHeaderProps) {
               "touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink",
               focusClassName,
             )}
-            href={coupleRarityPath}
+            href={coupleGyeolPath}
           >
-            {t("navigation.coupleRarity")}
+            {t("navigation.coupleGyeol")}
           </Link>
           {homeSectionLinks.map((item) => (
             <Link

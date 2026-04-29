@@ -408,7 +408,7 @@ export const coupleTypeContent = {
   axisDefinitions,
   metadata: {
     description:
-      "12개의 질문으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 커플 대화 유형 테스트예요.",
+      "12개의 질문으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 연애 유형 테스트예요.",
     title: "커플 대화 유형 - 결타래",
   },
   questions: coupleTypeQuestions,

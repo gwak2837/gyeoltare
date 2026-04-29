@@ -144,7 +144,7 @@ export function QuizView({ answers, axisDefinitions, locale, onComplete, onSelec
                   >
                     <input
                       checked={isSelected}
-                      className="mt-1 h-5 w-5 accent-page-accent"
+                      className="mt-1 h-5 w-5 shrink-0 accent-page-accent"
                       name={currentQuestion.id}
                       onChange={() => selectAnswer(option.value)}
                       type="radio"

@@ -5,43 +5,43 @@ import { Suspense } from "react";
 import { isLocale } from "@/i18n/config";
 import { buildLocalizedMetadata } from "@/i18n/metadata";
 
-import { CoupleRarityFlow } from "./_components/couple-rarity-screen";
-import { getRarityContent } from "./_lib/content";
+import { CoupleGyeolFlow } from "./_components/couple-rarity-screen";
+import { getGyeolContent } from "./_lib/content";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/couple-rarity">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]/couple-gyeol">): Promise<Metadata> {
   const { locale } = await params;
 
   if (!isLocale(locale)) {
     return {};
   }
 
-  const content = await getRarityContent(locale);
+  const content = await getGyeolContent(locale);
 
   return await buildLocalizedMetadata({
     description: content.metadata.description,
     locale,
-    pathname: "/couple-rarity",
+    pathname: "/couple-gyeol",
     title: content.metadata.title,
   });
 }
 
-export default async function CoupleRarityPage({ params }: PageProps<"/[locale]/couple-rarity">) {
+export default async function CoupleGyeolPage({ params }: PageProps<"/[locale]/couple-gyeol">) {
   const { locale } = await params;
 
   if (!isLocale(locale)) {
     notFound();
   }
 
-  const content = await getRarityContent(locale);
+  const content = await getGyeolContent(locale);
 
   return (
-    <Suspense fallback={<RarityPageFallback />}>
-      <CoupleRarityFlow content={content} locale={locale} />
+    <Suspense fallback={<GyeolPageFallback />}>
+      <CoupleGyeolFlow content={content} locale={locale} />
     </Suspense>
   );
 }
 
-function RarityPageFallback() {
+function GyeolPageFallback() {
   return (
     <main className="flex flex-1 items-center justify-center bg-page-bg px-safe py-16 text-page-ink">
       <div className="h-12 w-12 rounded-full border-4 border-page-accent/20 border-t-page-accent" />

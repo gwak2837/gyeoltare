@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/component/cn";
 import type { Locale } from "@/i18n/config";
 import { getLocalizedPath } from "@/i18n/pathnames";
+import coupleGyeolRidgeImage from "../../../../../public/image/rarity/ridge.png";
 
 import {
   factCards,
@@ -49,11 +51,13 @@ const heroReportDelayClassNames = [
 
 export function LandingPage({ locale }: LandingPageProps) {
   const coupleTypePath = getLocalizedPath(locale, "/couple-type");
+  const coupleGyeolPath = getLocalizedPath(locale, "/couple-gyeol");
   const startPath = getLocalizedPath(locale, "/sign-up");
 
   return (
     <main className="flex flex-1 flex-col overflow-x-hidden bg-page-bg text-page-ink" id="main-content">
       <HeroSection coupleTypePath={coupleTypePath} startPath={startPath} />
+      <GyeolTeaserSection coupleGyeolPath={coupleGyeolPath} />
       <FactSection startPath={startPath} />
       <ValueSection />
       <ExperienceSection />
@@ -65,6 +69,43 @@ export function LandingPage({ locale }: LandingPageProps) {
       <FaqSection />
       <FinalCta startPath={startPath} />
     </main>
+  );
+}
+
+function GyeolTeaserSection({ coupleGyeolPath }: { coupleGyeolPath: ReturnType<typeof getLocalizedPath> }) {
+  return (
+    <section className="px-safe py-14 sm:py-18">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 rounded-[2.4rem] bg-page-surface px-6 py-8 shadow-[0_28px_100px_rgba(36,22,23,0.08)] sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
+        <div>
+          <p className="font-black text-page-accent text-sm">16문항, 약 2분이면 충분해요</p>
+          <h2 className="mt-4 max-w-2xl text-balance font-black text-4xl leading-tight tracking-[-0.05em] sm:text-5xl">
+            우리 사이의 결은 몇 점일까?
+          </h2>
+          <p className="mt-5 max-w-2xl text-page-ink/66 leading-8">
+            16문항만 고르면 애정 온도, 생활 템포, 관계 균형, 회복력을 결과 카드로 바로 보여줘요.
+          </p>
+          <Link
+            className={cn(
+              "mt-7 inline-flex min-h-12 touch-manipulation items-center justify-center rounded-full bg-page-ink px-5 font-black text-sm text-white transition-colors hover:bg-page-ink/92",
+              focusClassName,
+            )}
+            href={coupleGyeolPath}
+          >
+            커플 결 지수 보기
+          </Link>
+        </div>
+
+        <div aria-hidden="true" className="overflow-hidden rounded-4xl bg-[#f4fbf7]">
+          <Image
+            alt=""
+            className="block aspect-1672/941 h-full w-full object-cover"
+            draggable={false}
+            sizes="(min-width: 1280px) 560px, (min-width: 1024px) 44vw, calc(100vw - 48px)"
+            src={coupleGyeolRidgeImage}
+          />
+        </div>
+      </div>
+    </section>
   );
 }
 

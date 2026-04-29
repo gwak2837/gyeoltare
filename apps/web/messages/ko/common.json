@@ -2,8 +2,8 @@
   "navigation": {
     "aria": "주요 탐색",
     "homeAria": "결타래 홈으로 이동",
-    "coupleType": "유형 테스트",
-    "coupleRarity": "희소도",
+    "coupleType": "연애 유형",
+    "coupleGyeol": "결 지수",
     "experience": "체험",
     "pricing": "가격",
     "faq": "FAQ",
@@ -44,6 +44,6 @@
   },
   "coupleType": {
     "metadataTitle": "커플 대화 유형 - 결타래",
-    "metadataDescription": "12개의 질문으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 커플 대화 유형 테스트예요."
+    "metadataDescription": "12개의 질문으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 연애 유형 테스트예요."
   }
 }
