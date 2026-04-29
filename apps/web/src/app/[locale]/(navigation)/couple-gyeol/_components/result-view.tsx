@@ -62,7 +62,7 @@ export function ResultView({ content, isSharedResult, locale, onRestart, result 
 
   return (
     <section className="bg-page-bg px-safe py-10 text-page-ink sm:py-16">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl gap-4 sm:gap-6 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div className="rounded-[2.4rem] bg-page-ink p-6 text-white shadow-[0_36px_120px_rgba(36,22,23,0.2)] sm:p-8 lg:sticky lg:top-32 lg:-mt-px lg:self-start">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-bold text-sm text-white/78">
             <Sparkles aria-hidden="true" className="h-4 w-4 text-page-accent" stroke={1.8} />
