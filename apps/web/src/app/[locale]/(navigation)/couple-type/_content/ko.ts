@@ -92,7 +92,7 @@ export const coupleTypeQuestions = [
       { label: "불편한 건 빨리 확인하고 풀어야 마음이 놓인다", value: "Q" },
       { label: "일단 각자 식힌 뒤 정리해서 말하는 편이다", value: "L" },
     ],
-    question: "작은 오해가 생겼을 때 둘의 기본 리듬은?",
+    question: "작은 오해가 생겼을 때 우리의 기본 리듬은?",
   },
   {
     axis: "bond",
@@ -110,7 +110,7 @@ export const coupleTypeQuestions = [
       { label: "갑자기 정해도 재미있으면 바로 움직인다", value: "S" },
       { label: "일정과 컨디션을 맞춰 안정적으로 잡는다", value: "H" },
     ],
-    question: "데이트 약속을 잡을 때 둘의 온도는?",
+    question: "데이트 약속을 잡을 때 우리의 온도는?",
   },
   {
     axis: "expression",
@@ -408,7 +408,7 @@ export const coupleTypeContent = {
   axisDefinitions,
   metadata: {
     description:
-      "12개의 질문으로 둘의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 커플 대화 유형 테스트예요.",
+      "12개의 질문으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴보는 비임상 커플 대화 유형 테스트예요.",
     title: "커플 대화 유형 - 결타래",
   },
   questions: coupleTypeQuestions,
@@ -422,9 +422,9 @@ export const coupleTypeContent = {
     dateMissionTitle: "오늘의 대화 미션",
     editButton: "응답 조정하기",
     heroDescription:
-      "12개의 가벼운 선택으로 둘의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴봐요. 사람을 단정하지 않고 지금의 패턴을 읽는 테스트예요.",
+      "12개의 가벼운 선택으로 우리의 대화 속도, 표현 방식, 회복 리듬, 연결 방식을 살펴봐요. 사람을 단정하지 않고 지금의 패턴을 읽는 테스트예요.",
     heroEyebrow: "커플 대화 유형 16종",
-    heroTitle: "둘의 대화는 어떤 리듬으로 가까워질까요?",
+    heroTitle: "우리의 대화는 어떤 리듬으로 가까워질까요?",
     homeLink: "홈으로",
     navigationLabel: "커플 대화 유형 탐색",
     nextButton: "다음 문항",
@@ -437,7 +437,7 @@ export const coupleTypeContent = {
     resultCountValue: "16가지 유형",
     resultEyebrow: "커플 대화 유형 결과",
     restartButton: "다시 하기",
-    rhythmsTitle: "둘의 네 가지 리듬",
+    rhythmsTitle: "우리의 네 가지 리듬",
     selectAnswerButton: "응답 선택하기",
     strengthsTitle: "잘 맞는 지점",
     watchOutTitle: "조심할 점",

@@ -42,6 +42,7 @@ export async function NavigationHeader({ locale }: NavigationHeaderProps) {
 
   const homePath = getLocalizedPath(locale, "/");
   const coupleTypePath = getLocalizedPath(locale, "/couple-type");
+  const coupleRarityPath = getLocalizedPath(locale, "/couple-rarity");
   const loginPath = getLocalizedPath(locale, "/login");
   const startPath = getLocalizedPath(locale, "/sign-up");
   const actionLabels = {
@@ -79,6 +80,15 @@ export async function NavigationHeader({ locale }: NavigationHeaderProps) {
             href={coupleTypePath}
           >
             {t("navigation.coupleType")}
+          </Link>
+          <Link
+            className={cn(
+              "touch-manipulation font-semibold text-page-accent text-sm transition-colors hover:text-page-ink",
+              focusClassName,
+            )}
+            href={coupleRarityPath}
+          >
+            {t("navigation.coupleRarity")}
           </Link>
           {homeSectionLinks.map((item) => (
             <Link
