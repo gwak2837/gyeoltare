@@ -73,7 +73,7 @@ export const rarityContent = {
       options: [
         { id: "duration-new", label: "아직 서로의 기준을 조심스럽게 맞춰가는 중" },
         { id: "duration-seasonal", label: "계절이 몇 번 지나며 자연스러운 규칙이 생김" },
-        { id: "duration-long", label: "오래 쌓인 장면과 기준이 꽤 많음" },
+        { id: "duration-long", label: "오래 쌓인 경험과 기준이 꽤 많음" },
       ],
       question: "서로의 생활 기준을 맞추는 방식은?",
     },
