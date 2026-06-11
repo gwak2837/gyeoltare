@@ -13,7 +13,7 @@
     "typecheck": "pnpm --filter @gyeoltare/api build:types && tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "hono": "^4.12.18"
+    "hono": "^4.12.21"
   },
   "devDependencies": {
     "@gyeoltare/api": "workspace:*",
